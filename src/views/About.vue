@@ -4,7 +4,7 @@
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="align-items-center">
-          <h1>What/Who is <span class="text-danger">0R0CHI</span>?</h1>
+          <h1 class="fw-bold">What/Who is <span class="text-danger">0R0CHI</span>?</h1>
           <p class="lead my-4">
             0R0CHI Batsuzoku, or in short 0R0CHI, is a collective that dedicates
             itself to the creation of art in many forms.
@@ -16,7 +16,7 @@
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="align-items-center">
-          <h1>How did it <span class="text-danger">start</span>?</h1>
+          <h1 class="fw-bold">How did it <span class="text-danger">start</span>?</h1>
           <p class="lead my-4">
             Originally, some of the current members got to know each other on the
             Trash Gang website chat room. <br/>
@@ -31,7 +31,7 @@
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="align-items-center">
-          <h1>How can I <span class="text-danger">join</span>?</h1>
+          <h1 class="fw-bold">How can I <span class="text-danger">join</span>?</h1>
           <p class="lead my-4">
             Just join our
             <a :href="'https://discord.gg/pr2vwr8'">Discord</a>
@@ -46,7 +46,7 @@
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="align-items-center">
-          <h1><span class="text-danger">Links</span></h1>
+          <h1 class="fw-bold"><span class="text-danger">Links</span></h1>
           <p class="lead my-4">
             Listen to our music on
             <a :href="'https://soundcloud.com/orochiclan'"> Soundcloud</a>

@@ -5,8 +5,8 @@
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mt-1">
-          <h1>Unleash your <span class="text-danger">POTENTIAL</span></h1>
-          <p class="lead my-4">
+          <h1 class="fw-bold">Unleash your <span class="text-danger">POTENTIAL</span></h1>
+          <p class="lead my-4 fw-bold">
             Whether you're a total beginner or a professional: we've got you covered
           </p>
         </div>
@@ -16,11 +16,11 @@
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between">
-          <p class="lead my-4">
+          <p class="lead my-4 fw-bold">
             Vocalists, producers, graphics designers and video producers
             from 19 countries across the world
           </p>
-          <h1>Enjoy <span class="text-danger">DIVERSITY</span></h1>
+          <h1 class="fw-bold">Enjoy <span class="text-danger">DIVERSITY</span></h1>
         </div>
       </div>
     </section>
@@ -29,7 +29,7 @@
       class="bg-dark text-light text-center p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div>
-          <h1>What we have to offer?<br>Find out below.</h1>
+          <h1 class="fw-bold">What we have to offer?<br>Find out below.</h1>
         </div>
       </div>
     </section>
