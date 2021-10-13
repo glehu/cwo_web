@@ -1,5 +1,5 @@
 <template>
-  <div class="home bg-dark bg-gradient">
+  <div class="home bg-dark bg-gradient" style="min-height: 100vh">
     <img class="img-fluid" src="../assets/orochi_banner.jpg" alt="<0R0CHI Banner>"/>
     <section
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-black navbar-dark">
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <div class="container">
       <a href="#" class="navbar-brand fw-bold">0R0CHI Batsuzoku</a>
       <button

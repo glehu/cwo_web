@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-danger bg-gradient">
+  <div class="bg-danger bg-gradient" style="min-height: 100vh">
     <form class="login" @submit.prevent="logout">
       <section>
         <div class="container py-5 h-100">
