@@ -25,24 +25,28 @@
       </section>
     </div>
     <section class="">
-      <b-card-group v-for="item in myObj.resultsList" :key="item.uID" class="">
-        <b-card class="card border-0 bg-light w-25 m-3">
-          <div class="card-header">
-            <h3 class="card-title fw-bold">
-              {{ JSON.parse(item).description }}
-            </h3>
+      <div class="card-group row-cols-lg-3 row-cols-md-2">
+        <div v-for="col in itemList" :key="col">
+          <div class="card border-0 bg-light m-5" v-for="item in col" :key="item">
+            <div class="card-header">
+              <h3 class="card-title fw-bold">
+                {{ JSON.parse(item).description }}
+              </h3>
+            </div>
+            <div class="card-body text-center">
+              <i class="bi bi-question-circle"></i>
+            </div>
+            <div class="card-footer">
+              <p class="mb-auto">
+                <button class="btn d-flex bg-dark text-light">Buy</button>
+              </p>
+              <p class="mb-auto text-end fw-bold lead">
+                {{ JSON.parse((JSON.parse(item).prices[0])).gp }}$
+              </p>
+            </div>
           </div>
-          <div class="card-body"></div>
-          <div class="card-footer">
-            <p class="mb-auto">
-              <button class="btn d-flex bg-dark text-light">Buy</button>
-            </p>
-            <p class="mb-auto text-end fw-bold lead">
-              {{ JSON.parse((JSON.parse(item).prices[0])).gp }}$
-            </p>
-          </div>
-        </b-card>
-      </b-card-group>
+        </div>
+      </div>
     </section>
     <div class="text-end m-2">
       <h1 class="fw-bold">0R0CHI Batsuzoku</h1>
@@ -51,15 +55,23 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
-      myObj: {}
+      itemList:
+        [['{"uID":1,"description":"T-Shirt","articleNumber":"?","ean":"?","manufacturerCode":"?","productInfoJson":"?","prices":{"0":"{\\"n\\":0,\\"d\\":\\"default\\",\\"v\\":19.0,\\"gp\\":12.0}"}}'],
+          ['{"uID":2,"description":"Sticker Pack","articleNumber":"?","ean":"?","manufacturerCode":"?","productInfoJson":"?","prices":{"0":"{\\"n\\":0,\\"d\\":\\"default\\",\\"v\\":19.0,\\"gp\\":4.99}"}}'],
+          ['{"uID":3,"description":"Hat","articleNumber":"?","ean":"?","manufacturerCode":"?","productInfoJson":"?","prices":{"0":"{\\"n\\":0,\\"d\\":\\"default\\",\\"v\\":19.0,\\"gp\\":25.0}"}}'],
+          ['{"uID":4,"description":"Wristband","articleNumber":"?","ean":"?","manufacturerCode":"?","productInfoJson":"?","prices":{"0":"{\\"n\\":0,\\"d\\":\\"default\\",\\"v\\":19.0,\\"gp\\":9.0}"}}'],
+          ['{"uID":5,"description":"Signed Card","articleNumber":"?","ean":"?","manufacturerCode":"?","productInfoJson":"?","prices":{"0":"{\\"n\\":0,\\"d\\":\\"default\\",\\"v\\":19.0,\\"gp\\":5.0}"}}'],
+          ['{"uID":6,"description":"Poop Scented Candle","articleNumber":"?","ean":"?","manufacturerCode":"?","productInfoJson":"?","prices":{"0":"{\\"n\\":0,\\"d\\":\\"default\\",\\"v\\":19.0,\\"gp\\":34.0}"}}'],
+          ['{"uID":7,"description":"Pain","articleNumber":"?","ean":"?","manufacturerCode":"?","productInfoJson":"?","prices":{"0":"{\\"n\\":0,\\"d\\":\\"default\\",\\"v\\":19.0}"}}']]
     }
   },
   methods: {
     getItems () {
-      this.myObj = {}
+      this.itemList = {}
       const headers = new Headers()
       headers.set(
         'Authorization',
@@ -73,8 +85,13 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => (this.myObj = data))
+        .then((data) => (this.itemList = this.chunkedItems(data.resultsList)))
         .catch((err) => console.log(err.message))
+    },
+    chunkedItems (list) {
+      console.log(list)
+      const chunk = require('chunk')
+      return chunk(list, 3)
     }
   }
 }
