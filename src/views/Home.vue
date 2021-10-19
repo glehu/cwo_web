@@ -1,42 +1,48 @@
 <template>
-  <div class="home bg-dark bg-gradient" style="min-height: 100vh">
-    <img class="img-fluid" src="../assets/orochi_banner.jpg" alt="<0R0CHI Banner>"/>
+  <div style="min-height: 100vh;">
     <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
-      <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between mt-1">
-          <h1 class="fw-bold">Unleash your <span class="text-danger">POTENTIAL</span></h1>
-          <p class="lead my-4 fw-bold">
-            Whether you're a total beginner or a professional: we've got you covered
-          </p>
-        </div>
-      </div>
-    </section>
-    <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
+      class="text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2 m-5">
       <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between">
-          <p class="lead my-4 fw-bold">
-            Vocalists, producers, graphics designers and video producers
-            from 19 countries across the world
-          </p>
-          <h1 class="fw-bold">Enjoy <span class="text-danger">DIVERSITY</span></h1>
+          <h1 class="bg-dark p-4 fw-bold" style="border-radius: 1rem">
+            Unleash your <span class="text-danger">POTENTIAL</span>
+          </h1>
+          <h3 class="my-4 text-end">
+            Whether you're a total beginner or a professional... <br>
+            We've got you covered
+          </h3>
         </div>
       </div>
     </section>
-    <br>
     <section
-      class="bg-dark text-light text-center p-1 p-lg-2 pt-lg-2">
+      class="text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2 m-5">
       <div class="container">
-        <div>
-          <h1 class="fw-bold">What we have to offer?<br>Find out below.</h1>
+        <div class="d-sm-flex align-items-center justify-content-between">
+          <h3 class="my-4 text-start">
+            Vocalists, producers, graphics designers and video producers... <br>
+            From 19 countries across the world
+          </h3>
+          <h1 class="bg-dark p-4 fw-bold" style="border-radius: 1rem">
+            Enjoy <span class="text-danger">DIVERSITY</span>
+          </h1>
         </div>
       </div>
     </section>
-    <hr>
-    <!-- Box View -->
+    <div>
+      <section class="bg-dark text-light text-center p-4 d-flex">
+        <div class="container">
+          <div>
+            <h1 class="fw-bold">What we have to offer?<br>Find out below.</h1>
+            <button class="btn btn-light" v-on:click="scrollToContent()">V</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- Box View -->
+  <div id="content" style="min-height: 100vh">
     <section class="p-1">
-      <div class="container">
+      <div class="container card-group">
         <div class="row text-center">
           <div class="col-md mt-1 d-md-flex">
             <div class="card bg-dark text-light">
@@ -140,6 +146,10 @@
 <script>
 export default {
   name: 'Home',
-  components: {}
+  methods: {
+    scrollToContent () {
+      document.getElementById('content').scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 }
 </script>
