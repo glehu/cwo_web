@@ -5,8 +5,8 @@ export default createStore({
   plugins: [createPersistedState(this)],
   state: {
     authenticated: false,
-    username: '',
-    password: ''
+    username: 'admin',
+    password: 'admin'
   },
   mutations: {
     logIn (state, user) {
@@ -16,8 +16,8 @@ export default createStore({
     },
     logOut (state) {
       state.authenticated = false
-      state.username = ''
-      state.password = ''
+      state.username = 'admin'
+      state.password = 'admin'
     }
   },
   actions: {},
