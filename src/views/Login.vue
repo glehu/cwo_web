@@ -11,7 +11,7 @@
                   <div class="form-outline form-white mb-4">
                     <input
                       required
-                      v-model="email"
+                      v-model="user.email"
                       type="email"
                       placeholder="EMail"
                     />
@@ -19,7 +19,7 @@
                   <div class="form-outline form-white mb-4">
                     <input
                       required
-                      v-model="password"
+                      v-model="user.password"
                       type="password"
                       placeholder="Password"
                     />
@@ -41,10 +41,10 @@
 export default {
   data () {
     return {
-      email: '',
-      password: '',
       user: {
-        httpCode: 0
+        httpCode: 0,
+        email: '',
+        password: ''
       }
     }
   },
@@ -58,11 +58,11 @@ export default {
         this.serverLogin()
         setTimeout(() => {
           if (this.user.httpCode === 200) {
-            this.$store.commit('logIn')
+            this.$store.commit('logIn', this.user)
             console.log('User logged in: ' + this.$store.state.authenticated)
             this.$router.push(this.$route.query.redirect.toString() || '/')
           } else {
-            this.password = ''
+            this.user.password = ''
           }
         }, 1000)
       } else {
@@ -73,7 +73,7 @@ export default {
       const headers = new Headers()
       headers.set(
         'Authorization',
-        'Basic ' + Buffer.from(this.email + ':' + this.password).toString('base64')
+        'Basic ' + Buffer.from(this.user.email + ':' + this.user.password).toString('base64')
       )
       fetch(
         'http://localhost:8000/login',

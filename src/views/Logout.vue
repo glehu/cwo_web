@@ -23,13 +23,7 @@
 <script>
 export default {
   data () {
-    return {
-      email: '',
-      password: '',
-      user: {
-        httpCode: 0
-      }
-    }
+    return {}
   },
   computed: {},
   methods: {
@@ -38,8 +32,22 @@ export default {
     },
     logout () {
       if (this.isLoggedIn()) {
+        const headers = new Headers()
+        headers.set(
+          'Authorization',
+          'Basic ' + Buffer.from(
+            this.$store.state.email + ':' + this.$store.state.password)
+            .toString('base64')
+        )
+        fetch(
+          'http://localhost:8000/logout',
+          {
+            method: 'get',
+            headers: headers
+          }
+        )
         this.$store.commit('logOut')
-        console.log('User logged out: ' + this.$store.state.authenticated)
+        console.log('User logged in: ' + this.$store.state.authenticated)
         this.$router.push('/')
       } else {
         console.log('User not logged in.')

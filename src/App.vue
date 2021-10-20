@@ -1,6 +1,6 @@
 <template>
-  <div class="home" style="min-height: 100vh" :style="{ backgroundImage: bg }">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="home">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: darkred">
       <div class="container">
         <a href="#" class="navbar-brand fw-bold">0R0CHI Batsuzoku</a>
         <button
@@ -32,7 +32,7 @@
         </div>
       </div>
     </nav>
-    <div>
+    <div style="min-height: 100vh" :style="{ backgroundImage: bg }">
       <router-view/>
     </div>
   </div>
@@ -45,7 +45,7 @@
 export default {
   data () {
     return {
-      angle: '100',
+      angle: '180',
       color1: 'darkred',
       color2: 'purple'
     }

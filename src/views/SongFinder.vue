@@ -1,5 +1,5 @@
 <template>
-  <div class="card text-center m-3">
+  <div class="card text-center">
     <h5 class="card-header">CWO_ERP M1 API</h5>
     <div class="card-body">
       <input
@@ -53,7 +53,9 @@ export default {
       const headers = new Headers()
       headers.set(
         'Authorization',
-        'Basic ' + Buffer.from('admin' + ':' + 'admin').toString('base64')
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
       )
       fetch(
         'http://localhost:8000/api/m1/entry/' + uID + '?type=name&format=json&lock=false',
