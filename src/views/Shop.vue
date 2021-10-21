@@ -3,7 +3,7 @@
     <!-- Box View -->
     <section class="p-1">
       <div class="container">
-        <div class="row text-center">
+        <div class="row">
           <div class="col-md mt-1 d-md-flex">
             <button class="btn text-dark fw-bold" v-on:click="getItems()">
               <div class="card bg-light text-dark">
@@ -18,32 +18,42 @@
                 </div>
               </div>
             </button>
-            <h1 class="text-end m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
+            <div>
+              <h1 class="text-end m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
+              <button class="btn text-white" v-on:click="console.log('')">
+                <i class="bi bi-arrow-clockwise h1 text-start"></i>
+              </button>
+              Change Artist
+            </div>
           </div>
         </div>
       </div>
     </section>
   </div>
   <div id="itemsSection">
-    <section class="">
+    <section>
       <div class="card-group">
-        <div v-for="col in itemList" :key="col">
-          <div class="col card border-0 bg-light m-5" v-for="item in col" :key="item">
-            <div class="card-header">
-              <h3 class="card-title fw-bold">
-                {{ JSON.parse(item).description }}
-              </h3>
-            </div>
-            <div class="card-body text-center">
-              <i class="bi bi-question-circle"></i>
-            </div>
-            <div class="card-footer">
-              <p class="mb-auto">
-                <button class="btn d-flex bg-dark text-light">Buy</button>
-              </p>
-              <p class="mb-auto text-end fw-bold lead">
-                {{ JSON.parse((JSON.parse(item).prices[0])).gp }}$
-              </p>
+        <div class="container">
+          <div class="row" v-for="col in itemList" :key="col">
+            <div class="col card m-5" v-for="item in col" :key="item">
+              <div class="card-title">
+                <h3 class="fw-bold">
+                  {{ JSON.parse(item).description }}
+                </h3>
+              </div>
+              <div class="card-body text-center">
+                <i class="bi bi-question-circle"></i>
+              </div>
+              <div class="card-footer">
+                <p class="mb-auto">
+                  <button class="btn d-flex bg-dark text-light"
+                          v-on:click="purchase(JSON.parse(item).uID)">Buy
+                  </button>
+                </p>
+                <p class="mb-auto text-end fw-bold lead">
+                  {{ JSON.parse((JSON.parse(item).prices[0])).gp }}$
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -85,6 +95,22 @@ export default {
         .then((data) => (this.itemList = this.chunkedItems(data.resultsList)))
         .catch((err) => console.log(err.message))
       this.scrollTo('itemsSection')
+    },
+    purchase (id) {
+      const headers = new Headers()
+      headers.set(
+        'Authorization',
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
+      )
+      fetch(
+        'http://localhost:8000/api/m3/neworder/' + id,
+        {
+          method: 'get',
+          headers: headers
+        }
+      )
     },
     chunkedItems (list) {
       const chunk = require('chunk')
