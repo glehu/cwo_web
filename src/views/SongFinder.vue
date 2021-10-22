@@ -1,38 +1,40 @@
 <template>
-  <div class="card text-center">
-    <h5 class="card-header">CWO_ERP M1 API</h5>
-    <div class="card-body">
-      <input
-        v-model="message"
-        v-on:keyup.enter="processInput(message)"
-        placeholder="Search text"
-      />
-    </div>
+  <div class="text-center">
+    <div class="card container">
+      <h5 class="card-header">CWO_ERP M1 API</h5>
+      <div class="card-body">
+        <input
+          v-model="message"
+          v-on:keyup.enter="processInput(message)"
+          placeholder="Search text"
+        />
+      </div>
 
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th>uID</th>
-        <th>Name</th>
-        <th>Vocalist</th>
-        <th>Producer</th>
-        <th>Type</th>
-        <th>Album Name</th>
-        <th>Comment</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="item in myObj.resultsList" :key="item.uID">
-        <td>{{ JSON.parse(item).uID }}</td>
-        <td>{{ JSON.parse(item).name }}</td>
-        <td>{{ JSON.parse(item).vocalist }}</td>
-        <td>{{ JSON.parse(item).producer }}</td>
-        <td>{{ JSON.parse(item).type }}</td>
-        <td>{{ JSON.parse(item).nameAlbum }}</td>
-        <td>{{ JSON.parse(item).comment }}</td>
-      </tr>
-      </tbody>
-    </table>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>uID</th>
+          <th>Name</th>
+          <th>Vocalist</th>
+          <th>Producer</th>
+          <th>Type</th>
+          <th>Album Name</th>
+          <th>Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in myObj.resultsList" :key="item.uID">
+          <td>{{ JSON.parse(item).uID }}</td>
+          <td>{{ JSON.parse(item).name }}</td>
+          <td>{{ JSON.parse(item).vocalist }}</td>
+          <td>{{ JSON.parse(item).producer }}</td>
+          <td>{{ JSON.parse(item).type }}</td>
+          <td>{{ JSON.parse(item).nameAlbum }}</td>
+          <td>{{ JSON.parse(item).comment }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

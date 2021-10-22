@@ -166,19 +166,18 @@ export default {
 }
 </script>
 
-<style>
-.mdArrow, .muArrow {
+<style scoped>
+.muArrow, .mdArrow {
   position: relative;
   top: 0;
-}
-
-.mdArrow:hover {
-  top: +10px;
   transition: top ease 0.5s;
 }
 
 .muArrow:hover {
   top: -10px;
-  transition: top ease 0.5s;
+}
+
+.mdArrow:hover {
+  top: +10px;
 }
 </style>

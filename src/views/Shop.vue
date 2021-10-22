@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-md mt-1 d-md-flex">
             <button class="btn text-dark fw-bold" v-on:click="getItems()">
-              <div class="card bg-light text-dark">
+              <div class="card bg-light text-dark animEmp">
                 <div class="card-body text-center">
                   <div class="h1 mb-3">
                     <i class="bi bi-bag"></i>
@@ -20,7 +20,7 @@
             </button>
             <div>
               <h1 class="text-end m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
-              <button class="btn text-white" v-on:click="console.log('')">
+              <button class="btn text-white animRot" v-on:click="console.log('')">
                 <i class="bi bi-arrow-clockwise h1 text-start"></i>
               </button>
               Change Artist
@@ -46,8 +46,11 @@
               </div>
               <div class="card-footer">
                 <p class="mb-auto">
-                  <button class="btn d-flex bg-dark text-light"
+                  <!--<button class="btn d-flex bg-dark text-light"
                           v-on:click="purchase(JSON.parse(item).uID)">Buy
+                  </button>-->
+                  <button class="btn d-flex bg-dark text-light"
+                          v-on:click="putInCart(JSON.parse(item).uID)">Add
                   </button>
                 </p>
                 <p class="mb-auto text-end fw-bold lead">
@@ -115,10 +118,38 @@ export default {
     chunkedItems (list) {
       const chunk = require('chunk')
       return chunk(list, 3)
+    },
+    putInCart (id) {
+      this.$store.commit('putInCart', {
+        id: id,
+        amount: 10
+      })
     }
   }
 }
 </script>
 
 <style>
+.animEmp {
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: all ease 0.5s;
+}
+
+.animEmp:hover {
+  top: -5px;
+  left: +5px;
+  box-shadow: -5px 5px black;
+}
+
+.animRot {
+  position: relative;
+  transition: all ease 0.5s;
+}
+
+.animRot:hover {
+  transform: rotate(30deg);
+}
+
 </style>
