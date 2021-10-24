@@ -30,7 +30,7 @@
                       v-on:click="showCart">
                 <i class="bi bi-basket"></i> Cart ({{ this.$store.state.cart.length }} Items)
               </button>
-              <h3 class="">View shopping cart.</h3>
+              <h3 class="">View your shopping cart.</h3>
             </div>
           </section>
         </div>
