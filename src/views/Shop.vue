@@ -50,7 +50,7 @@
               <div class="card-body">
                 <p class="mb-auto">
                   <button class="btn btn-outline-light btn-md"
-                          v-on:click="putInCart(JSON.parse(item).uID)">Add
+                          v-on:click="putInCart(JSON.parse(item))">Add
                   </button>
                 </p>
                 <p class="mb-auto text-end fw-bold lead">
@@ -99,30 +99,15 @@ export default {
         .then(() => (this.scrollTo('itemsSection')))
         .catch((err) => console.log(err.message))
     },
-    purchase (id) {
-      const headers = new Headers()
-      headers.set(
-        'Authorization',
-        'Basic ' + Buffer.from(
-          this.$store.state.username + ':' + this.$store.state.password)
-          .toString('base64')
-      )
-      fetch(
-        'http://localhost:8000/api/m3/neworder/' + id,
-        {
-          method: 'get',
-          headers: headers
-        }
-      )
-    },
     chunkedItems (list) {
       const chunk = require('chunk')
       return chunk(list, 3)
     },
-    putInCart (id) {
+    putInCart (item) {
       this.$store.commit('putInCart', {
-        id: id,
-        amount: 10
+        id: item.uID,
+        description: item.description,
+        amount: 1
       })
     }
   }

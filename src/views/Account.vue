@@ -17,7 +17,7 @@
                  style="border-radius: 1rem; background: black">
               <button class="btn btn-outline-light btn-lg px-5"
                       v-on:click="logout">
-                Logout
+                <i class="bi bi-door-open"></i> Logout
               </button>
               <h3 class="">Want to leave? See you soon.</h3>
             </div>
@@ -28,7 +28,7 @@
                  style="border-radius: 1rem; background: black">
               <button class="btn btn-outline-light btn-lg px-5"
                       v-on:click="showCart">
-                Cart
+                <i class="bi bi-basket"></i> Cart ({{ this.$store.state.cart.length }} Items)
               </button>
               <h3 class="">View shopping cart.</h3>
             </div>
@@ -71,7 +71,7 @@ export default {
         this.$store.commit('logOut')
         this.$store.commit('clearCart')
         console.log('User logged in: ' + this.$store.state.authenticated)
-        this.$router.push('/')
+        this.$router.push('/login?redirect=/')
       } else {
         console.log('User not logged in.')
       }

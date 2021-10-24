@@ -8,6 +8,7 @@
         <section class="mt-2">
           <h1 style="font-weight: bold; color: white">Welcome.</h1>
           <h3 style="font-weight: bold; color: white">Discover a new world of possibilities for artists.</h3>
+          <br>
         </section>
         <hr>
         <section class="d-md-flex">
@@ -19,14 +20,6 @@
             We've got you covered.
           </h3>
         </section>
-      </div>
-    </section>
-    <section class="container mt-2">
-      <div class="d-flex align-items-center">
-        <i class="bi bi-discord" style="color: white; font-size: 500%"></i>
-        <h1 class="ms-2" style="font-weight: bold">
-          <a :href="'https://discord.gg/pr2vwr8'" style="color: white">Join our Discord server!</a>
-        </h1>
       </div>
     </section>
     <div>
@@ -60,6 +53,14 @@
             Enjoy <span style="color: mediumpurple; font-size: 200%">DIVERSITY</span>
           </h1>
         </section>
+      </div>
+    </section>
+    <section class="container mt-2">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-discord" style="color: white; font-size: 500%"></i>
+        <h1 class="ms-2" style="font-weight: bold">
+          <a :href="'https://discord.gg/pr2vwr8'" style="color: white">Join our Discord server!</a>
+        </h1>
       </div>
     </section>
     <div>
