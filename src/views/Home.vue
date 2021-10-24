@@ -2,16 +2,31 @@
   <div id="top" style="min-height: 100vh;">
     <br>
     <section
-      class="container mt-5">
-      <div class="d-md-flex align-items-center justify-content-between text-light p-3"
+      class="container">
+      <div class="align-items-center justify-content-between text-light p-3"
            style="border-radius: 1rem; background: black">
-        <h1 class="fw-bold text-start">
-          Unleash your <span style="color: mediumpurple; font-size: 200%">POTENTIAL</span>
+        <section class="mt-2">
+          <h1 style="font-weight: bold; color: white">Welcome.</h1>
+          <h3 style="font-weight: bold; color: white">Discover a new world of possibilities for artists.</h3>
+        </section>
+        <hr>
+        <section class="d-md-flex">
+          <h1 class="fw-bold text-start">
+            Unleash your <span style="color: mediumpurple; font-size: 200%">POTENTIAL</span>
+          </h1>
+          <h3 class="text-center fw-bold">
+            Whether you're a total beginner or a professional... <br><br>
+            We've got you covered.
+          </h3>
+        </section>
+      </div>
+    </section>
+    <section class="container mt-2">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-discord" style="color: white; font-size: 500%"></i>
+        <h1 class="ms-2" style="font-weight: bold">
+          <a :href="'https://discord.gg/pr2vwr8'" style="color: white">Join our Discord server!</a>
         </h1>
-        <h3 class="text-center fw-bold">
-          Whether you're a total beginner or a professional... <br><br>
-          We've got you covered.
-        </h3>
       </div>
     </section>
     <div>
@@ -29,16 +44,22 @@
   <div id="middle" style="min-height: 100vh">
     <br>
     <section
-      class="container mt-5">
-      <div class="d-md-flex align-items-center justify-content-between text-light p-3"
+      class="container mt-3">
+      <div class="align-items-center justify-content-between text-light p-3"
            style="border-radius: 1rem; background: black">
-        <h3 class="text-center fw-bold">
-          Vocalists, producers, graphics designers and video producers... <br><br>
-          From 19 countries across the world.
-        </h3>
-        <h1 class="fw-bold text-start">
-          Enjoy <span style="color: mediumpurple; font-size: 200%">DIVERSITY</span>
-        </h1>
+        <section class="container mt-5">
+          <h1 style="font-weight: bold; color: white">Be part of the collective.</h1>
+        </section>
+        <hr>
+        <section class="d-md-flex">
+          <h3 class="text-center fw-bold">
+            Vocalists, producers, graphics designers and video producers... <br><br>
+            From 19 countries across the world.
+          </h3>
+          <h1 class="fw-bold text-start">
+            Enjoy <span style="color: mediumpurple; font-size: 200%">DIVERSITY</span>
+          </h1>
+        </section>
       </div>
     </section>
     <div>

@@ -35,9 +35,11 @@
       <div class="container">
         <div class="card-group">
           <div class="col-5" v-for="col in itemList" :key="col">
-            <div class="card m-5" v-for="item in col" :key="item">
+            <div class="card m-5"
+                 v-for="item in col" :key="item"
+                 style="background: black; color: white">
               <div class="card-title">
-                <h3 class="fw-bold m-1">
+                <h3 class="fw-bold m-3">
                   {{ JSON.parse(item).description }}
                 </h3>
               </div>
@@ -47,7 +49,7 @@
               <hr>
               <div class="card-body">
                 <p class="mb-auto">
-                  <button class="btn btn-outline-dark btn-md"
+                  <button class="btn btn-outline-light btn-md"
                           v-on:click="putInCart(JSON.parse(item).uID)">Add
                   </button>
                 </p>
@@ -94,8 +96,8 @@ export default {
       )
         .then((res) => res.json())
         .then((data) => (this.itemList = this.chunkedItems(data.resultsList)))
+        .then(() => (this.scrollTo('itemsSection')))
         .catch((err) => console.log(err.message))
-      this.scrollTo('itemsSection')
     },
     purchase (id) {
       const headers = new Headers()

@@ -33,16 +33,18 @@
                 <i class="bi bi-shop-window"></i> Shop
               </router-link>
             </li>
+            <!-- Account -->
             <li v-if="isLoggedIn"
-                class="nav-item ms-lg-5 mt-sm-3 mt-lg-0">
+                class="nav-item">
               <router-link to="/account" class="nav-link">
                 <i class="bi bi-person-bounding-box"></i> {{ this.$store.state.username }}
+                ({{ this.$store.state.cart.length }} Items)
               </router-link>
             </li>
             <li v-else
-                class="nav-item ms-lg-5 mt-sm-3 mt-lg-0">
+                class="nav-item">
               <router-link to="/login?redirect=/account" class="nav-link fw-bold">
-                <i class="bi bi-person-bounding-box m-2"></i> Login
+                <i class="bi bi-person-bounding-box"></i> Login
               </router-link>
             </li>
           </ul>

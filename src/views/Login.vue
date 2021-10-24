@@ -4,7 +4,7 @@
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card text-white" style="border-radius: 1rem; background: black">
               <div class="card-body p-5 text-center">
                 <div class="mt-md-0 pb-5">
                   <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
@@ -55,16 +55,26 @@ export default {
     },
     login () {
       if (!this.isLoggedIn()) {
-        this.serverLogin()
-        setTimeout(() => {
-          if (this.user.httpCode === 200) {
-            this.$store.commit('logIn', this.user)
-            console.log('User logged in: ' + this.$store.state.authenticated)
-            this.$router.push(this.$route.query.redirect.toString() || '/')
-          } else {
-            this.user.password = ''
-          }
-        }, 1000)
+        // Bypass login for testing purposes
+        if (this.user.email === 'test@cwo') {
+          this.$store.commit('logIn', {
+            email: 'test@cwo',
+            password: 'test'
+          })
+          this.$router.push(this.$route.query.redirect.toString() || '/')
+        } else {
+          // Regular login
+          this.serverLogin()
+          setTimeout(() => {
+            if (this.user.httpCode === 200) {
+              this.$store.commit('logIn', this.user)
+              console.log('User logged in: ' + this.$store.state.authenticated)
+              this.$router.push(this.$route.query.redirect.toString() || '/')
+            } else {
+              this.user.password = ''
+            }
+          }, 1000)
+        }
       } else {
         console.log('User already logged in.')
       }

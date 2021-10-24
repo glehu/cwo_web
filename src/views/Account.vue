@@ -1,26 +1,40 @@
 <template>
   <section
     class="container">
-    <div class="text-light p-3" style="border-radius: 1rem; background: black">
-      <h1 class="fw-bold m-2">
-        <i class="bi bi-stars mb-2" style="font-size: 300%"></i><br>
-        Hey, {{ this.$store.state.username }}.
+    <div class="text-light p-3"
+         style="border-radius: 1rem; background: black">
+      <h1 class="fw-bold m-3 d-flex">
+        <i class="bi bi-stars mb-2" style="font-size: 200%"></i><br>
+        Hey, {{ this.$store.state.username }}.<br><br>
       </h1>
-      <form class="login" @submit.prevent="logout">
-        <section>
-          <div class="container py-2">
-            <div class="card text-white border-1" style="border-radius: 1rem; background: black; border-color: white">
-              <div class="card-body text-center">
-                <div class="mt-md-0 pb-5">
-                  <h2 class="fw-bold mb-2 text-uppercase">Want to leave?</h2>
-                  <br>
-                  <button class="btn btn-outline-light btn-lg px-5" type="submit">Logout</button>
-                </div>
-              </div>
+      <h3>What's next?</h3>
+      <div class="container py-2">
+        <div class="card text-white border-2"
+             style="border-radius: 1rem; background: black; border-color: white">
+          <section
+            class="container">
+            <div class="d-md-flex align-items-center justify-content-between text-light p-3"
+                 style="border-radius: 1rem; background: black">
+              <button class="btn btn-outline-light btn-lg px-5"
+                      v-on:click="logout">
+                Logout
+              </button>
+              <h3 class="">Want to leave? See you soon.</h3>
             </div>
-          </div>
-        </section>
-      </form>
+          </section>
+          <section
+            class="container">
+            <div class="d-md-flex align-items-center justify-content-between text-light p-3"
+                 style="border-radius: 1rem; background: black">
+              <button class="btn btn-outline-light btn-lg px-5"
+                      v-on:click="showCart">
+                Cart
+              </button>
+              <h3 class="">View shopping cart.</h3>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -34,6 +48,9 @@ export default {
   methods: {
     isLoggedIn () {
       return this.$store.state.authenticated
+    },
+    showCart () {
+      this.$router.push('/cart')
     },
     logout () {
       if (this.isLoggedIn()) {
