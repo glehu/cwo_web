@@ -1,13 +1,14 @@
 <template>
   <div id="top" style="min-height: 100vh;">
+    <br>
     <section
-      class="container">
-      <div class="d-md-flex align-items-center justify-content-between text-light ">
-        <h1 class="p-3 fw-bold text-start"
-            style="border-radius: 1rem; background: black">
+      class="container mt-5">
+      <div class="d-md-flex align-items-center justify-content-between text-light p-3"
+           style="border-radius: 1rem; background: black">
+        <h1 class="fw-bold text-start">
           Unleash your <span style="color: mediumpurple; font-size: 200%">POTENTIAL</span>
         </h1>
-        <h3 class="m-5 text-center fw-bold">
+        <h3 class="text-center fw-bold">
           Whether you're a total beginner or a professional... <br><br>
           We've got you covered.
         </h3>
@@ -26,18 +27,19 @@
     </div>
   </div>
   <div id="middle" style="min-height: 100vh">
+    <br>
     <section
-      class="container">
-      <div class="d-md-flex align-items-center justify-content-between text-light ">
-        <h3 class="m-5 text-center fw-bold">
+      class="container mt-5">
+      <div class="d-md-flex align-items-center justify-content-between text-light p-3"
+           style="border-radius: 1rem; background: black">
+        <h3 class="text-center fw-bold">
           Vocalists, producers, graphics designers and video producers... <br><br>
           From 19 countries across the world.
         </h3>
-          <h1 class="p-3 fw-bold text-start"
-              style="border-radius: 1rem; background: black">
-            Enjoy <span style="color: mediumpurple; font-size: 200%">DIVERSITY</span>
-          </h1>
-        </div>
+        <h1 class="fw-bold text-start">
+          Enjoy <span style="color: mediumpurple; font-size: 200%">DIVERSITY</span>
+        </h1>
+      </div>
     </section>
     <div>
       <section class="text-center p-3 d-flex">
@@ -151,17 +153,20 @@
         </div>
       </div>
     </section>
-    <div>
-      <section class="text-light text-center p-1 d-flex mt-5">
-        <div class="container">
-          <div>
-            <button class="btn muArrow" v-on:click="scrollTo('top')">
-              <i class="bi bi-arrow-up h1" style="color: white"></i>
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
+    <section
+      class="container mt-5">
+      <div class="d-md-flex align-items-center justify-content-between text-light p-3">
+        <h1 class="fw-bold text-start">
+          <span style="color: white; font-size: 200%">
+                Join now.<br>
+                0R0CHI Batsuzoku
+              </span>
+        </h1>
+        <button class="btn muArrow" v-on:click="scrollTo('top')">
+          <i class="bi bi-arrow-up h1 m-5" style="color: white"></i>
+        </button>
+      </div>
+    </section>
   </div>
 </template>
 

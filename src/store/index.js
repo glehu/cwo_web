@@ -22,6 +22,9 @@ export default createStore({
     },
     putInCart (state, itemObj) {
       state.cart.push(itemObj)
+    },
+    clearCart (state) {
+      state.cart = []
     }
   },
   actions: {},

@@ -14,26 +14,34 @@
         <div class="collapse navbar-collapse" id="navmenu">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <router-link to="/" class="nav-link fw-bold">Home</router-link>
+              <router-link to="/" class="nav-link fw-bold">
+                <i class="bi bi-house"></i> Home
+              </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link fw-bold">About</router-link>
+              <router-link to="/about" class="nav-link fw-bold">
+                <i class="bi bi-question-circle"></i> About
+              </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/m1" class="nav-link fw-bold">Songs</router-link>
+              <router-link to="/m1" class="nav-link fw-bold">
+                <i class="bi bi-music-note"></i> Songs
+              </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/shop" class="nav-link fw-bold">Shop</router-link>
+              <router-link to="/shop" class="nav-link fw-bold">
+                <i class="bi bi-shop-window"></i> Shop
+              </router-link>
             </li>
             <li v-if="isLoggedIn"
                 class="nav-item ms-lg-5 mt-sm-3 mt-lg-0">
               <router-link to="/account" class="nav-link">
-                <i class="bi bi-person-bounding-box m-2"></i>{{ this.$store.state.username }}
+                <i class="bi bi-person-bounding-box"></i> {{ this.$store.state.username }}
               </router-link>
             </li>
             <li v-else
                 class="nav-item ms-lg-5 mt-sm-3 mt-lg-0">
-              <router-link to="/login?redirect=/" class="nav-link fw-bold">
+              <router-link to="/login?redirect=/account" class="nav-link fw-bold">
                 <i class="bi bi-person-bounding-box m-2"></i> Login
               </router-link>
             </li>

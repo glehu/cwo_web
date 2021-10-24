@@ -1,11 +1,16 @@
 <template>
-  <form class="login" @submit.prevent="logout">
-    <section>
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card bg-dark text-white" style="border-radius: 1rem;">
-              <div class="card-body p-5 text-center">
+  <section
+    class="container">
+    <div class="text-light p-3" style="border-radius: 1rem; background: black">
+      <h1 class="fw-bold m-2">
+        <i class="bi bi-stars mb-2" style="font-size: 300%"></i><br>
+        Hey, {{ this.$store.state.username }}.
+      </h1>
+      <form class="login" @submit.prevent="logout">
+        <section>
+          <div class="container py-2">
+            <div class="card text-white border-1" style="border-radius: 1rem; background: black; border-color: white">
+              <div class="card-body text-center">
                 <div class="mt-md-0 pb-5">
                   <h2 class="fw-bold mb-2 text-uppercase">Want to leave?</h2>
                   <br>
@@ -14,10 +19,10 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  </form>
+        </section>
+      </form>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -47,6 +52,7 @@ export default {
           }
         )
         this.$store.commit('logOut')
+        this.$store.commit('clearCart')
         console.log('User logged in: ' + this.$store.state.authenticated)
         this.$router.push('/')
       } else {
