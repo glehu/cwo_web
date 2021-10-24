@@ -32,24 +32,22 @@
   </div>
   <div id="itemsSection">
     <section>
-      <div class="card-group">
-        <div class="container">
-          <div class="row" v-for="col in itemList" :key="col">
-            <div class="col card m-5" v-for="item in col" :key="item">
+      <div class="container">
+        <div class="card-group">
+          <div class="col-5" v-for="col in itemList" :key="col">
+            <div class="card m-5" v-for="item in col" :key="item">
               <div class="card-title">
-                <h3 class="fw-bold">
+                <h3 class="fw-bold m-1">
                   {{ JSON.parse(item).description }}
                 </h3>
               </div>
               <div class="card-body text-center">
                 <i class="bi bi-question-circle"></i>
               </div>
-              <div class="card-footer">
+              <hr>
+              <div class="card-body">
                 <p class="mb-auto">
-                  <!--<button class="btn d-flex bg-dark text-light"
-                          v-on:click="purchase(JSON.parse(item).uID)">Buy
-                  </button>-->
-                  <button class="btn d-flex bg-dark text-light"
+                  <button class="btn btn-outline-dark btn-md"
                           v-on:click="putInCart(JSON.parse(item).uID)">Add
                   </button>
                 </p>

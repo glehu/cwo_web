@@ -20,9 +20,9 @@ const routes = [
     component: () => import('../views/Login')
   },
   {
-    path: '/logout',
+    path: '/account',
     name: 'Logout',
-    component: () => import('../views/Logout'),
+    component: () => import('../views/Account'),
     meta: { logout: true }
   },
   {

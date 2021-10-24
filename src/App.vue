@@ -25,8 +25,17 @@
             <li class="nav-item">
               <router-link to="/shop" class="nav-link fw-bold">Shop</router-link>
             </li>
-            <li class="nav-item ms-lg-5 mt-sm-3 mt-lg-0">
-              <router-link to="/logout" class="nav-link fw-bold">Logout</router-link>
+            <li v-if="isLoggedIn"
+                class="nav-item ms-lg-5 mt-sm-3 mt-lg-0">
+              <router-link to="/account" class="nav-link">
+                <i class="bi bi-person-bounding-box m-2"></i>{{ this.$store.state.username }}
+              </router-link>
+            </li>
+            <li v-else
+                class="nav-item ms-lg-5 mt-sm-3 mt-lg-0">
+              <router-link to="/login?redirect=/" class="nav-link fw-bold">
+                <i class="bi bi-person-bounding-box m-2"></i> Login
+              </router-link>
             </li>
           </ul>
         </div>
@@ -47,12 +56,15 @@ export default {
     return {
       angle: '180',
       color1: 'darkred',
-      color2: 'purple'
+      color2: 'rebeccapurple'
     }
   },
   computed: {
     bg () {
       return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
+    },
+    isLoggedIn () {
+      return this.$store.state.authenticated
     }
   }
 }
