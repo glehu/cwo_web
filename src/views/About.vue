@@ -1,5 +1,5 @@
 <template>
-  <div class="about bg-dark bg-gradient" style="min-height: 100vh">
+  <div class="about bg-dark bg-gradient">
     <section
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">

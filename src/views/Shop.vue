@@ -1,69 +1,91 @@
 <template>
-  <div class="bg-danger bg-gradient fill-height" style="min-height: 100vh">
-    <div class="shop bg-dark text-light">
-      <!-- Box View -->
-      <section class="p-1">
-        <div class="container">
-          <div class="row text-center">
-            <div class="col-md mt-1 d-md-flex">
-              <button class="btn text-dark fw-bold" v-on:click="getItems()">
-                <div class="card bg-light text-dark">
-                  <div class="card-body text-center">
-                    <div class="h1 mb-3">
-                      <i class="bi bi-bag"></i>
-                    </div>
-                    <h3 class="card-title">
-                      Merchandise
-                    </h3>
-                    <p class="fw-bold text-dark">View Items</p>
+  <div class="shop text-light">
+    <!-- Box View -->
+    <section class="p-1">
+      <div class="container">
+        <div class="row">
+          <div class="col-md mt-1 d-md-flex">
+            <button class="btn text-dark fw-bold" v-on:click="getItems()">
+              <div class="card bg-light text-dark animEmp">
+                <div class="card-body text-center">
+                  <div class="h1 mb-3">
+                    <i class="bi bi-bag"></i>
                   </div>
+                  <h3 class="card-title">
+                    Merchandise
+                  </h3>
+                  <p class="fw-bold text-dark">View Items</p>
                 </div>
+              </div>
+            </button>
+            <div>
+              <h1 class="text-end m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
+              <button class="btn text-white animRot" v-on:click="console.log('')">
+                <i class="bi bi-arrow-clockwise h1 text-start"></i>
               </button>
+              Change Artist
             </div>
           </div>
         </div>
-      </section>
-    </div>
-    <section class="">
-      <b-card-group v-for="item in myObj.resultsList" :key="item.uID" class="">
-        <b-card class="card border-0 bg-light w-25 m-3">
-          <div class="card-header">
-            <h3 class="card-title fw-bold">
-              {{ JSON.parse(item).description }}
-            </h3>
-          </div>
-          <div class="card-body"></div>
-          <div class="card-footer">
-            <p class="mb-auto">
-              <button class="btn d-flex bg-dark text-light">Buy</button>
-            </p>
-            <p class="mb-auto text-end fw-bold lead">
-              {{ JSON.parse((JSON.parse(item).prices[0])).gp }}$
-            </p>
-          </div>
-        </b-card>
-      </b-card-group>
+      </div>
     </section>
-    <div class="text-end m-2">
-      <h1 class="fw-bold">0R0CHI Batsuzoku</h1>
-    </div>
+  </div>
+  <div id="itemsSection">
+    <section>
+      <div class="container">
+        <div class="card-group">
+          <div class="col-5" v-for="col in itemList" :key="col">
+            <div class="card m-5"
+                 v-for="item in col" :key="item"
+                 style="background: black; color: white">
+              <div class="card-title">
+                <h3 class="fw-bold m-3">
+                  {{ JSON.parse(item).description }}
+                </h3>
+              </div>
+              <div class="card-body text-center">
+                <i class="bi bi-question-circle"></i>
+              </div>
+              <hr>
+              <div class="card-body">
+                <p class="mb-auto">
+                  <button class="btn btn-outline-light btn-md"
+                          v-on:click="putInCart(JSON.parse(item))">Add
+                  </button>
+                </p>
+                <p class="mb-auto text-end fw-bold lead">
+                  {{ JSON.parse((JSON.parse(item).prices[0])).gp }}$
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
-      myObj: {}
+      resultsList: {},
+      itemList: {}
     }
   },
   methods: {
+    scrollTo (content) {
+      document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
+    },
     getItems () {
-      this.myObj = {}
+      this.itemList = {}
       const headers = new Headers()
       headers.set(
         'Authorization',
-        'Basic ' + Buffer.from('admin' + ':' + 'admin').toString('base64')
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
       )
       fetch(
         'http://localhost:8000/api/m4/entry/*?type=name&format=json&lock=false',
@@ -73,12 +95,46 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => (this.myObj = data))
+        .then((data) => (this.itemList = this.chunkedItems(data.resultsList)))
+        .then(() => (this.scrollTo('itemsSection')))
         .catch((err) => console.log(err.message))
+    },
+    chunkedItems (list) {
+      const chunk = require('chunk')
+      return chunk(list, 3)
+    },
+    putInCart (item) {
+      this.$store.commit('putInCart', {
+        id: item.uID,
+        description: item.description,
+        amount: 1
+      })
     }
   }
 }
 </script>
 
 <style>
+.animEmp {
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: all ease 0.5s;
+}
+
+.animEmp:hover {
+  top: -5px;
+  left: +5px;
+  box-shadow: -5px 5px black;
+}
+
+.animRot {
+  position: relative;
+  transition: all ease 0.5s;
+}
+
+.animRot:hover {
+  transform: rotate(30deg);
+}
+
 </style>
