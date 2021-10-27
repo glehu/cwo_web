@@ -1,45 +1,87 @@
 <template>
-  <div class="home bg-dark bg-gradient" style="min-height: 100vh">
-    <img class="img-fluid" src="../assets/orochi_banner.jpg" alt="<0R0CHI Banner>"/>
-    <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
-      <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between mt-1">
-          <h1 class="fw-bold">Unleash your <span class="text-danger">POTENTIAL</span></h1>
-          <p class="lead my-4 fw-bold">
-            Whether you're a total beginner or a professional: we've got you covered
-          </p>
-        </div>
-      </div>
-    </section>
-    <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
-      <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between">
-          <p class="lead my-4 fw-bold">
-            Vocalists, producers, graphics designers and video producers
-            from 19 countries across the world
-          </p>
-          <h1 class="fw-bold">Enjoy <span class="text-danger">DIVERSITY</span></h1>
-        </div>
-      </div>
-    </section>
+  <div id="top" style="min-height: 100vh;">
     <br>
     <section
-      class="bg-dark text-light text-center p-1 p-lg-2 pt-lg-2">
-      <div class="container">
-        <div>
-          <h1 class="fw-bold">What we have to offer?<br>Find out below.</h1>
-        </div>
+      class="container">
+      <div class="align-items-center justify-content-between text-light p-3"
+           style="border-radius: 1rem; background: black">
+        <section class="mt-2">
+          <h1 style="font-weight: bold; color: white">Welcome.</h1>
+          <h3 style="font-weight: bold; color: white">Discover a new world of possibilities for artists.</h3>
+          <br>
+        </section>
+        <hr>
+        <section class="d-md-flex">
+          <h1 class="fw-bold text-start">
+            Unleash your <span style="color: mediumpurple; font-size: 200%">POTENTIAL</span>
+          </h1>
+          <h3 class="text-center fw-bold">
+            Whether you're a total beginner or a professional... <br><br>
+            We've got you covered.
+          </h3>
+        </section>
       </div>
     </section>
-    <hr>
-    <!-- Box View -->
+    <div>
+      <section class="text-center p-3 d-flex">
+        <div class="container">
+          <div>
+            <button class="btn mdArrow" v-on:click="scrollTo('middle')">
+              <i class="bi bi-arrow-down h1" style="color: white"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div id="middle" style="min-height: 100vh">
+    <br>
+    <section
+      class="container mt-3">
+      <div class="align-items-center justify-content-between text-light p-3"
+           style="border-radius: 1rem; background: black">
+        <section class="container mt-5">
+          <h1 style="font-weight: bold; color: white">Be part of the collective.</h1>
+        </section>
+        <hr>
+        <section class="d-md-flex">
+          <h3 class="text-center fw-bold">
+            Vocalists, producers, graphics designers and video producers... <br><br>
+            From 19 countries across the world.
+          </h3>
+          <h1 class="fw-bold text-start">
+            Enjoy <span style="color: mediumpurple; font-size: 200%">DIVERSITY</span>
+          </h1>
+        </section>
+      </div>
+    </section>
+    <section class="container mt-2">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-discord" style="color: white; font-size: 500%"></i>
+        <h1 class="ms-2" style="font-weight: bold">
+          <a :href="'https://discord.gg/pr2vwr8'" style="color: white">Join our Discord server!</a>
+        </h1>
+      </div>
+    </section>
+    <div>
+      <section class="text-center p-3 d-flex">
+        <div class="container">
+          <div>
+            <button class="btn mdArrow" v-on:click="scrollTo('bottom')">
+              <i class="bi bi-arrow-down h1" style="color: white"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- Box View -->
+  <div id="bottom" style="min-height: 100vh">
     <section class="p-1">
-      <div class="container">
+      <div class="container card-group mt-5">
         <div class="row text-center">
           <div class="col-md mt-1 d-md-flex">
-            <div class="card bg-dark text-light">
+            <div class="card text-light" style="background: black">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-file-earmark-music"></i>
@@ -54,7 +96,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card bg-dark text-light">
+            <div class="card text-light" style="background: black">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-mic"></i>
@@ -70,7 +112,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card bg-dark text-light">
+            <div class="card text-light" style="background: black">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-broadcast-pin"></i>
@@ -79,13 +121,13 @@
                   Promotion
                 </h3>
                 <p class="card-text">
-                  We will promote your work on our many platforms and other
+                  We will promote your work on our many platforms.
                 </p>
               </div>
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card bg-dark text-light">
+            <div class="card text-light" style="background: black">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-soundwave"></i>
@@ -94,13 +136,13 @@
                   Mixing & Mastering
                 </h3>
                 <p class="card-text">
-                  We can take care of mixing and/or mastering if needed
+                  We can take care of mixing and/or mastering if needed.
                 </p>
               </div>
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card bg-dark text-light">
+            <div class="card text-light" style="background: black">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-heart"></i>
@@ -109,13 +151,13 @@
                   Emotional Support
                 </h3>
                 <p class="card-text">
-                  Even if you feel lost and alone, we are here for you
+                  Even if you feel lost and alone, we are here for you.
                 </p>
               </div>
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card bg-dark text-light">
+            <div class="card text-light" style="background: black">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-code-slash"></i>
@@ -124,14 +166,27 @@
                   Software Development
                 </h3>
                 <p class="card-text">
-                  Wiki Ric G, one of the co-founders of 0R0CHI, dedicates
-                  himself to the creation of software to push limits
-                  further than ever before.
+                  Wiki Ric G dedicates himself to the creation of software
+                  to push limits further than ever before.
                 </p>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+    <section
+      class="container mt-5">
+      <div class="d-md-flex align-items-center justify-content-between text-light p-3">
+        <h1 class="fw-bold text-start">
+          <span style="color: white; font-size: 200%">
+                Join now.<br>
+                0R0CHI Batsuzoku
+              </span>
+        </h1>
+        <button class="btn muArrow" v-on:click="scrollTo('top')">
+          <i class="bi bi-arrow-up h1 m-5" style="color: white"></i>
+        </button>
       </div>
     </section>
   </div>
@@ -140,6 +195,26 @@
 <script>
 export default {
   name: 'Home',
-  components: {}
+  methods: {
+    scrollTo (content) {
+      document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 }
 </script>
+
+<style scoped>
+.muArrow, .mdArrow {
+  position: relative;
+  top: 0;
+  transition: top ease 0.5s;
+}
+
+.muArrow:hover {
+  top: -10px;
+}
+
+.mdArrow:hover {
+  top: +10px;
+}
+</style>

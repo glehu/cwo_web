@@ -17,7 +17,8 @@
     "bootstrap-vue": "^2.21.2",
     "bootstrap-icons": "^1.5.0",
     "popper.js": "^1.16.1",
-    "jquery": "^3.6.0"
+    "jquery": "^3.6.0",
+    "chunk": "^0.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.13",

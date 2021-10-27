@@ -20,9 +20,9 @@ const routes = [
     component: () => import('../views/Login')
   },
   {
-    path: '/logout',
+    path: '/account',
     name: 'Logout',
-    component: () => import('../views/Logout'),
+    component: () => import('../views/Account'),
     meta: { logout: true }
   },
   {
@@ -36,6 +36,12 @@ const routes = [
     name: 'Shop',
     component: () =>
       import('../views/Shop.vue')
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () =>
+      import('../views/Cart.vue')
   }
 ]
 
