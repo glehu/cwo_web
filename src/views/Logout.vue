@@ -8,7 +8,7 @@
               <div class="card bg-dark text-white" style="border-radius: 1rem;">
                 <div class="card-body p-5 text-center">
                   <div class="mt-md-0 pb-5">
-                    <h2 class="fw-bold mb-2 text-uppercase">Want to leave?</h2>
+                    <h2 class="fw-bold mb-2 text-uppercase">Want to leave??</h2>
                     <br>
                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Logout</button>
                   </div>
