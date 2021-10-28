@@ -1,5 +1,5 @@
 <template>
-  <div id="top" style="min-height: 100vh;">
+  <div id="top" style="min-height: 100vh;" :style="{ backgroundImage: bg }">
     <br>
     <section
       class="container">
@@ -34,7 +34,7 @@
       </section>
     </div>
   </div>
-  <div id="middle" style="min-height: 100vh">
+  <div id="middle" style="min-height: 100vh" :style="{ backgroundImage: bg }">
     <br>
     <section
       class="container mt-3">
@@ -76,7 +76,21 @@
     </div>
   </div>
   <!-- Box View -->
-  <div id="bottom" style="min-height: 100vh">
+  <div id="bottom" style="min-height: 100vh" :style="{ backgroundImage: bg }">
+    <section
+      class="container mt-5">
+      <div class="d-md-flex align-items-center justify-content-between text-light p-3">
+        <h1 class="fw-bold text-start pt-5">
+          <span style="color: white; font-size: 200%">
+                Join now.<br>
+                0R0CHI Batsuzoku
+              </span>
+        </h1>
+        <button class="btn muArrow" v-on:click="scrollTo('top')">
+          <i class="bi bi-arrow-up h1 m-5" style="color: white"></i>
+        </button>
+      </div>
+    </section>
     <section class="p-1">
       <div class="container card-group mt-5">
         <div class="row text-center">
@@ -175,29 +189,27 @@
         </div>
       </div>
     </section>
-    <section
-      class="container mt-5">
-      <div class="d-md-flex align-items-center justify-content-between text-light p-3">
-        <h1 class="fw-bold text-start">
-          <span style="color: white; font-size: 200%">
-                Join now.<br>
-                0R0CHI Batsuzoku
-              </span>
-        </h1>
-        <button class="btn muArrow" v-on:click="scrollTo('top')">
-          <i class="bi bi-arrow-up h1 m-5" style="color: white"></i>
-        </button>
-      </div>
-    </section>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Home',
+  data () {
+    return {
+      angle: '180',
+      color1: 'darkred',
+      color2: 'rebeccapurple'
+    }
+  },
   methods: {
     scrollTo (content) {
       document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
+    }
+  },
+  computed: {
+    bg () {
+      return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
     }
   }
 }

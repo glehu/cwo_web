@@ -15,7 +15,7 @@
             class="container">
             <div class="d-md-flex align-items-center justify-content-between text-light p-3"
                  style="border-radius: 1rem; background: black">
-              <button class="btn btn-outline-light btn-lg px-5"
+              <button class="btn btn-outline-light btn-lg px-5" style="width: 300px"
                       v-on:click="logout">
                 <i class="bi bi-door-open"></i> Logout
               </button>
@@ -26,7 +26,7 @@
             class="container">
             <div class="d-md-flex align-items-center justify-content-between text-light p-3"
                  style="border-radius: 1rem; background: black">
-              <button class="btn btn-outline-light btn-lg px-5"
+              <button class="btn btn-outline-light btn-lg px-5" style="width: 300px"
                       v-on:click="showCart">
                 <i class="bi bi-basket"></i> Cart ({{ this.$store.state.cart.length }} Items)
               </button>
