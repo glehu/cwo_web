@@ -1,5 +1,6 @@
 <template>
   <div class="cart">
+    <div style="min-height: 10vh"></div>
     <section
       class="container">
       <div class="text-light p-3"
