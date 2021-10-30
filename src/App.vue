@@ -38,7 +38,7 @@
                 class="nav-item">
               <router-link to="/account" class="nav-link">
                 <i class="bi bi-person-bounding-box"></i> {{ this.$store.state.username }}
-                ({{ this.$store.state.cart.length }} Items)
+                (<i class="bi bi-stack small"></i> {{ this.$store.state.cart.length }})
               </router-link>
             </li>
             <li v-else

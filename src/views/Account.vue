@@ -88,7 +88,7 @@ export default {
         this.$store.commit('logOut')
         this.$store.commit('clearCart')
         console.log('User logged in: ' + this.$store.state.authenticated)
-        this.$router.push('/login?redirect=/')
+        this.$router.push('/login?redirect=/account')
       } else {
         console.log('User not logged in.')
       }

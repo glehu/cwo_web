@@ -1,6 +1,7 @@
 <template>
   <div id="top" style="min-height: 100vh;" :style="{ backgroundImage: bg1 }">
-    <div style="min-height: 25vh"></div>
+    <div class="d-md-none d-block" style="min-height: 10vh"></div>
+    <div class="d-md-block d-none" style="min-height: 25vh"></div>
     <section
       class="container">
       <div class="align-items-center justify-content-between text-light p-3"
@@ -35,7 +36,8 @@
     </div>
   </div>
   <div id="middle" style="min-height: 100vh" :style="{ backgroundImage: bg2 }">
-    <div style="min-height: 25vh"></div>
+    <div class="d-md-none d-block" style="min-height: 10vh"></div>
+    <div class="d-md-block d-none" style="min-height: 25vh"></div>
     <section
       class="container">
       <div class="align-items-center justify-content-between text-light p-3"
@@ -67,10 +69,11 @@
   </div>
   <!-- Box View -->
   <div id="bottom" style="min-height: 100vh" :style="{ backgroundImage: bg3 }">
-    <div style="min-height: 20vh"></div>
+    <div class="d-md-none d-block" style="min-height: 10vh"></div>
+    <div class="d-md-block d-none" style="min-height: 20vh"></div>
     <section
       class="container">
-      <div class="d-flex align-items-center justify-content-between text-light p-3">
+      <div class="d-md-flex align-items-center justify-content-between text-light p-3">
         <h1 class="fw-bold text-start">
           <span style="color: white; font-size: 200%">
                 Join now.<br>
@@ -210,7 +213,7 @@ export default {
       document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
     },
     gotoLogin () {
-      this.$router.push('/login?redirect=/')
+      this.$router.push('/login?redirect=/account')
     },
     gotoAccount () {
       this.$router.push('/account')
