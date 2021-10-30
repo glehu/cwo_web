@@ -42,10 +42,7 @@
 export default {
   name: 'Cart',
   data () {
-    return {
-      itemList: [],
-      descriptionList: []
-    }
+    return {}
   },
   methods: {
     clearCart () {
@@ -64,8 +61,9 @@ export default {
         fetch(
           'http://localhost:8000/api/m3/neworder/' + this.items[i].id,
           {
-            method: 'get',
-            headers: headers
+            method: 'post',
+            headers: headers,
+            body: this.items
           }
         )
       }

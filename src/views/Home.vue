@@ -81,8 +81,8 @@
               </span>
         </h1>
         <div>
-          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="scrollTo('root')">
-            Beam me up
+          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="redirectDiscord()">
+            Join our Discord
           </button>
           <button v-show="!isLoggedIn"
                   class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoLogin()">
@@ -91,6 +91,9 @@
           <button v-show="isLoggedIn"
                   class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoAccount()">
             Account
+          </button>
+          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="scrollTo('root')">
+            Beam me up
           </button>
         </div>
       </div>
@@ -217,6 +220,9 @@ export default {
     },
     gotoAccount () {
       this.$router.push('/account')
+    },
+    redirectDiscord () {
+      window.open('https://discord.gg/pr2vwr8')
     }
   },
   computed: {

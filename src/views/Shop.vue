@@ -32,7 +32,8 @@
     </section>
   </div>
   <div id="itemsSection">
-    <section>
+    <div class="mt-4" style="min-height: 8vh"></div>
+    <section :style="{ backgroundImage: bg }">
       <div class="container">
         <div class="card-group">
           <div class="col-5" v-for="col in itemList" :key="col">
@@ -72,7 +73,15 @@ export default {
   data () {
     return {
       resultsList: {},
-      itemList: {}
+      itemList: {},
+      angle: '180',
+      color1: 'rebeccapurple',
+      color2: 'darkblue'
+    }
+  },
+  computed: {
+    bg () {
+      return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
     }
   },
   methods: {
