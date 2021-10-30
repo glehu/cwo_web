@@ -54,6 +54,7 @@
     <div style="min-height: 100vh; max-height: 100vh" :style="{ backgroundImage: bg }">
       <router-view/>
     </div>
+    <notifications position="bottom right"/>
   </div>
 </template>
 

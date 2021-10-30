@@ -119,6 +119,12 @@ export default {
         description: item.description,
         amount: 1
       })
+      this.$notify(
+        {
+          title: item.description + ' added to the cart.',
+          text: '',
+          type: 'info'
+        })
     }
   }
 }

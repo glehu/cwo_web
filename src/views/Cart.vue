@@ -9,44 +9,61 @@
           Shopping Cart
         </h1>
         <br>
-        <button class="btn btn-outline-light" v-on:click="clearCart()">Clear Cart</button>
+        <button class="btn btn-outline-light" v-on:click="clearCart(true)">Clear Cart</button>
         <button class="btn btn-outline-light ms-5" v-on:click="submitOrder()">Submit Order</button>
       </div>
     </section>
-    <div id="itemsSection">
+    <div id="itemsSection" :style="{ backgroundImage: bg }">
       <section>
-        <div class="container">
-          <div class="card mt-2"
-               v-for="item in items" :key="item"
-               style="background: black; color: white; width: 30%">
-            <div class="card-title">
-              <h3 class="fw-bold m-3">
-                {{ item.description }}
-              </h3>
-            </div>
-            <div class="card-body text-center">
-              <i class="bi bi-question-circle"></i>
-            </div>
-            <hr>
-            <div class="card-body">
+        <div class="mt-4" style="min-height: 3vh"></div>
+        <div class="container card-group">
+          <div class="col-5" v-for="col in itemsChunked" :key="col">
+            <div class="card m-2"
+                 v-for="item in col" :key="item.uID"
+                 style="background: black; color: white">
+              <div class="card-title">
+                <h3 class="fw-bold m-3">
+                  {{ item.description }}
+                </h3>
+              </div>
+              <div class="card-body text-center">
+                <i class="bi bi-question-circle"></i>
+              </div>
+              <hr>
+              <div class="card-body">
+              </div>
             </div>
           </div>
         </div>
+        <div style="min-height: 5vh"></div>
       </section>
     </div>
   </div>
-  <br>
 </template>
 
 <script>
 export default {
   name: 'Cart',
   data () {
-    return {}
+    return {
+      resultsList: {},
+      itemList: {},
+      angle: '180',
+      color1: 'rebeccapurple',
+      color2: 'darkblue'
+    }
   },
   methods: {
-    clearCart () {
+    clearCart (notification) {
       this.$store.commit('clearCart')
+      if (notification) {
+        this.$notify(
+          {
+            title: 'Cart cleared.',
+            text: '',
+            type: 'info'
+          })
+      }
     },
     submitOrder () {
       const headers = new Headers()
@@ -72,13 +89,26 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => alert('Order #' + data + ' submitted.'))
-      this.clearCart()
+        .then((data) => this.$notify(
+          {
+            title: 'Order #' + data + ' submitted',
+            text: 'Thanks for your order.',
+            type: 'info'
+          })
+        )
+      this.clearCart(false)
     }
   },
   computed: {
     items () {
       return this.$store.state.cart
+    },
+    itemsChunked () {
+      const chunk = require('chunk')
+      return chunk(this.$store.state.cart, 5)
+    },
+    bg () {
+      return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
     }
   }
 }

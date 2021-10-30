@@ -75,7 +75,7 @@ export default {
         headers.set(
           'Authorization',
           'Basic ' + Buffer.from(
-            this.$store.state.email + ':' + this.$store.state.password)
+            this.$store.state.username + ':' + this.$store.state.password)
             .toString('base64')
         )
         fetch(
