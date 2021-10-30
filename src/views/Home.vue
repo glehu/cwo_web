@@ -7,9 +7,11 @@
       <div class="align-items-center justify-content-between text-light p-3"
            style="border-radius: 1rem; background: black">
         <section class="mt-2">
-          <h1 style="font-weight: bold; color: white">Welcome.</h1>
-          <h3 style="font-weight: bold; color: white">Discover a new world of possibilities for artists.</h3>
-          <br>
+          <h1 class="fw-bold m-3 d-flex">
+            <i class="bi bi-stars" style="font-size: 200%"></i><br>
+            Welcome.<br>
+          </h1>
+          <h2>Discover a new world of possibilities for artists.</h2>
         </section>
         <hr>
         <section class="d-md-flex">

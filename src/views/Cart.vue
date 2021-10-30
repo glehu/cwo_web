@@ -56,17 +56,23 @@ export default {
           this.$store.state.username + ':' + this.$store.state.password)
           .toString('base64')
       )
+      headers.set(
+        'Content-Type', 'application/json'
+      )
+      const order = []
       for (let i = 0; i < this.items.length; i++) {
-        console.log('Order Item ID ' + this.items[i].id)
-        fetch(
-          'http://localhost:8000/api/m3/neworder/' + this.items[i].id,
-          {
-            method: 'post',
-            headers: headers,
-            body: this.items
-          }
-        )
+        order.push(this.items[i].id)
       }
+      fetch(
+        'http://localhost:8000/api/m3/neworder',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify({ itemUIDs: order })
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => alert('Order #' + data + ' submitted.'))
       this.clearCart()
     }
   },

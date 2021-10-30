@@ -67,15 +67,6 @@ export default {
         } else {
           // Regular login
           this.serverLogin()
-          setTimeout(() => {
-            if (this.user.httpCode === 200) {
-              this.$store.commit('logIn', this.user)
-              console.log('User logged in: ' + this.$store.state.authenticated)
-              this.$router.push(this.$route.query.redirect.toString() || '/')
-            } else {
-              this.user.password = ''
-            }
-          }, 1000)
         }
       } else {
         console.log('User already logged in.')
@@ -96,7 +87,17 @@ export default {
       )
         .then((res) => res.json())
         .then((data) => (this.user.httpCode = JSON.parse(data.contentJson).httpCode))
+        .then(this.processLogin)
         .catch((err) => console.log(err.message))
+    },
+    processLogin () {
+      if (this.user.httpCode === 200) {
+        this.$store.commit('logIn', this.user)
+        console.log('User logged in: ' + this.$store.state.authenticated)
+        this.$router.push(this.$route.query.redirect.toString() || '/')
+      } else {
+        this.user.password = ''
+      }
     }
   }
 }
