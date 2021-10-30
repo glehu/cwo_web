@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: darkred">
+  <div id="root" class="home">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: black">
       <div class="container">
         <a href="#" class="navbar-brand fw-bold">0R0CHI Batsuzoku</a>
         <button
@@ -51,7 +51,7 @@
         </div>
       </div>
     </nav>
-    <div style="min-height: 100vh" :style="{ backgroundImage: bg }">
+    <div style="min-height: 100vh; max-height: 100vh" :style="{ backgroundImage: bg }">
       <router-view/>
     </div>
   </div>

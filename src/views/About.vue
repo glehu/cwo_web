@@ -1,5 +1,6 @@
 <template>
-  <div class="about bg-dark bg-gradient">
+  <div class="about">
+    <div style="min-height: 10vh"></div>
     <section
       class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
@@ -55,15 +56,15 @@
       </div>
     </section>
     <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
+      class="bg-dark text-light text-center text-sm-start">
       <div class="container">
         <p class="text-end">
           Designed with
           <i class="bi bi-heart-fill" style="color: red"></i>
           by
-          <a :href="'https://www.instagram.com/blk.ghst/'">BLKGHST 死霊</a> &
-          <a :href="'https://www.instagram.com/11.nrv/'">NIRV</a> &
-          <a :href="'https://www.instagram.com/wikiricg/'">Wiki Ric G</a>
+          <a style="color: white" :href="'https://www.instagram.com/blk.ghst/'">BLKGHST 死霊</a> &
+          <a style="color: white" :href="'https://www.instagram.com/11.nrv/'">NIRV</a> &
+          <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki Ric G</a>
         </p>
       </div>
     </section>

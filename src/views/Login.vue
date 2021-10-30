@@ -1,4 +1,5 @@
 <template>
+  <div style="min-height: 10vh"></div>
   <form class="login" @submit.prevent="login">
     <section>
       <div class="container py-5 h-100">
@@ -48,13 +49,14 @@ export default {
       }
     }
   },
-  computed: {},
-  methods: {
+  computed: {
     isLoggedIn () {
       return this.$store.state.authenticated
-    },
+    }
+  },
+  methods: {
     login () {
-      if (!this.isLoggedIn()) {
+      if (!this.isLoggedIn) {
         // Bypass login for testing purposes
         if (this.user.email === 'test@cwo') {
           this.$store.commit('logIn', {

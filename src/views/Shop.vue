@@ -1,4 +1,5 @@
 <template>
+  <div style="min-height: 10vh"></div>
   <div class="shop text-light">
     <!-- Box View -->
     <section class="p-1">
@@ -18,8 +19,8 @@
                 </div>
               </div>
             </button>
-            <div>
-              <h1 class="text-end m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
+            <div class="text-start">
+              <h1 class="m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
               <button class="btn text-white animRot" v-on:click="console.log('')">
                 <i class="bi bi-arrow-clockwise h1 text-start"></i>
               </button>

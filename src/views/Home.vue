@@ -1,6 +1,6 @@
 <template>
-  <div id="top" style="min-height: 100vh;" :style="{ backgroundImage: bg }">
-    <br>
+  <div id="top" style="min-height: 100vh;" :style="{ backgroundImage: bg1 }">
+    <div style="min-height: 25vh"></div>
     <section
       class="container">
       <div class="align-items-center justify-content-between text-light p-3"
@@ -13,7 +13,7 @@
         <hr>
         <section class="d-md-flex">
           <h1 class="fw-bold text-start">
-            Unleash your <span style="color: mediumpurple; font-size: 200%">POTENTIAL</span>
+            Unleash your <span style="color: mediumvioletred; font-size: 200%">POTENTIAL</span>
           </h1>
           <h3 class="text-center fw-bold">
             Whether you're a total beginner or a professional... <br><br>
@@ -34,10 +34,10 @@
       </section>
     </div>
   </div>
-  <div id="middle" style="min-height: 100vh" :style="{ backgroundImage: bg }">
-    <br>
+  <div id="middle" style="min-height: 100vh" :style="{ backgroundImage: bg2 }">
+    <div style="min-height: 25vh"></div>
     <section
-      class="container mt-3">
+      class="container">
       <div class="align-items-center justify-content-between text-light p-3"
            style="border-radius: 1rem; background: black">
         <section class="container mt-5">
@@ -47,52 +47,53 @@
         <section class="d-md-flex">
           <h3 class="text-center fw-bold">
             Vocalists, producers, graphics designers and video producers... <br><br>
-            From 19 countries across the world.
+            From <span style="font-size: 200%">19</span> countries across the world.
           </h3>
           <h1 class="fw-bold text-start">
-            Enjoy <span style="color: mediumpurple; font-size: 200%">DIVERSITY</span>
+            Enjoy <span style="color: blue; font-size: 200%">DIVERSITY</span>
           </h1>
         </section>
       </div>
     </section>
-    <section class="container mt-2">
-      <div class="d-flex align-items-center">
-        <i class="bi bi-discord" style="color: white; font-size: 500%"></i>
-        <h1 class="ms-2" style="font-weight: bold">
-          <a :href="'https://discord.gg/pr2vwr8'" style="color: white">Join our Discord server!</a>
-        </h1>
+    <section class="text-center p-3 d-flex">
+      <div class="container">
+        <div>
+          <button class="btn mdArrow" v-on:click="scrollTo('bottom')">
+            <i class="bi bi-arrow-down h1" style="color: white"></i>
+          </button>
+        </div>
       </div>
     </section>
-    <div>
-      <section class="text-center p-3 d-flex">
-        <div class="container">
-          <div>
-            <button class="btn mdArrow" v-on:click="scrollTo('bottom')">
-              <i class="bi bi-arrow-down h1" style="color: white"></i>
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
   </div>
   <!-- Box View -->
-  <div id="bottom" style="min-height: 100vh" :style="{ backgroundImage: bg }">
+  <div id="bottom" style="min-height: 100vh" :style="{ backgroundImage: bg3 }">
+    <div style="min-height: 20vh"></div>
     <section
-      class="container mt-5">
-      <div class="d-md-flex align-items-center justify-content-between text-light p-3">
-        <h1 class="fw-bold text-start pt-5">
+      class="container">
+      <div class="d-flex align-items-center justify-content-between text-light p-3">
+        <h1 class="fw-bold text-start">
           <span style="color: white; font-size: 200%">
                 Join now.<br>
                 0R0CHI Batsuzoku
               </span>
         </h1>
-        <button class="btn muArrow" v-on:click="scrollTo('top')">
-          <i class="bi bi-arrow-up h1 m-5" style="color: white"></i>
-        </button>
+        <div>
+          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="scrollTo('root')">
+            Beam me up
+          </button>
+          <button v-show="!isLoggedIn"
+                  class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoLogin()">
+            Login
+          </button>
+          <button v-show="isLoggedIn"
+                  class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoAccount()">
+            Account
+          </button>
+        </div>
       </div>
     </section>
     <section class="p-1">
-      <div class="container card-group mt-5">
+      <div class="container card-group">
         <div class="row text-center">
           <div class="col-md mt-1 d-md-flex">
             <div class="card text-light" style="background: black">
@@ -198,18 +199,35 @@ export default {
   data () {
     return {
       angle: '180',
-      color1: 'darkred',
-      color2: 'rebeccapurple'
+      colorA1: 'darkred',
+      colorA2: 'rebeccapurple',
+      colorB1: 'darkblue',
+      colorC1: 'gray'
     }
   },
   methods: {
     scrollTo (content) {
       document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
+    },
+    gotoLogin () {
+      this.$router.push('/login?redirect=/')
+    },
+    gotoAccount () {
+      this.$router.push('/account')
     }
   },
   computed: {
-    bg () {
-      return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
+    isLoggedIn () {
+      return this.$store.state.authenticated
+    },
+    bg1 () {
+      return `linear-gradient(${this.angle}deg, ${this.colorA1}, ${this.colorA2})`
+    },
+    bg2 () {
+      return `linear-gradient(${this.angle}deg, ${this.colorA2}, ${this.colorB1})`
+    },
+    bg3 () {
+      return `linear-gradient(${this.angle}deg, ${this.colorB1}, ${this.colorC1})`
     }
   }
 }
