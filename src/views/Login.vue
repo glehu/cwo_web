@@ -28,7 +28,8 @@
                   <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#">Forgot password?</a></p>
                   <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                   <p class="mt-5">Don't have an account?
-                    <button v-on:click="gotoRegister()" class="btn text-white">Sign Up</button></p>
+                    <button v-on:click="gotoRegister()" class="btn text-white muArrow">Sign Up</button>
+                  </p>
                 </div>
               </div>
             </div>
@@ -107,4 +108,14 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.muArrow {
+  position: relative;
+  top: 0;
+  transition: top ease 0.5s;
+}
+
+.muArrow:hover {
+  top: -5px;
+}
+</style>
