@@ -7,6 +7,7 @@ export default createStore({
     authenticated: false,
     username: 'admin',
     password: 'admin',
+    shop: {},
     cart: []
   },
   mutations: {
@@ -25,6 +26,9 @@ export default createStore({
     },
     clearCart (state) {
       state.cart = []
+    },
+    putShopItems (state, itemList) {
+      state.shop = itemList
     }
   },
   actions: {},

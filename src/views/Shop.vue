@@ -36,7 +36,7 @@
     <section :style="{ backgroundImage: bg }">
       <div class="container">
         <div class="card-group">
-          <div class="col-5" v-for="col in itemList" :key="col">
+          <div class="col-5" v-for="col in shopItemList" :key="col">
             <div class="card m-5"
                  v-for="item in col" :key="item"
                  style="background: black; color: white">
@@ -56,7 +56,7 @@
                   </button>
                 </p>
                 <p class="mb-auto text-end fw-bold lead">
-                  {{ JSON.parse((JSON.parse(item).prices[0])).gp }}$
+                  {{ JSON.parse((JSON.parse(item).prices[0])).gp }} €
                 </p>
               </div>
             </div>
@@ -82,6 +82,9 @@ export default {
   computed: {
     bg () {
       return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
+    },
+    shopItemList () {
+      return this.$store.state.shop
     }
   },
   methods: {
@@ -105,7 +108,7 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => (this.itemList = this.chunkedItems(data.resultsList)))
+        .then((data) => (this.$store.commit('putShopItems', this.chunkedItems(data.resultsList))))
         .then(() => (this.scrollTo('itemsSection')))
         .catch((err) => console.log(err.message))
     },
@@ -117,7 +120,8 @@ export default {
       this.$store.commit('putInCart', {
         id: item.uID,
         description: item.description,
-        amount: 1
+        amount: 1,
+        price: JSON.parse(item.prices[0]).gp
       })
       this.$notify(
         {

@@ -31,7 +31,7 @@
                   <div class="d-flex">
                     <i class="bi bi-cash-stack ms-3"></i>
                     <p class="ms-2">
-                      0 €
+                      {{ cartTotal }} €
                     </p>
                   </div>
                 </div>
@@ -61,7 +61,15 @@ export default {
   data () {
     return {}
   },
-  computed: {},
+  computed: {
+    cartTotal () {
+      let total = 0
+      for (let i = 0; i < this.$store.state.cart.length; i++) {
+        total += this.$store.state.cart[i].price
+      }
+      return total
+    }
+  },
   methods: {
     isLoggedIn () {
       return this.$store.state.authenticated

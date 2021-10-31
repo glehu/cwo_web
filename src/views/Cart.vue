@@ -6,11 +6,11 @@
       <div class="text-light p-3"
            style="border-radius: 1rem; background: black">
         <h1 class="fw-bold d-flex">
-          Shopping Cart
+          Shopping Cart, Total: {{ cartTotal }} €
         </h1>
         <br>
         <button class="btn btn-outline-light" v-on:click="clearCart(true)">Clear Cart</button>
-        <button class="btn btn-outline-light ms-5" v-on:click="submitOrder()">Submit Order</button>
+        <button class="btn btn-outline-warning ms-5" v-on:click="submitOrder()">Submit Order</button>
       </div>
     </section>
     <div v-show="!emptyCart" id="itemsSection" :style="{ backgroundImage: bg }">
@@ -31,6 +31,9 @@
               </div>
               <hr>
               <div class="card-body">
+                <p class="mb-auto text-end fw-bold lead">
+                  {{ item.price }} €
+                </p>
               </div>
             </div>
           </div>
@@ -114,6 +117,13 @@ export default {
       const empty = this.$store.state.cart.length === 0
       console.log(empty)
       return empty
+    },
+    cartTotal () {
+      let total = 0
+      for (let i = 0; i < this.$store.state.cart.length; i++) {
+        total += this.$store.state.cart[i].price
+      }
+      return total
     }
   }
 }
