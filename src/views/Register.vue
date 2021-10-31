@@ -15,20 +15,22 @@
         </div>
         <div class="text-center" style="width: 200px">
           <button title="Soundcloud"
-                  class="btn bi-cloud-fill p-3 pt-0" style="color: white;" v-on:click="redirectSoundcloud"/>
+                  class="btn bi-cloud-fill p-3 pt-0 btn-lg" style="color: white;" v-on:click="redirectSoundcloud"/>
           <br>
           <button title="Discord"
-                  class="btn bi-discord p-3" style="color: white;" v-on:click="redirectDiscord"/>
+                  class="btn bi-discord p-3 btn-lg" style="color: white;" v-on:click="redirectDiscord"/>
           <br>
           <button title="Instagram"
-                  class="btn bi-instagram p-3" style="color: white;" v-on:click="redirectInstagram"/>
+                  class="btn bi-instagram p-3 btn-lg" style="color: white;" v-on:click="redirectInstagram"/>
           <br>
           <button title="GitHub"
-                  class="btn bi-github p-3" style="color: white;" v-on:click="redirectGitHub"/>
+                  class="btn bi-github p-3 btn-lg" style="color: white;" v-on:click="redirectGitHub"/>
           <br>
-          <button title="Registration"
-                  class="btn bi-arrow-down p-3 mdArrow"
-                  style="color: white;" v-on:click="scrollTo('registration')"/>
+          <div class="d-md-none d-block">
+            <button title="Registration"
+                    class="btn bi-arrow-down p-3 btn-lg mdArrow"
+                    style="color: white;" v-on:click="scrollTo('registration')"/>
+          </div>
         </div>
       </div>
     </div>
