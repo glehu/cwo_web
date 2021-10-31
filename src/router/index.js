@@ -57,7 +57,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // If the route requires authentication and the user is not authenticated, show log-in screen
-  document.title = to.name
+  document.title = 'CWO ' + to.name
   if ((to.matched.some(record => record.meta.requiresAuth)) && (to.name !== 'Login' && !store.state.authenticated)) {
     next({
       path: '/login',

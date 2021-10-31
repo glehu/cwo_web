@@ -69,37 +69,46 @@ export default {
       }
     },
     submitOrder () {
-      const headers = new Headers()
-      headers.set(
-        'Authorization',
-        'Basic ' + Buffer.from(
-          this.$store.state.username + ':' + this.$store.state.password)
-          .toString('base64')
-      )
-      headers.set(
-        'Content-Type', 'application/json'
-      )
-      const order = []
-      for (let i = 0; i < this.items.length; i++) {
-        order.push(this.items[i].id)
-      }
-      fetch(
-        'http://localhost:8000/api/m3/neworder',
-        {
-          method: 'post',
-          headers: headers,
-          body: JSON.stringify({ itemUIDs: order })
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => this.$notify(
-          {
-            title: 'Order #' + data + ' submitted',
-            text: 'Thanks for your order.',
-            type: 'info'
-          })
+      if (!this.emptyCart) {
+        const headers = new Headers()
+        headers.set(
+          'Authorization',
+          'Basic ' + Buffer.from(
+            this.$store.state.username + ':' + this.$store.state.password)
+            .toString('base64')
         )
-      this.clearCart(false)
+        headers.set(
+          'Content-Type', 'application/json'
+        )
+        const order = []
+        for (let i = 0; i < this.items.length; i++) {
+          order.push(this.items[i].id)
+        }
+        fetch(
+          'http://localhost:8000/api/m3/neworder',
+          {
+            method: 'post',
+            headers: headers,
+            body: JSON.stringify({ itemUIDs: order })
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => this.$notify(
+            {
+              title: 'Order #' + data + ' submitted',
+              text: 'Thanks for your order.',
+              type: 'info'
+            })
+          )
+        this.clearCart(false)
+      } else {
+        this.$notify(
+          {
+            title: 'Error: Cart is empty.',
+            text: 'Order was not submitted.',
+            type: 'error'
+          })
+      }
     }
   },
   computed: {
