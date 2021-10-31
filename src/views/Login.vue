@@ -27,7 +27,8 @@
                   </div>
                   <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#">Forgot password?</a></p>
                   <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-                  <p class="mt-5">Don't have an account? <a href="#" class="text-white-50 fw-bold">Sign Up</a></p>
+                  <p class="mt-5">Don't have an account?
+                    <button v-on:click="gotoRegister()" class="btn text-white">Sign Up</button></p>
                 </div>
               </div>
             </div>
@@ -98,6 +99,9 @@ export default {
       } else {
         this.user.password = ''
       }
+    },
+    gotoRegister () {
+      this.$router.push('/register')
     }
   }
 }

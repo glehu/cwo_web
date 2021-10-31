@@ -72,7 +72,7 @@
   <!-- Box View -->
   <div id="bottom" style="min-height: 100vh" :style="{ backgroundImage: bg3 }">
     <div class="d-md-none d-block" style="min-height: 10vh"></div>
-    <div class="d-md-block d-none" style="min-height: 20vh"></div>
+    <div class="d-md-block d-none" style="min-height: 10vh"></div>
     <section
       class="container">
       <div class="d-md-flex align-items-center justify-content-between text-light p-3">
@@ -82,19 +82,23 @@
                 0R0CHI Batsuzoku
               </span>
         </h1>
-        <div>
-          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="redirectDiscord()">
+        <div class="d-flex">
+          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="redirectDiscord()"
+                  style="width: 200px">
             Join our Discord
           </button>
           <button v-show="!isLoggedIn"
-                  class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoLogin()">
-            Login
+                  class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoRegister()"
+                  style="width: 200px">
+            Register
           </button>
           <button v-show="isLoggedIn"
-                  class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoAccount()">
+                  class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoAccount()"
+                  style="width: 200px">
             Account
           </button>
-          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="scrollTo('root')">
+          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="scrollTo('root')"
+                  style="width: 200px">
             Beam me up
           </button>
         </div>
@@ -217,8 +221,8 @@ export default {
     scrollTo (content) {
       document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
     },
-    gotoLogin () {
-      this.$router.push('/login?redirect=/account')
+    gotoRegister () {
+      this.$router.push('/register')
     },
     gotoAccount () {
       this.$router.push('/account')
