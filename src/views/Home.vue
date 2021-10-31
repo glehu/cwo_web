@@ -76,31 +76,67 @@
     <section
       class="container">
       <div class="d-md-flex align-items-center justify-content-between text-light p-3">
-        <h1 class="fw-bold text-start">
+        <h1 class="fw-bold text-start mb-5">
           <span style="color: white; font-size: 200%">
                 Join now.<br>
                 0R0CHI Batsuzoku
               </span>
         </h1>
         <div class="d-flex">
-          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="redirectDiscord()"
-                  style="width: 200px">
-            Join our Discord
-          </button>
-          <button v-show="!isLoggedIn"
-                  class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoRegister()"
-                  style="width: 200px">
-            Register
-          </button>
-          <button v-show="isLoggedIn"
-                  class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="gotoAccount()"
-                  style="width: 200px">
-            Account
-          </button>
-          <button class="btn btn-outline-light btn-lg muArrow fw-bold" v-on:click="scrollTo('root')"
-                  style="width: 200px">
-            Beam me up
-          </button>
+          <div class="text-center">
+            <button title="Soundcloud"
+                    class="btn bi-cloud-fill btn-lg muArrow"
+                    style="color: white"
+                    v-on:click="redirectSoundcloud"/>
+            <br>
+            <button title="Discord"
+                    class="btn bi-discord btn-lg muArrow mt-3"
+                    style="color: white"
+                    v-on:click="redirectDiscord"/>
+            <br>
+            <button title="Instagram"
+                    class="btn bi-instagram btn-lg muArrow mt-3"
+                    style="color: white"
+                    v-on:click="redirectInstagram"/>
+            <br>
+            <button title="GitHub"
+                    class="btn bi-github btn-lg muArrow mt-3"
+                    style="color: white"
+                    v-on:click="redirectGitHub"/>
+          </div>
+          <div class="ms-5">
+            <button v-show="!isLoggedIn"
+                    class="btn btn-outline-light btn-lg muArrow fw-bold"
+                    v-on:click="gotoLogin()"
+                    style="width: 200px">
+              Login
+            </button>
+            <br>
+            <button v-show="!isLoggedIn"
+                    class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
+                    v-on:click="gotoRegister()"
+                    style="width: 200px">
+              Register
+            </button>
+            <button v-show="isLoggedIn"
+                    class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
+                    v-on:click="gotoAccount()"
+                    style="width: 200px">
+              Account
+            </button>
+            <br>
+            <button class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
+                    v-on:click="gotoShop()"
+                    style="width: 200px">
+              Shop
+            </button>
+            <br>
+            <button class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
+                    v-on:click="scrollTo('root')"
+                    style="width: 200px">
+              Beam me up
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -187,14 +223,13 @@
             <div class="card text-light" style="background: black">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
-                  <i class="bi bi-code-slash"></i>
+                  <i class="bi bi-shop-window"></i>
                 </div>
                 <h3 class="card-title">
-                  Software Development
+                  Web Shop
                 </h3>
                 <p class="card-text">
-                  Wiki Ric G dedicates himself to the creation of software
-                  to push limits further than ever before.
+                  Sell products and services through our own web shop solution.
                 </p>
               </div>
             </div>
@@ -227,8 +262,23 @@ export default {
     gotoAccount () {
       this.$router.push('/account')
     },
+    gotoShop () {
+      this.$router.push('/shop')
+    },
+    gotoLogin () {
+      this.$router.push('/login?redirect=/account')
+    },
     redirectDiscord () {
       window.open('https://discord.gg/pr2vwr8')
+    },
+    redirectInstagram () {
+      window.open('https://www.instagram.com/0r0chiclan/')
+    },
+    redirectSoundcloud () {
+      window.open('https://soundcloud.com/orochiclan')
+    },
+    redirectGitHub () {
+      window.open('https://github.com/glehu')
     }
   },
   computed: {
@@ -256,10 +306,10 @@ export default {
 }
 
 .muArrow:hover {
-  top: -10px;
+  top: -8px;
 }
 
 .mdArrow:hover {
-  top: +10px;
+  top: +8px;
 }
 </style>

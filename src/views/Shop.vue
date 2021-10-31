@@ -32,7 +32,7 @@
     </section>
   </div>
   <div id="itemsSection">
-    <div class="mt-4" style="min-height: 8vh"></div>
+    <div class="" style="min-height: 5vh"></div>
     <section :style="{ backgroundImage: bg }">
       <div class="container">
         <div class="card-group">

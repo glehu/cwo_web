@@ -2,7 +2,10 @@
   <div id="root" class="home">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: black">
       <div class="container">
-        <a href="#" class="navbar-brand fw-bold">0R0CHI Batsuzoku</a>
+        <a href="#" class="navbar-brand fw-bold">
+          <img src="../public/orochiicon.png" alt=""/>
+          0R0CHI Batsuzoku
+        </a>
         <button
           class="navbar-toggler"
           type="button"
