@@ -13,7 +13,7 @@
         <button class="btn btn-outline-light ms-5" v-on:click="submitOrder()">Submit Order</button>
       </div>
     </section>
-    <div id="itemsSection" :style="{ backgroundImage: bg }">
+    <div v-show="!emptyCart" id="itemsSection" :style="{ backgroundImage: bg }">
       <section>
         <div class="mt-4" style="min-height: 3vh"></div>
         <div class="container card-group">
@@ -109,6 +109,11 @@ export default {
     },
     bg () {
       return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
+    },
+    emptyCart () {
+      const empty = this.$store.state.cart.length === 0
+      console.log(empty)
+      return empty
     }
   }
 }

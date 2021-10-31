@@ -26,7 +26,7 @@ const routes = [
   },
   {
     path: '/account',
-    name: 'Logout',
+    name: 'Account',
     component: () => import('../views/Account'),
     meta: { logout: true }
   },
