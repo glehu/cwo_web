@@ -1,9 +1,63 @@
 <template>
-  <div id="top" style="min-height: 100vh;" :style="{ backgroundImage: bg1 }">
-    <div class="d-md-none d-block" style="min-height: 10vh"></div>
+  <!-- Artist -->
+  <div id="cloudday" class="d-md-block d-none" style="min-height: 100vh; max-height: 100vh; overflow: hidden">
+    <div class="d-flex">
+      <img src="../assets/clouddaybannerformatted.png" alt=""
+           style="max-width:100%; height:auto"/>
+      <div class="container text-white" style="position: relative; top: 15vh; right: 100%; padding-left: 5vw">
+        <h2 class="fw-bold">Featured Artist:</h2>
+        <p class="fw-bold" style="font-size: 400%">CLOUDDAY</p>
+        <div class="d-flex mt-2">
+          <div class="mb-2" style="text-align: justify; text-justify: inter-word; width: 250px">
+            <p>
+              Vocals as soft as clouds, but lyrics hitting as hard as lightning.
+              An artist who's catalog shines with diversity. Classics are being made
+              aside highly experimental tracks, mixing together known and unknown elements.
+              Take a visit to his Spotify or Soundcloud page to find out if this is something for you.
+              <br><br>Typical Genres:
+            </p>
+            <ul>
+              <li>Indie/Indie Rock</li>
+              <li>LoFi/Hip-Hop</li>
+              <li>Techno/House/Drum&Bass</li>
+            </ul>
+          </div>
+          <div class="ms-4" style="width: 200px">
+            <div class="ms-2">
+              <button title="Spotify"
+                      class="btn btn-lg muArrow" style="color: white;"
+                      v-on:click="redirectSpotifyCloudday">
+                <img src="../assets/spotify/Spotify_Icon_RGB_White.png" alt="Spotify"
+                     style="width: 20px; height: 20px"/>
+              </button>
+              <br>
+              <button title="Soundcloud"
+                      class="btn bi-cloud-fill btn-lg muArrow mt-4" style="color: white;"
+                      v-on:click="redirectSoundcloudCloudday"/>
+              <br>
+              <button title="Instagram"
+                      class="btn bi-instagram btn-lg muArrow mt-4" style="color: white;"
+                      v-on:click="redirectInstagramCloudday"/>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="align-items: center; justify-content: center; position: relative; top: -550px; left: 43%">
+      <button class="btn mdArrow" v-on:click="scrollTo('pg1')">
+        <span class="fw-bold lead" style="color: white">
+          DISCOVER 0R0CHI
+        </span>
+        <br>
+        <i class="bi bi-box-arrow-down h1" style="color: white"></i>
+      </button>
+    </div>
+  </div>
+  <div id="pg1" style="min-height: 100vh" :style="{ backgroundImage: bg1 }">
+    <div class="d-md-none d-block" style="min-height: 12vh"></div>
     <div class="d-md-block d-none" style="min-height: 25vh"></div>
-    <section
-      class="container">
+    <section class="container">
       <div class="align-items-center justify-content-between text-light p-3"
            style="border-radius: 1rem; background: black">
         <section class="mt-2">
@@ -29,7 +83,7 @@
       <section class="text-center p-3 d-flex">
         <div class="container">
           <div>
-            <button class="btn mdArrow" v-on:click="scrollTo('middle')">
+            <button class="btn mdArrow" v-on:click="scrollTo('pg2')">
               <i class="bi bi-arrow-down h1" style="color: white"></i>
             </button>
           </div>
@@ -37,11 +91,10 @@
       </section>
     </div>
   </div>
-  <div id="middle" style="min-height: 100vh" :style="{ backgroundImage: bg2 }">
-    <div class="d-md-none d-block" style="min-height: 10vh"></div>
+  <div id="pg2" style="min-height: 100vh" :style="{ backgroundImage: bg2 }">
+    <div class="d-md-none d-block" style="min-height: 12vh"></div>
     <div class="d-md-block d-none" style="min-height: 25vh"></div>
-    <section
-      class="container">
+    <section class="container">
       <div class="align-items-center justify-content-between text-light p-3"
            style="border-radius: 1rem; background: black">
         <section class="container mt-5">
@@ -62,7 +115,7 @@
     <section class="text-center p-3 d-flex">
       <div class="container">
         <div>
-          <button class="btn mdArrow" v-on:click="scrollTo('bottom')">
+          <button class="btn mdArrow" v-on:click="scrollTo('pg3')">
             <i class="bi bi-arrow-down h1" style="color: white"></i>
           </button>
         </div>
@@ -70,9 +123,9 @@
     </section>
   </div>
   <!-- Box View -->
-  <div id="bottom" style="min-height: 100vh" :style="{ backgroundImage: bg3 }">
-    <div class="d-md-none d-block" style="min-height: 10vh"></div>
-    <div class="d-md-block d-none" style="min-height: 10vh"></div>
+  <div id="pg3" style="min-height: 100vh" :style="{ backgroundImage: bg3 }">
+    <div class="d-md-none d-block" style="min-height: 8vh"></div>
+    <div class="d-md-block d-none" style="min-height: 15vh"></div>
     <section
       class="container">
       <div class="d-md-flex align-items-center justify-content-between text-light p-3">
@@ -241,8 +294,10 @@
 </template>
 
 <script>
+
 export default {
   name: 'Home',
+  components: {},
   data () {
     return {
       angle: '180',
@@ -279,6 +334,15 @@ export default {
     },
     redirectGitHub () {
       window.open('https://github.com/glehu')
+    },
+    redirectInstagramCloudday () {
+      window.open('https://www.instagram.com/cloudday/')
+    },
+    redirectSoundcloudCloudday () {
+      window.open('https://soundcloud.com/cloudvx')
+    },
+    redirectSpotifyCloudday () {
+      window.open('https://open.spotify.com/artist/56NVjfoRlGzoUWiZxrqj0P?si=YXgxJhWCS8WYMFsSyBTCtw')
     }
   },
   computed: {
