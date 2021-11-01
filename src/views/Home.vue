@@ -1,6 +1,7 @@
 <template>
   <!-- Artist -->
-  <div id="cloudday" class="d-md-block d-none" style="min-height: 100vh; max-height: 100vh; overflow: hidden">
+  <div id="cloudday" class="d-md-block d-none"
+       style="min-height: 100vh; max-height: 100vh; overflow: hidden; background-color: black">
     <div class="d-flex">
       <img src="../assets/clouddaybannerformatted.png" alt=""
            style="max-width:100%; height:auto"/>
@@ -38,20 +39,19 @@
               <button title="Instagram"
                       class="btn bi-instagram btn-lg muArrow mt-4" style="color: white;"
                       v-on:click="redirectInstagramCloudday"/>
-              <br>
+              <button
+                class="btn mdArrow" v-on:click="scrollTo('pg1')"
+                style="padding-left: 150px">
+                <span class="fw-bold lead" style="color: white">
+                  DISCOVER 0R0CHI
+                </span>
+                <br>
+                <i class="bi bi-box-arrow-down h1" style="color: white"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div style="align-items: center; justify-content: center; position: relative; top: -550px; left: 43%">
-      <button class="btn mdArrow" v-on:click="scrollTo('pg1')">
-        <span class="fw-bold lead" style="color: white">
-          DISCOVER 0R0CHI
-        </span>
-        <br>
-        <i class="bi bi-box-arrow-down h1" style="color: white"></i>
-      </button>
     </div>
   </div>
   <div id="pg1" style="min-height: 100vh" :style="{ backgroundImage: bg1 }">
