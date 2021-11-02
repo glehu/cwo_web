@@ -47,6 +47,12 @@ const routes = [
     name: 'Cart',
     component: () =>
       import('../views/Cart.vue')
+  },
+  {
+    path: '/preferences',
+    name: 'Preferences',
+    component: () =>
+      import('../views/UserPreferences.vue')
   }
 ]
 
@@ -66,7 +72,17 @@ router.beforeEach((to, from, next) => {
       }
     })
   } else {
-    next()
+    // Only show preferences if we're not going to the Preferences or About page
+    if ((to.name !== 'Preferences' && to.name !== 'About') && !store.state.cookieAllowance) {
+      next({
+        path: '/preferences',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    } else {
+      next()
+    }
   }
 })
 

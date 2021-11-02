@@ -5,7 +5,7 @@
     <div class="d-flex">
       <img src="../assets/clouddaybannerformatted.png" alt=""
            style="max-width:100%; height:auto"/>
-      <div class="container text-white" style="position: relative; top: 15vh; right: 100%; padding-left: 5vw">
+      <div class="container text-white" style="position: relative; top: 10vh; right: 100%; padding-left: 5vw">
         <h2 class="fw-bold">Featured Artist:</h2>
         <p class="fw-bold" style="font-size: 400%">CLOUDDAY</p>
         <div class="d-flex mt-2">
@@ -15,13 +15,7 @@
               An artist who's catalog shines with diversity. Classics are being made
               aside highly experimental tracks, mixing together known and unknown elements.
               Take a visit to his Spotify or Soundcloud page to find out if this is something for you.
-              <br><br>Typical Genres:
             </p>
-            <ul>
-              <li>Indie/Indie Rock</li>
-              <li>LoFi/Hip-Hop</li>
-              <li>Techno/House/Drum&Bass</li>
-            </ul>
           </div>
           <div class="ms-4" style="width: 200px">
             <div class="ms-2">
@@ -41,7 +35,7 @@
                       v-on:click="redirectInstagramCloudday"/>
               <button
                 class="btn mdArrow" v-on:click="scrollTo('pg1')"
-                style="padding-left: 150px">
+                style="margin-left: 150px">
                 <span class="fw-bold lead" style="color: white">
                   DISCOVER 0R0CHI
                 </span>
@@ -50,6 +44,11 @@
               </button>
             </div>
           </div>
+        </div>
+        <div style="position: relative; top: -50px">
+          <iframe src="https://open.spotify.com/embed/artist/56NVjfoRlGzoUWiZxrqj0P?utm_source=generator&theme=0"
+                  width="350px" height="200" allowfullscreen=""
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         </div>
       </div>
     </div>
