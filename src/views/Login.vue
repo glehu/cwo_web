@@ -122,6 +122,9 @@ export default {
           this.$store.state.username + ':' + this.$store.state.password)
           .toString('base64')
       )
+      headers.set(
+        'Content-Type', 'application/json'
+      )
       fetch(
         'http://localhost:8000/api/utr',
         {
