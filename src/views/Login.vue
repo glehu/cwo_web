@@ -54,6 +54,9 @@ export default {
   computed: {
     isLoggedIn () {
       return this.$store.state.authenticated
+    },
+    usageTracker () {
+      return this.$store.state.usageTracking
     }
   },
   methods: {
@@ -96,6 +99,13 @@ export default {
       if (this.user.httpCode === 200) {
         this.$store.commit('logIn', this.user)
         console.log('User logged in: ' + this.$store.state.authenticated)
+        if (this.usageTracker) {
+          this.sendUsageData({
+            source: 'webshop',
+            module: 'login',
+            action: 'login'
+          })
+        }
         this.$router.push(this.$route.query.redirect.toString() || '/')
       } else {
         this.user.password = ''
@@ -103,6 +113,23 @@ export default {
     },
     gotoRegister () {
       this.$router.push('/register')
+    },
+    async sendUsageData (usageObj) {
+      const headers = new Headers()
+      headers.set(
+        'Authorization',
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
+      )
+      fetch(
+        'http://localhost:8000/api/utr',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify(usageObj)
+        }
+      ).then(r => console.log(r))
     }
   }
 }

@@ -77,6 +77,9 @@ export default {
     },
     usageTrackingAllowance () {
       return this.$store.state.usageTracking
+    },
+    usageTracker () {
+      return this.$store.state.usageTracking
     }
   },
   methods: {
@@ -91,6 +94,13 @@ export default {
     },
     allowUsageTracking () {
       this.$store.commit('allowUsageTracking')
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'preferences',
+          action: 'allowUsageTracking'
+        })
+      }
     },
     confirm () {
       if (this.generalCookieAllowance) {
@@ -103,6 +113,23 @@ export default {
             type: 'error'
           })
       }
+    },
+    async sendUsageData (usageObj) {
+      const headers = new Headers()
+      headers.set(
+        'Authorization',
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
+      )
+      fetch(
+        'http://localhost:8000/api/utr',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify(usageObj)
+        }
+      ).then(r => console.log(r))
     }
   }
 }

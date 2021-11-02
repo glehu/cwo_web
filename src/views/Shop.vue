@@ -85,6 +85,9 @@ export default {
     },
     shopItemList () {
       return this.$store.state.shop
+    },
+    usageTracker () {
+      return this.$store.state.usageTracking
     }
   },
   methods: {
@@ -114,7 +117,9 @@ export default {
     },
     chunkedItems (list) {
       const chunk = require('chunk')
-      return chunk(list, 3)
+      const chunkedItems = chunk(list, 2)
+      console.log(chunkedItems)
+      return chunkedItems
     },
     putInCart (item) {
       this.$store.commit('putInCart', {
@@ -129,6 +134,30 @@ export default {
           text: '',
           type: 'info'
         })
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'shop',
+          action: 'putInCart'
+        })
+      }
+    },
+    async sendUsageData (usageObj) {
+      const headers = new Headers()
+      headers.set(
+        'Authorization',
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
+      )
+      fetch(
+        'http://localhost:8000/api/utr',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify(usageObj)
+        }
+      ).then(r => console.log(r))
     }
   }
 }

@@ -66,6 +66,13 @@ export default {
             text: '',
             type: 'info'
           })
+        if (this.usageTracker) {
+          this.sendUsageData({
+            source: 'web',
+            module: 'cart',
+            action: 'clearCart'
+          })
+        }
       }
     },
     submitOrder () {
@@ -101,6 +108,13 @@ export default {
             })
           )
         this.clearCart(false)
+        if (this.usageTracker) {
+          this.sendUsageData({
+            source: 'web',
+            module: 'cart',
+            action: 'submitOrder'
+          })
+        }
       } else {
         this.$notify(
           {
@@ -109,6 +123,23 @@ export default {
             type: 'error'
           })
       }
+    },
+    async sendUsageData (usageObj) {
+      const headers = new Headers()
+      headers.set(
+        'Authorization',
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
+      )
+      fetch(
+        'http://localhost:8000/api/utr',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify(usageObj)
+        }
+      ).then(r => console.log(r))
     }
   },
   computed: {
@@ -117,7 +148,7 @@ export default {
     },
     itemsChunked () {
       const chunk = require('chunk')
-      return chunk(this.$store.state.cart, 5)
+      return chunk(this.$store.state.cart, 2)
     },
     bg () {
       return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
@@ -133,6 +164,9 @@ export default {
         total += this.$store.state.cart[i].price
       }
       return total
+    },
+    usageTracker () {
+      return this.$store.state.usageTracking
     }
   }
 }

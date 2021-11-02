@@ -15,7 +15,8 @@
         </div>
         <div class="text-center" style="width: 200px">
           <button title="Soundcloud"
-                  class="btn bi-cloud-fill p-3 pt-0 btn-lg muArrow" style="color: white;" v-on:click="redirectSoundcloud"/>
+                  class="btn bi-cloud-fill p-3 pt-0 btn-lg muArrow" style="color: white;"
+                  v-on:click="redirectSoundcloud"/>
           <br>
           <button title="Discord"
                   class="btn bi-discord p-3 btn-lg muArrow" style="color: white;" v-on:click="redirectDiscord"/>
@@ -93,7 +94,11 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+    usageTracker () {
+      return this.$store.state.usageTracking
+    }
+  },
   methods: {
     register () {
       if (this.user.password === this.user.passwordRpt) {
@@ -131,6 +136,13 @@ export default {
     processRegistration () {
       console.log(this.response)
       if (this.response.success) {
+        if (this.usageTracker) {
+          this.sendUsageData({
+            source: 'web',
+            module: 'register',
+            action: 'register'
+          })
+        }
         this.$router.push('/login?redirect=/account')
       } else {
         this.user.email = ''
@@ -152,6 +164,23 @@ export default {
     },
     scrollTo (content) {
       document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
+    },
+    async sendUsageData (usageObj) {
+      const headers = new Headers()
+      headers.set(
+        'Authorization',
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
+      )
+      fetch(
+        'http://localhost:8000/api/utr',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify(usageObj)
+        }
+      ).then(r => console.log(r))
     }
   }
 }

@@ -311,37 +311,117 @@ export default {
       document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
     },
     gotoRegister () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'gotoRegister'
+        })
+      }
       this.$router.push('/register')
     },
     gotoAccount () {
       this.$router.push('/account')
     },
     gotoShop () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'gotoShop'
+        })
+      }
       this.$router.push('/shop')
     },
     gotoLogin () {
       this.$router.push('/login?redirect=/account')
     },
     redirectDiscord () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'redirectDiscord'
+        })
+      }
       window.open('https://discord.gg/pr2vwr8')
     },
     redirectInstagram () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'redirectInstagram'
+        })
+      }
       window.open('https://www.instagram.com/0r0chiclan/')
     },
     redirectSoundcloud () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'redirectSoundcloud'
+        })
+      }
       window.open('https://soundcloud.com/orochiclan')
     },
     redirectGitHub () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'redirectGitHub'
+        })
+      }
       window.open('https://github.com/glehu')
     },
     redirectInstagramCloudday () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'redirectInstagramCloudday'
+        })
+      }
       window.open('https://www.instagram.com/cloudday/')
     },
     redirectSoundcloudCloudday () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'redirectSoundcloudCloudday'
+        })
+      }
       window.open('https://soundcloud.com/cloudvx')
     },
     redirectSpotifyCloudday () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'home',
+          action: 'redirectSpotifyCloudday'
+        })
+      }
       window.open('https://open.spotify.com/artist/56NVjfoRlGzoUWiZxrqj0P?si=YXgxJhWCS8WYMFsSyBTCtw')
+    },
+    async sendUsageData (usageObj) {
+      const headers = new Headers()
+      headers.set(
+        'Authorization',
+        'Basic ' + Buffer.from(
+          this.$store.state.username + ':' + this.$store.state.password)
+          .toString('base64')
+      )
+      fetch(
+        'http://localhost:8000/api/utr',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify(usageObj)
+        }
+      ).then(r => console.log(r))
     }
   },
   computed: {
@@ -356,6 +436,9 @@ export default {
     },
     bg3 () {
       return `linear-gradient(${this.angle}deg, ${this.colorB1}, ${this.colorC1})`
+    },
+    usageTracker () {
+      return this.$store.state.usageTracking
     }
   }
 }
