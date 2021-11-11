@@ -2,11 +2,14 @@
   <div class="about">
     <div style="min-height: 10vh"></div>
     <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
+      class="text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="align-items-center">
-          <h1 class="fw-bold">What/Who is <span class="text-danger">0R0CHI</span>?</h1>
-          <p class="lead my-4">
+          <h1 class="fw-bold p-2"
+              style="border-radius: 1rem; background: black; width: 50vw">
+            What/Who is <span class="text-danger">0R0CHI</span>?
+          </h1>
+          <p class="lead" style="text-align: justify; text-justify: inter-word; width: 50vw">
             0R0CHI Batsuzoku, or in short 0R0CHI, is a collective that dedicates
             itself to the creation of art in many forms.
           </p>
@@ -14,11 +17,14 @@
       </div>
     </section>
     <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
+      class="text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="align-items-center">
-          <h1 class="fw-bold">How did it <span class="text-danger">start</span>?</h1>
-          <p class="lead my-4">
+          <h1 class="fw-bold p-2"
+              style="border-radius: 1rem; background: black; width: 50vw">
+            How did it <span class="text-danger">start</span>?
+          </h1>
+          <p class="lead" style="text-align: justify; text-justify: inter-word; width: 50vw">
             Originally, some of the current members got to know each other on the
             Trash Gang website chat room. <br/>
             On the 2019.08.20 the three founding members Di$, Lich and
@@ -29,11 +35,14 @@
       </div>
     </section>
     <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
+      class="text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
       <div class="container">
         <div class="align-items-center">
-          <h1 class="fw-bold">How can I <span class="text-danger">join</span>?</h1>
-          <p class="lead my-4">
+          <h1 class="fw-bold p-2"
+              style="border-radius: 1rem; background: black; width: 50vw">
+            How can I <span class="text-danger">join</span>?
+          </h1>
+          <p class="lead" style="text-align: justify; text-justify: inter-word; width: 50vw">
             Just join our
             <a :href="'https://discord.gg/pr2vwr8'">Discord</a>
             server!
@@ -44,19 +53,7 @@
       </div>
     </section>
     <section
-      class="bg-dark text-light text-center text-sm-start p-1 p-lg-2 pt-lg-2">
-      <div class="container">
-        <div class="align-items-center">
-          <h1 class="fw-bold"><span class="text-danger">Links</span></h1>
-          <p class="lead my-4">
-            Listen to our music on
-            <a :href="'https://soundcloud.com/orochiclan'"> Soundcloud</a>
-          </p>
-        </div>
-      </div>
-    </section>
-    <section
-      class="bg-dark text-light text-center text-sm-start">
+      class="text-light text-center text-sm-start">
       <div class="container">
         <p class="text-end">
           Designed with

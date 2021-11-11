@@ -68,7 +68,7 @@
 export default {
   data () {
     return {
-      angle: '180',
+      angle: '45',
       color1: 'darkred',
       color2: 'rebeccapurple'
     }

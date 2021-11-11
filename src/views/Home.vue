@@ -69,7 +69,7 @@
         <hr>
         <section class="d-md-flex">
           <h1 class="fw-bold text-start">
-            Unleash your <span style="color: mediumvioletred; font-size: 200%">POTENTIAL</span>
+            Unleash your <span style="color: darkred; font-size: 200%">POTENTIAL</span>
           </h1>
           <h3 class="text-center fw-bold">
             Whether you're a total beginner or a professional... <br><br>
@@ -299,7 +299,8 @@ export default {
   components: {},
   data () {
     return {
-      angle: '180',
+      angle: '45',
+      angleC1: '180',
       colorA1: 'darkred',
       colorA2: 'rebeccapurple',
       colorB1: 'darkblue',
@@ -438,7 +439,7 @@ export default {
       return `linear-gradient(${this.angle}deg, ${this.colorA2}, ${this.colorB1})`
     },
     bg3 () {
-      return `linear-gradient(${this.angle}deg, ${this.colorB1}, ${this.colorC1})`
+      return `linear-gradient(${this.angleC1}deg, ${this.colorB1}, ${this.colorC1})`
     },
     usageTracker () {
       return this.$store.state.usageTracking

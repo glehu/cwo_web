@@ -31,40 +31,39 @@
       </div>
     </section>
   </div>
-  <div id="itemsSection">
-    <div class="" style="min-height: 5vh"></div>
-    <section :style="{ backgroundImage: bg }">
-      <div class="container">
-        <div class="card-group">
-          <div class="col-5" v-for="col in shopItemList" :key="col">
-            <div class="card m-5"
-                 v-for="item in col" :key="item"
-                 style="background: black; color: white">
-              <div class="card-title">
-                <h3 class="fw-bold m-3">
-                  {{ JSON.parse(item).description }}
-                </h3>
-              </div>
-              <div class="card-body text-center">
-                <i class="bi bi-question-circle"></i>
-              </div>
-              <hr>
-              <div class="card-body">
-                <p class="mb-auto">
-                  <button class="btn btn-outline-light btn-md"
-                          v-on:click="putInCart(JSON.parse(item))">Add
-                  </button>
-                </p>
-                <p class="mb-auto text-end fw-bold lead">
-                  {{ JSON.parse((JSON.parse(item).prices[0])).gp }} €
-                </p>
-              </div>
+  <div style="min-height: 10vh"></div>
+  <section id="itemsSection" style="min-height: 100vh" :style="{ backgroundImage: bg }">
+    <div style="min-height: 5vh"/>
+    <div class="container mt-2">
+      <div class="card-group">
+        <div class="col-5" v-for="col in shopItemList" :key="col">
+          <div class="card m-5"
+               v-for="item in col" :key="item"
+               style="background: black; color: white">
+            <div class="card-title">
+              <h3 class="fw-bold m-3">
+                {{ JSON.parse(item).description }}
+              </h3>
+            </div>
+            <div class="card-body text-center">
+              <i class="bi bi-question-circle"></i>
+            </div>
+            <hr>
+            <div class="card-body">
+              <p class="mb-auto">
+                <button class="btn btn-outline-light btn-md"
+                        v-on:click="putInCart(JSON.parse(item))">Add
+                </button>
+              </p>
+              <p class="mb-auto text-end fw-bold lead">
+                {{ JSON.parse((JSON.parse(item).prices[0])).gp }} €
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>

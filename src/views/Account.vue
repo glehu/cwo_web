@@ -9,59 +9,79 @@
         Hey, {{ this.$store.state.username }}.<br><br>
       </h1>
       <h3>What's next?</h3>
-      <div class="container py-2">
-        <div class="card text-white border-2"
-             style="border-radius: 1rem; background: black; border-color: white">
-          <section
-            class="container">
-            <div class="d-md-flex justify-content-between text-light p-3"
-                 style="border-radius: 1rem; background: black">
-              <div class="d-flex">
-                <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                        v-on:click="showCart">
-                  <i class="bi bi-basket p-1"></i> Cart
-                </button>
-                <div class="d-md-flex">
-                  <div class="d-flex ms-md-2">
-                    <i class="bi bi-stack ms-3"></i>
-                    <p class="ms-2">
-                      {{ this.$store.state.cart.length }} Items
-                    </p>
-                  </div>
-                  <div class="d-flex ms-md-5">
-                    <i class="bi bi-cash-stack ms-3"></i>
-                    <p class="ms-2">
-                      {{ cartTotal }} €
-                    </p>
-                  </div>
+      <div class="card text-white border-2"
+           style="border-radius: 1rem; background: black; border-color: white">
+        <section
+          class="container">
+          <div class="d-md-flex justify-content-between text-light pt-3"
+               style="border-radius: 1rem; background: black">
+            <div class="d-flex">
+              <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                      v-on:click="showCart">
+                <i class="bi bi-cart p-1"></i> Cart
+              </button>
+              <div class="d-md-flex">
+                <div class="d-flex ms-md-2">
+                  <i class="bi bi-stack ms-3"></i>
+                  <p class="ms-2">
+                    {{ this.$store.state.cart.length }} Items
+                  </p>
+                </div>
+                <div class="d-flex ms-md-5">
+                  <i class="bi bi-cash-stack ms-3"></i>
+                  <p class="ms-2">
+                    {{ cartTotal }} €
+                  </p>
                 </div>
               </div>
-              <h3 class="d-none d-md-block">View your shopping cart.</h3>
             </div>
-          </section>
-          <section
-            class="container">
-            <div class="d-md-flex justify-content-between text-light p-3"
-                 style="border-radius: 1rem; background: black">
-              <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                      v-on:click="gotoPreferences">
-                <i class="bi bi-wrench p-1"></i> Preferences
-              </button>
-              <h3 class="d-none d-md-block">Cookies and Trackers</h3>
-            </div>
-          </section>
-          <section
-            class="container">
-            <div class="d-md-flex justify-content-between text-light p-3"
-                 style="border-radius: 1rem; background: black">
-              <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                      v-on:click="logout">
-                <i class="bi bi-door-open p-1"></i> Logout
-              </button>
-              <h3 class="d-none d-md-block">Want to leave? See you soon.</h3>
-            </div>
-          </section>
-        </div>
+            <h3 class="d-none d-md-block">View your shopping cart.</h3>
+          </div>
+        </section>
+        <section
+          class="container">
+          <div class="d-md-flex justify-content-between text-light pt-3"
+               style="border-radius: 1rem; background: black">
+            <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                    v-on:click="gotoInvoices">
+              <i class="bi bi-journal-text p-1"></i> Invoices
+            </button>
+            <h3 class="d-none d-md-block">View your invoices</h3>
+          </div>
+        </section>
+        <section
+          class="container">
+          <div class="d-md-flex justify-content-between text-light pt-3"
+               style="border-radius: 1rem; background: black">
+            <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                    v-on:click="gotoPreferences">
+              <i class="bi bi-wrench p-1"></i> Preferences
+            </button>
+            <h3 class="d-none d-md-block">Cookies and Trackers</h3>
+          </div>
+        </section>
+        <section
+          class="container">
+          <div class="d-md-flex justify-content-between text-light pt-3"
+               style="border-radius: 1rem; background: black">
+            <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                    v-on:click="gotoAPI">
+              <i class="bi bi-cloud-upload p-1"></i> API Manager
+            </button>
+            <h3 class="d-none d-md-block">API Settings & Authorization</h3>
+          </div>
+        </section>
+        <section
+          class="container">
+          <div class="d-md-flex justify-content-between text-light pt-3 pb-3"
+               style="border-radius: 1rem; background: black">
+            <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                    v-on:click="logout">
+              <i class="bi bi-door-open p-1"></i> Logout
+            </button>
+            <h3 class="d-none d-md-block">Want to leave? See you soon.</h3>
+          </div>
+        </section>
       </div>
     </div>
   </section>
@@ -114,6 +134,12 @@ export default {
     },
     gotoPreferences () {
       this.$router.push('/preferences?redirect=/account')
+    },
+    gotoAPI () {
+      this.$router.push('/apimanager')
+    },
+    gotoInvoices () {
+      this.$router.push('/invoices')
     }
   }
 }

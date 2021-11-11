@@ -53,6 +53,18 @@ const routes = [
     name: 'Preferences',
     component: () =>
       import('../views/UserPreferences.vue')
+  },
+  {
+    path: '/apimanager',
+    name: 'API Manager',
+    component: () =>
+      import('../views/APIManager.vue')
+  },
+  {
+    path: '/invoices',
+    name: 'Invoices',
+    component: () =>
+      import('../views/Invoices.vue')
   }
 ]
 

@@ -112,7 +112,7 @@ export default {
       const headers = new Headers()
       headers.set(
         'Authorization',
-        'Basic ' + Buffer.from('test@cwo:test').toString('base64')
+        'Basic ' + Buffer.from('admin:admin').toString('base64')
       )
       headers.set(
         'Content-Type', 'application/json'
