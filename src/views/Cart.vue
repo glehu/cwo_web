@@ -11,6 +11,10 @@
         <br>
         <button class="btn btn-outline-light" v-on:click="clearCart(true)">Clear Cart</button>
         <button class="btn btn-outline-warning ms-5" v-on:click="submitOrder()">Submit Order</button>
+        <br>
+        <textarea class="bg-black text-white mt-3" style="width: 75%"
+                  v-model="note" placeholder="Add a note for the seller.">
+        </textarea>
       </div>
     </section>
     <div v-show="!emptyCart" id="itemsSection" :style="{ backgroundImage: bg }">
@@ -27,7 +31,7 @@
                 </h3>
               </div>
               <div class="card-body text-center">
-                <i class="bi bi-question-circle"></i>
+                <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
               </div>
               <hr>
               <div class="card-body">
@@ -51,6 +55,7 @@ export default {
     return {
       resultsList: {},
       itemList: {},
+      note: '',
       angle: '180',
       color1: 'rebeccapurple',
       color2: 'darkblue'
@@ -143,6 +148,9 @@ export default {
           body: JSON.stringify(usageObj)
         }
       ).then(r => console.log(r))
+    },
+    getImg (item) {
+      return 'data:image/jpeg;base64,' + item.imageBase64String
     }
   },
   computed: {

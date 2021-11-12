@@ -36,7 +36,7 @@
     <div style="min-height: 5vh"/>
     <div class="container mt-2">
       <div class="card-group">
-        <div class="col-5" v-for="col in shopItemList" :key="col">
+        <div class="col" v-for="col in shopItemList" :key="col">
           <div class="card m-5"
                v-for="item in col" :key="item"
                style="background: black; color: white">
@@ -46,7 +46,7 @@
               </h3>
             </div>
             <div class="card-body text-center">
-              <i class="bi bi-question-circle"></i>
+              <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
             </div>
             <hr>
             <div class="card-body">
@@ -125,7 +125,8 @@ export default {
         id: item.uID,
         description: item.description,
         amount: 1,
-        price: JSON.parse(item.prices[0]).gp
+        price: JSON.parse(item.prices[0]).gp,
+        imageBase64String: item.imageBase64String
       })
       this.$notify(
         {
@@ -160,6 +161,9 @@ export default {
           body: JSON.stringify(usageObj)
         }
       ).then(r => console.log(r))
+    },
+    getImg (item) {
+      return 'data:image/jpeg;base64,' + JSON.parse(item).imageBase64String
     }
   }
 }
