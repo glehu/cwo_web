@@ -13,7 +13,7 @@
         </div>
       </div>
     </section>
-    <div id="invoicesSection" :style="{ backgroundImage: bg }">
+    <div v-show="!emptyInvoices" id="invoicesSection" :style="{ backgroundImage: bg }" style="min-height: 100vh">
       <section>
         <div class="mt-4" style="min-height: 3vh"></div>
         <div class="container">
@@ -69,6 +69,11 @@ export default {
   computed: {
     bg () {
       return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
+    },
+    emptyInvoices () {
+      const x = JSON.stringify(this.invoicesList) === '{}'
+      console.log(x)
+      return x
     }
   },
   methods: {
@@ -100,6 +105,7 @@ th {
   padding: 15px;
   font-size: 125%;
 }
+
 td, th {
   border: 2px dotted gray;
   border-collapse: collapse;
