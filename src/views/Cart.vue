@@ -101,7 +101,10 @@ export default {
           {
             method: 'post',
             headers: headers,
-            body: JSON.stringify({ itemUIDs: order })
+            body: JSON.stringify({
+              itemUIDs: order,
+              customerNote: this.note
+            })
           }
         )
           .then((res) => res.json())
@@ -113,6 +116,7 @@ export default {
             })
           )
         this.clearCart(false)
+        this.note = ''
         if (this.usageTracker) {
           this.sendUsageData({
             source: 'web',
