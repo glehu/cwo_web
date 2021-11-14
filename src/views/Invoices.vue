@@ -43,9 +43,13 @@
                 <tr>
                   <th>Total:</th>
                   <th></th>
-                  <th>{{ JSON.parse(invoice).grossPrice }}€</th>
+                  <th><span class="h2 fw-bold">{{ JSON.parse(invoice).grossTotal }}€</span></th>
                 </tr>
               </table>
+              <div class="text-start text-black fw-bold p-2 m-3" style="border-radius: 1rem; background: white">
+                Customer Note:
+                <span class="ms-2 fw-bolder lead">{{ JSON.parse(invoice).customerNote }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -107,7 +111,7 @@ th {
 }
 
 td, th {
-  border: 2px dotted gray;
+  border: 1px dotted gray;
   border-collapse: collapse;
 }
 </style>
