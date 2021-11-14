@@ -45,6 +45,18 @@
                   <th></th>
                   <th><span class="h2 fw-bold">{{ JSON.parse(invoice).grossTotal }}€</span></th>
                 </tr>
+                <tr>
+                  <th>Payment Received:</th>
+                  <th></th>
+                  <th><span class="h2 fw-bold">{{ JSON.parse(invoice).grossPaid }}€</span></th>
+                </tr>
+                <tr>
+                  <th>Status:</th>
+                  <th></th>
+                  <th><span class="h2 fw-bold">
+                    {{ JSON.parse(invoice).status }} {{ JSON.parse(invoice).statusDescription }}
+                  </span></th>
+                </tr>
               </table>
               <div class="text-start text-black fw-bold p-2 m-3" style="border-radius: 1rem; background: white">
                 Customer Note:
@@ -98,7 +110,7 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => (this.invoicesList = data.resultsList))
+        .then((data) => (this.invoicesList = data.resultsList.slice().reverse()))
     }
   }
 }
