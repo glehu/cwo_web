@@ -83,12 +83,7 @@ export default {
     submitOrder () {
       if (!this.emptyCart) {
         const headers = new Headers()
-        headers.set(
-          'Authorization',
-          'Basic ' + Buffer.from(
-            this.$store.state.username + ':' + this.$store.state.password)
-            .toString('base64')
-        )
+        headers.set('Authorization', 'Bearer ' + this.$store.state.token)
         headers.set(
           'Content-Type', 'application/json'
         )
@@ -135,12 +130,7 @@ export default {
     },
     async sendUsageData (usageObj) {
       const headers = new Headers()
-      headers.set(
-        'Authorization',
-        'Basic ' + Buffer.from(
-          this.$store.state.username + ':' + this.$store.state.password)
-          .toString('base64')
-      )
+      headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       headers.set(
         'Content-Type', 'application/json'
       )

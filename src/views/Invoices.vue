@@ -54,7 +54,7 @@
                   <th>Status:</th>
                   <th></th>
                   <th><span class="h2 fw-bold">
-                    {{ JSON.parse(invoice).status }} {{ JSON.parse(invoice).statusDescription }}
+                    {{ JSON.parse(invoice).status }} - ({{ JSON.parse(invoice).statusDescription }})
                   </span></th>
                 </tr>
               </table>
@@ -96,12 +96,7 @@ export default {
     loadInvoices () {
       this.invoicesList = {}
       const headers = new Headers()
-      headers.set(
-        'Authorization',
-        'Basic ' + Buffer.from(
-          this.$store.state.username + ':' + this.$store.state.password)
-          .toString('base64')
-      )
+      headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       fetch(
         'http://localhost:8000/api/m3/entry/' + this.$store.state.username + '?type=name&format=json&index=2',
         {

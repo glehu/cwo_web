@@ -54,12 +54,7 @@ export default {
     getSongFromUID (uID) {
       this.myObj = {}
       const headers = new Headers()
-      headers.set(
-        'Authorization',
-        'Basic ' + Buffer.from(
-          this.$store.state.username + ':' + this.$store.state.password)
-          .toString('base64')
-      )
+      headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       fetch(
         'http://localhost:8000/api/m1/entry/' + uID + '?type=name&format=json&lock=false',
         {

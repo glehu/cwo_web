@@ -45,9 +45,13 @@ export default {
   data () {
     return {
       user: {
-        httpCode: 0,
+        token: '',
         email: '',
         password: ''
+      },
+      loginResponse: {
+        httpCode: 0,
+        token: ''
       }
     }
   },
@@ -91,12 +95,13 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => (this.user.httpCode = JSON.parse(data.contentJson).httpCode))
+        .then((data) => (this.loginResponse = JSON.parse(data.contentJson)))
         .then(this.processLogin)
         .catch((err) => console.log(err.message))
     },
     processLogin () {
-      if (this.user.httpCode === 200) {
+      if (this.loginResponse.httpCode === 200) {
+        this.user.token = this.loginResponse.token
         this.$store.commit('logIn', this.user)
         console.log('User logged in: ' + this.$store.state.authenticated)
         if (this.usageTracker) {
@@ -116,12 +121,7 @@ export default {
     },
     async sendUsageData (usageObj) {
       const headers = new Headers()
-      headers.set(
-        'Authorization',
-        'Basic ' + Buffer.from(
-          this.$store.state.username + ':' + this.$store.state.password)
-          .toString('base64')
-      )
+      headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       headers.set(
         'Content-Type', 'application/json'
       )

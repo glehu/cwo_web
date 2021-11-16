@@ -16,6 +16,7 @@ export default createStore({
     usageTracking: false,
     // --- Authentication ---
     authenticated: false,
+    token: '',
     username: 'admin',
     password: 'admin',
     // --- Web Shop ---
@@ -25,11 +26,13 @@ export default createStore({
   mutations: {
     logIn (state, user) {
       state.authenticated = true
+      state.token = user.token
       state.username = user.email
       state.password = user.password
     },
     logOut (state) {
       state.authenticated = false
+      state.token = ''
       state.username = 'admin'
       state.password = 'admin'
     },
