@@ -48,13 +48,13 @@
                 <tr>
                   <th>Payment Received:</th>
                   <th></th>
-                  <th><span class="h2 fw-bold">{{ JSON.parse(invoice).grossPaid }}€</span></th>
+                  <th><span class="h2 fw-bold">{{ getPaidAmount(JSON.parse(invoice).grossPaid) }}</span></th>
                 </tr>
                 <tr>
                   <th>Status:</th>
                   <th></th>
                   <th><span class="h2 fw-bold">
-                    {{ JSON.parse(invoice).status }} - ({{ JSON.parse(invoice).statusDescription }})
+                    {{ JSON.parse(invoice).statusText }}
                   </span></th>
                 </tr>
               </table>
@@ -98,7 +98,7 @@ export default {
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       fetch(
-        'http://localhost:8000/api/m3/entry/' + this.$store.state.username + '?type=name&format=json&index=2',
+        'http://localhost:8000/api/m3/owninvoices',
         {
           method: 'get',
           headers: headers
@@ -106,6 +106,15 @@ export default {
       )
         .then((res) => res.json())
         .then((data) => (this.invoicesList = data.resultsList.slice().reverse()))
+    },
+    getPaidAmount (grossPaid) {
+      let paidAmount = ''
+      if (grossPaid !== undefined) {
+        paidAmount = grossPaid + '€'
+      } else {
+        paidAmount = 'No Payment Received.'
+      }
+      return paidAmount
     }
   }
 }
