@@ -87,17 +87,13 @@ export default {
         headers.set(
           'Content-Type', 'application/json'
         )
-        const order = []
-        for (let i = 0; i < this.items.length; i++) {
-          order.push(this.items[i].id)
-        }
         fetch(
           'http://localhost:8000/api/m3/neworder',
           {
             method: 'post',
             headers: headers,
             body: JSON.stringify({
-              itemUIDs: order,
+              cart: this.cart,
               customerNote: this.note
             })
           }
@@ -148,7 +144,7 @@ export default {
     }
   },
   computed: {
-    items () {
+    cart () {
       return this.$store.state.cart
     },
     itemsChunked () {
