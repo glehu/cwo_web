@@ -50,14 +50,17 @@
           <div class="card-body">
             <hr>
             <div class="d-flex">
-              <button class="btn btn-outline-light" v-on:click="putInCart(JSON.parse(item))">
+              <button class="btn btn-outline-light"
+                      v-on:click="putInCart(JSON.parse(item))">
                 <abbr title="Add to cart."><i class="bi bi-cart"></i></abbr> Add
               </button>
-              <button class="btn btn-outline-light ms-2" v-on:click="putInCart(JSON.parse(item))">
+              <button class="btn btn-outline-light ms-2">
                 <abbr title="Buy now."><i class="bi bi-cash-stack"></i></abbr> Buy
               </button>
-              <input class="ms-2 bg-black text-white p-2" type="number" value="1" min="1" max="99" size="2"
-              style="border-radius: 1rem">
+              <input class="ms-2 bg-black text-white p-2"
+                     :id="'AMT_' + JSON.parse(item).uID"
+                     type="number" value="1" min="1" max="99" size="2"
+                     style="border-radius: 1rem">
             </div>
             <p class="text-end fw-bold lead">
               {{ JSON.parse((JSON.parse(item).prices[0])).gp }} €
@@ -117,16 +120,17 @@ export default {
         .catch((err) => console.log(err.message))
     },
     putInCart (item) {
+      const amount = document.getElementById('AMT_' + item.uID).value
       this.$store.commit('putInCart', {
         id: item.uID,
         description: item.description,
-        amount: 1,
+        amount: amount,
         price: JSON.parse(item.prices[0]).gp,
         imageBase64String: item.imageBase64String
       })
       this.$notify(
         {
-          title: item.description + ' added to the cart.',
+          title: amount + 'x ' + item.description + ' added to the cart.',
           text: '',
           type: 'info'
         })

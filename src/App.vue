@@ -46,8 +46,9 @@
             </li>
             <li v-else
                 class="nav-item">
-              <router-link to="/login?redirect=/account" class="nav-link fw-bold">
+              <router-link to="/login?redirect=/account" class="nav-link">
                 <i class="bi bi-person-bounding-box"></i> Login
+                (<i class="bi bi-stack small"></i> {{ this.$store.state.cart.length }})
               </router-link>
             </li>
           </ul>

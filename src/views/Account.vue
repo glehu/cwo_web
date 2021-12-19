@@ -13,21 +13,21 @@
            style="border-radius: 1rem; background: black; border-color: white">
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light pt-3"
+          <div class="d-md-flex justify-content-between text-light mt-3"
                style="border-radius: 1rem; background: black">
             <div class="d-flex">
               <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                       v-on:click="showCart">
                 <i class="bi bi-cart p-1"></i> Cart
               </button>
-              <div class="d-md-flex">
-                <div class="d-flex ms-md-2">
+              <div class="d-lg-flex">
+                <div class="d-flex">
                   <i class="bi bi-stack ms-3"></i>
                   <p class="ms-2">
                     {{ this.$store.state.cart.length }} Items
                   </p>
                 </div>
-                <div class="d-flex ms-md-5">
+                <div class="d-flex">
                   <i class="bi bi-cash-stack ms-3"></i>
                   <p class="ms-2">
                     {{ cartTotal }} €
@@ -40,7 +40,7 @@
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light pt-3"
+          <div class="d-md-flex justify-content-between text-light mt-3"
                style="border-radius: 1rem; background: black">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="gotoInvoices">
@@ -51,7 +51,7 @@
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light pt-3"
+          <div class="d-md-flex justify-content-between text-light mt-3"
                style="border-radius: 1rem; background: black">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="gotoPreferences">
@@ -62,7 +62,7 @@
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light pt-3"
+          <div class="d-md-flex justify-content-between text-light mt-3"
                style="border-radius: 1rem; background: black">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="gotoAPI">
@@ -73,7 +73,7 @@
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light pt-3 pb-3"
+          <div class="d-md-flex justify-content-between text-light mt-3 mb-3"
                style="border-radius: 1rem; background: black">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="logout">
@@ -96,7 +96,7 @@ export default {
     cartTotal () {
       let total = 0
       for (let i = 0; i < this.$store.state.cart.length; i++) {
-        total += this.$store.state.cart[i].price
+        total += (this.$store.state.cart[i].price * this.$store.state.cart[i].amount)
       }
       return total
     }

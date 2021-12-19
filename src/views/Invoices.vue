@@ -18,7 +18,7 @@
         <div class="mt-4" style="min-height: 3vh"></div>
         <div class="container">
           <div class="col" v-for="invoice in invoicesList" :key="invoice">
-            <div class="card m-2 text-center mb-5"
+            <div class="card text-center mb-5"
                  style="background: black; color: white">
               <div class="card-title">
                 <h3 class="fw-bold m-3">
@@ -40,22 +40,29 @@
                   <td>{{ JSON.parse(item).np }} €</td>
                   <td>{{ JSON.parse(item).gp }} €</td>
                 </tr>
+              </table>
+              <div class="mt-5"/>
+              <table>
                 <tr>
-                  <th>Total:</th>
-                  <th></th>
-                  <th><span class="h2 fw-bold">{{ JSON.parse(invoice).grossTotal }} €</span></th>
+                  <th scope="row">Total:</th>
+                  <td><span class="h2 fw-bold">
+                    {{ JSON.parse(invoice).grossTotal }} €
+                  </span>
+                  </td>
                 </tr>
                 <tr>
-                  <th>Payment Received:</th>
-                  <th></th>
-                  <th><span class="h2 fw-bold">{{ getPaidAmount(JSON.parse(invoice).grossPaid) }}</span></th>
+                  <th scope="row">Payment Received:</th>
+                  <td><span class="h2 fw-bold">
+                    {{ getPaidAmount(JSON.parse(invoice).grossPaid) }}
+                  </span>
+                  </td>
                 </tr>
                 <tr>
-                  <th>Status:</th>
-                  <th></th>
-                  <th><span class="h2 fw-bold">
+                  <th scope="row">Status:</th>
+                  <td><span class="h2 fw-bold">
                     {{ JSON.parse(invoice).statusText }}
-                  </span></th>
+                  </span>
+                  </td>
                 </tr>
               </table>
               <div class="text-start text-black fw-bold p-2 m-3" style="border-radius: 1rem; background: white">
@@ -112,7 +119,7 @@ export default {
       if (grossPaid !== undefined) {
         paidAmount = grossPaid + ' €'
       } else {
-        paidAmount = 'No Payment Received.'
+        paidAmount = '0 €'
       }
       return paidAmount
     }
