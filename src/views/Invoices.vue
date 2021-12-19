@@ -37,13 +37,13 @@
                 </tr>
                 <tr v-for="item in JSON.parse(invoice).items" :key="item">
                   <td>{{ JSON.parse(item).d }}</td>
-                  <td>{{ JSON.parse(item).np }}€</td>
-                  <td>{{ JSON.parse(item).gp }}€</td>
+                  <td>{{ JSON.parse(item).np }} €</td>
+                  <td>{{ JSON.parse(item).gp }} €</td>
                 </tr>
                 <tr>
                   <th>Total:</th>
                   <th></th>
-                  <th><span class="h2 fw-bold">{{ JSON.parse(invoice).grossTotal }}€</span></th>
+                  <th><span class="h2 fw-bold">{{ JSON.parse(invoice).grossTotal }} €</span></th>
                 </tr>
                 <tr>
                   <th>Payment Received:</th>
@@ -110,7 +110,7 @@ export default {
     getPaidAmount (grossPaid) {
       let paidAmount = ''
       if (grossPaid !== undefined) {
-        paidAmount = grossPaid + '€'
+        paidAmount = grossPaid + ' €'
       } else {
         paidAmount = 'No Payment Received.'
       }

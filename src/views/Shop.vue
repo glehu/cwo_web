@@ -1,8 +1,8 @@
 <template>
-  <div style="min-height: 10vh"></div>
+  <div style="min-height: 5em"/>
   <div class="shop text-light">
     <!-- Box View -->
-    <section class="p-1">
+    <section>
       <div class="container">
         <div class="row">
           <div class="col-md mt-1 d-md-flex">
@@ -31,34 +31,41 @@
       </div>
     </section>
   </div>
-  <div style="min-height: 10vh"></div>
+  <div style="min-height: 2em"/>
   <section id="itemsSection" style="min-height: 100vh" :style="{ backgroundImage: bg }">
-    <div style="min-height: 5vh"/>
-    <div class="container mt-2">
-      <div class="card-group">
-        <div class="col" v-for="col in shopItemList" :key="col">
-          <div class="card m-5"
-               v-for="item in col" :key="item"
-               style="background: black; color: white">
-            <div class="card-title">
-              <h3 class="fw-bold m-3">
-                {{ JSON.parse(item).description }}
-              </h3>
-            </div>
-            <div class="card-body text-center">
-              <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
-            </div>
+    <div style="min-height: 5em"/>
+    <div class="container">
+      <div class="wrapper">
+        <div class="card"
+             v-for="item in shopItemList" :key="item"
+             style="background: black; color: white">
+          <div class="card-title">
+            <h3 class="fw-bold ms-3 mt-3">
+              {{ JSON.parse(item).description }}
+            </h3>
+            <p class="ms-3 mt-3">
+              {{ JSON.parse(item).info }}
+            </p>
+          </div>
+          <div class="card-body">
             <hr>
-            <div class="card-body">
-              <p class="mb-auto">
-                <button class="btn btn-outline-light btn-md"
-                        v-on:click="putInCart(JSON.parse(item))">Add
-                </button>
-              </p>
-              <p class="mb-auto text-end fw-bold lead">
-                {{ JSON.parse((JSON.parse(item).prices[0])).gp }} €
-              </p>
+            <div class="d-flex">
+              <button class="btn btn-outline-light" v-on:click="putInCart(JSON.parse(item))">
+                <abbr title="Add to cart."><i class="bi bi-cart"></i></abbr> Add
+              </button>
+              <button class="btn btn-outline-light ms-2" v-on:click="putInCart(JSON.parse(item))">
+                <abbr title="Buy now."><i class="bi bi-cash-stack"></i></abbr> Buy
+              </button>
+              <input class="ms-2 bg-black text-white p-2" type="number" value="1" min="1" max="99" size="2"
+              style="border-radius: 1rem">
             </div>
+            <p class="text-end fw-bold lead">
+              {{ JSON.parse((JSON.parse(item).prices[0])).gp }} €
+            </p>
+            <hr>
+          </div>
+          <div class="card-footer text-center">
+            <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
           </div>
         </div>
       </div>
@@ -105,15 +112,9 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => (this.$store.commit('putShopItems', this.chunkedItems(data.resultsList))))
+        .then((data) => (this.$store.commit('putShopItems', data.resultsList)))
         .then(() => (this.scrollTo('itemsSection')))
         .catch((err) => console.log(err.message))
-    },
-    chunkedItems (list) {
-      const chunk = require('chunk')
-      const chunkedItems = chunk(list, 2)
-      console.log(chunkedItems)
-      return chunkedItems
     },
     putInCart (item) {
       this.$store.commit('putInCart', {
@@ -180,6 +181,40 @@ export default {
 
 .animRot:hover {
   transform: rotate(30deg);
+}
+
+.wrapper {
+  display: grid;
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .wrapper {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .wrapper {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 </style>

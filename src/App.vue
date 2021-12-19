@@ -4,7 +4,7 @@
       <div class="container">
         <a href="#" class="navbar-brand fw-bold">
           <img src="../public/orochiicon.png" alt=""/>
-          0R0CHI Batsuzoku
+          Orochi Batsuzoku
         </a>
         <button
           class="navbar-toggler"
