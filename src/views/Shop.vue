@@ -122,7 +122,7 @@ export default {
     putInCart (item) {
       const amount = document.getElementById('AMT_' + item.uID).value
       this.$store.commit('putInCart', {
-        id: item.uID,
+        uID: item.uID,
         description: item.description,
         amount: amount,
         price: JSON.parse(item.prices[0]).gp,

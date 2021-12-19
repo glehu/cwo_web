@@ -30,14 +30,20 @@
                   {{ item.description }}
                 </h3>
               </div>
-              <div class="card-body text-center">
-                <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
-              </div>
-              <hr>
               <div class="card-body">
-                <p class="mb-auto text-end fw-bold lead">
-                  {{ item.price }} €
+                <hr>
+                <div class="d-flex">
+                  <button class="btn btn-outline-danger">
+                    <abbr title="Remove from cart."><i class="bi bi-x"></i></abbr> Remove
+                  </button>
+                </div>
+                <p class="text-end fw-bold lead">
+                  {{ item.amount }}x {{ item.price }} €
                 </p>
+                <hr>
+              </div>
+              <div class="card-footer text-center">
+                <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
               </div>
             </div>
           </div>
@@ -162,7 +168,7 @@ export default {
     cartTotal () {
       let total = 0
       for (let i = 0; i < this.$store.state.cart.length; i++) {
-        total += this.$store.state.cart[i].price
+        total += (this.$store.state.cart[i].price * this.$store.state.cart[i].amount)
       }
       return total
     },
