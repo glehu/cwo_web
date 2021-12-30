@@ -5,9 +5,9 @@
     <div class="d-flex">
       <img src="../assets/clouddaybannerformatted.png" alt=""
            style="max-width:100%; height:auto"/>
-      <div class="container text-white" style="position: relative; top: 10vh; right: 100%; padding-left: 5vw">
+      <div class="container text-white" style="position: relative; top: 5em; right: 100%; padding-left: 5em">
         <h2 class="fw-bold">Featured Artist:</h2>
-        <p class="fw-bold" style="font-size: 400%">CLOUDDAY</p>
+        <p class="fw-bold" style="font-size: 400%;font-family: 'JetBrains Mono Bold',sans-serif;">CLOUDDAY</p>
         <div class="d-flex mt-2">
           <div class="mb-2" style="text-align: justify; text-justify: inter-word; width: 250px">
             <p>
@@ -37,7 +37,7 @@
                 class="btn mdArrow" v-on:click="scrollTo('pg1')"
                 style="margin-left: 150px">
                 <span class="fw-bold lead" style="color: white">
-                  DISCOVER 0R0CHI
+                  Discover Orochi
                 </span>
                 <br>
                 <i class="bi bi-box-arrow-down h1" style="color: white"></i>
@@ -53,33 +53,32 @@
       </div>
     </div>
   </div>
-  <div id="pg1" style="min-height: 100vh" :style="{ backgroundImage: bg1 }">
-    <div class="d-md-none d-block" style="min-height: 12vh"></div>
-    <div class="d-md-block d-none" style="min-height: 25vh"></div>
-    <section class="container">
-      <div class="align-items-center justify-content-between text-light p-3"
-           style="border-radius: 1rem; background: black">
-        <section class="mt-2">
-          <h1 class="fw-bold m-3 d-flex">
-            <i class="bi bi-stars" style="font-size: 200%"></i><br>
-            Welcome.<br>
-          </h1>
-          <h2>Discover a new world of possibilities for artists.</h2>
-        </section>
-        <hr>
-        <section class="d-md-flex">
-          <h1 class="fw-bold text-start">
-            Unleash your <span style="color: darkred; font-size: 200%">POTENTIAL</span>
-          </h1>
-          <h3 class="text-center fw-bold">
-            Whether you're a total beginner or a professional... <br><br>
-            We've got you covered.
-          </h3>
-        </section>
+  <div id="pg1" style="min-height: 100vh; background-color: #080808">
+    <section class="container" style="position: relative; top: 5em">
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <div class="align-items-center justify-content-between text-light p-3">
+          <section class="mt-2">
+            <h1 class="fw-bold m-3 d-flex">
+              <i class="bi bi-stars" style="font-size: 200%"></i><br>
+              Welcome.<br>
+            </h1>
+            <h2>Discover a new world of possibilities for artists.</h2>
+          </section>
+          <hr>
+          <section class="d-md-flex">
+            <h1 class="fw-bold text-start">
+              Unleash your <span style="color: darkred; font-size: 200%">POTENTIAL</span>
+            </h1>
+            <h3 class="text-end fw-bold">
+              Whether you're a total beginner or a professional... <br><br>
+              We've got you covered.
+            </h3>
+          </section>
+        </div>
       </div>
     </section>
     <div>
-      <section class="text-center p-3 d-flex">
+      <section class="text-center p-3 d-flex" style="margin-top: 5em">
         <div class="container">
           <div>
             <button class="btn mdArrow" v-on:click="scrollTo('pg2')">
@@ -91,29 +90,28 @@
     </div>
   </div>
   <div id="pg2" style="min-height: 100vh" :style="{ backgroundImage: bg2 }">
-    <div class="d-md-none d-block" style="min-height: 12vh"></div>
-    <div class="d-md-block d-none" style="min-height: 25vh"></div>
-    <section class="container">
-      <div class="align-items-center justify-content-between text-light p-3"
-           style="border-radius: 1rem; background: black">
-        <section class="container mt-5">
-          <h1 style="font-weight: bold; color: white">Be part of the collective.</h1>
-        </section>
-        <hr>
-        <section class="d-md-flex">
-          <h3 class="text-center fw-bold">
-            Vocalists, producers, graphics designers and video producers... <br><br>
-            From <span style="font-size: 200%">19</span> countries across the world.
-          </h3>
-          <h1 class="fw-bold text-start">
-            Enjoy <span style="color: blue; font-size: 200%">DIVERSITY</span>
-          </h1>
-        </section>
+    <section class="container" style="position: relative; top: 5em">
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <div class="align-items-center justify-content-between text-light p-3">
+          <section class="container mt-5">
+            <h1 style="font-weight: bold; color: white">Be part of the collective.</h1>
+          </section>
+          <hr>
+          <section class="d-md-flex">
+            <h1 class="fw-bold text-start">
+              Enjoy <span style="font-size: 200%">DIVERSITY</span>
+            </h1>
+            <h3 class="text-end fw-bold">
+              Vocalists, producers, graphics designers and video producers...<br><br>
+              From <span style="font-size: 200%">19</span> countries<br>across the world.
+            </h3>
+          </section>
+        </div>
       </div>
     </section>
     <section class="text-center p-3 d-flex">
       <div class="container">
-        <div>
+        <div style="margin-top: 4.5em;">
           <button class="btn mdArrow" v-on:click="scrollTo('pg3')">
             <i class="bi bi-arrow-down h1" style="color: white"></i>
           </button>
@@ -123,76 +121,75 @@
   </div>
   <!-- Box View -->
   <div id="pg3" style="min-height: 100vh" :style="{ backgroundImage: bg3 }">
-    <div class="d-md-none d-block" style="min-height: 8vh"></div>
-    <div class="d-md-block d-none" style="min-height: 15vh"></div>
-    <section
-      class="container">
-      <div class="d-md-flex align-items-center justify-content-between text-light p-3">
-        <h1 class="fw-bold text-start mb-5">
+    <section class="container">
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <div class="d-md-flex text-light p-3" style="margin-top: 5em">
+          <h1 class="fw-bold text-start">
           <span style="color: white; font-size: 200%">
                 Join now.<br>
                 0R0CHI Batsuzoku
               </span>
-        </h1>
-        <div class="d-flex">
-          <div class="text-center">
-            <button title="Soundcloud"
-                    class="btn bi-cloud-fill btn-lg muArrow"
-                    style="color: white"
-                    v-on:click="redirectSoundcloud"/>
-            <br>
-            <button title="Discord"
-                    class="btn bi-discord btn-lg muArrow mt-3"
-                    style="color: white"
-                    v-on:click="redirectDiscord"/>
-            <br>
-            <button title="Instagram"
-                    class="btn bi-instagram btn-lg muArrow mt-3"
-                    style="color: white"
-                    v-on:click="redirectInstagram"/>
-            <br>
-            <button title="GitHub"
-                    class="btn bi-github btn-lg muArrow mt-3"
-                    style="color: white"
-                    v-on:click="redirectGitHub"/>
-          </div>
-          <div class="ms-5">
-            <button v-show="!isLoggedIn"
-                    class="btn btn-outline-light btn-lg muArrow fw-bold"
-                    v-on:click="gotoLogin()"
-                    style="width: 200px">
-              Login
-            </button>
-            <br>
-            <button v-show="!isLoggedIn"
-                    class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
-                    v-on:click="gotoRegister()"
-                    style="width: 200px">
-              Register
-            </button>
-            <button v-show="isLoggedIn"
-                    class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
-                    v-on:click="gotoAccount()"
-                    style="width: 200px">
-              Account
-            </button>
-            <br>
-            <button class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
-                    v-on:click="gotoShop()"
-                    style="width: 200px">
-              Shop
-            </button>
-            <br>
-            <button class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
-                    v-on:click="scrollTo('root')"
-                    style="width: 200px">
-              Beam me up
-            </button>
+          </h1>
+          <div class="d-flex ms-5">
+            <div class="text-center">
+              <button title="Soundcloud"
+                      class="btn bi-cloud-fill btn-lg muArrow"
+                      style="color: white"
+                      v-on:click="redirectSoundcloud"/>
+              <br>
+              <button title="Discord"
+                      class="btn bi-discord btn-lg muArrow mt-3"
+                      style="color: white"
+                      v-on:click="redirectDiscord"/>
+              <br>
+              <button title="Instagram"
+                      class="btn bi-instagram btn-lg muArrow mt-3"
+                      style="color: white"
+                      v-on:click="redirectInstagram"/>
+              <br>
+              <button title="GitHub"
+                      class="btn bi-github btn-lg muArrow mt-3"
+                      style="color: white"
+                      v-on:click="redirectGitHub"/>
+            </div>
+            <div class="ms-5">
+              <button v-show="!isLoggedIn"
+                      class="btn btn-outline-light btn-lg muArrow fw-bold"
+                      v-on:click="gotoLogin()"
+                      style="width: 200px">
+                Login
+              </button>
+              <br>
+              <button v-show="!isLoggedIn"
+                      class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
+                      v-on:click="gotoRegister()"
+                      style="width: 200px">
+                Register
+              </button>
+              <button v-show="isLoggedIn"
+                      class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
+                      v-on:click="gotoAccount()"
+                      style="width: 200px">
+                Account
+              </button>
+              <br>
+              <button class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
+                      v-on:click="gotoShop()"
+                      style="width: 200px">
+                Shop
+              </button>
+              <br>
+              <button class="btn btn-outline-light btn-lg muArrow fw-bold mt-3"
+                      v-on:click="scrollTo('root')"
+                      style="width: 200px">
+                Beam me up
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
-    <section class="p-1">
+    <section class="p-1 mt-5">
       <div class="container card-group">
         <div class="row text-center">
           <div class="col-md mt-1 d-md-flex">

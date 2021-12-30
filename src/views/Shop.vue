@@ -1,40 +1,36 @@
 <template>
-  <div style="min-height: 5em"/>
-  <div class="shop text-light">
+  <div class="shop text-light" style="background-color: #080808">
     <!-- Box View -->
-    <section>
-      <div class="container">
-        <div class="row">
-          <div class="col-md mt-1 d-md-flex">
-            <button class="btn text-dark fw-bold" v-on:click="getItems()">
-              <div class="card bg-light text-dark animEmp">
-                <div class="card-body text-center">
-                  <div class="h1 mb-3">
-                    <i class="bi bi-bag"></i>
-                  </div>
-                  <h3 class="card-title">
-                    Merchandise
-                  </h3>
-                  <p class="fw-bold text-dark">View Items</p>
+    <section class="container">
+      <div class="row">
+        <div class="d-md-flex" style="margin-top: 4em; margin-bottom: 1em">
+          <button class="btn text-dark fw-bold" v-on:click="getItems()">
+            <div class="card bg-light text-dark animEmp">
+              <div class="card-body text-center">
+                <div class="h1 mb-2">
+                  <i class="bi bi-bag"></i>
                 </div>
+                <h3 class="card-title">
+                  Merchandise
+                </h3>
+                <p class="fw-bold text-dark">View Items</p>
               </div>
-            </button>
-            <div class="text-start">
-              <h1 class="m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
-              <button class="btn text-white animRot" v-on:click="console.log('')">
-                <i class="bi bi-arrow-clockwise h1 text-start"></i>
-              </button>
-              Change Artist
             </div>
+          </button>
+          <div class="text-start">
+            <h1 class="m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
+            <button class="btn text-white animRot" v-on:click="console.log('')">
+              <i class="bi bi-arrow-clockwise h1 text-start"></i>
+            </button>
+            Change Artist
           </div>
         </div>
       </div>
     </section>
   </div>
-  <div style="min-height: 2em"/>
   <section id="itemsSection" style="min-height: 100vh" :style="{ backgroundImage: bg }">
-    <div style="min-height: 5em"/>
     <div class="container">
+      <div style="height: 1em"></div>
       <div class="wrapper">
         <div class="card"
              v-for="item in shopItemList" :key="item"
@@ -43,19 +39,20 @@
             <h3 class="fw-bold ms-3 mt-3">
               {{ JSON.parse(item).description }}
             </h3>
-            <p class="ms-3 mt-3">
-              {{ JSON.parse(item).info }}
-            </p>
           </div>
-          <div class="card-body">
+          <div class="card-body text-center">
+            <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
+          </div>
+          <div class="card-footer">
+            {{ JSON.parse(item).info }}
             <hr>
             <div class="d-flex">
               <button class="btn btn-outline-light"
                       v-on:click="putInCart(JSON.parse(item))">
-                <abbr title="Add to cart."><i class="bi bi-cart"></i></abbr> Add
+                <abbr title="Add to cart."><i class="bi bi-cart"></i></abbr> <span class="hide_on_big">Add</span>
               </button>
               <button class="btn btn-outline-light ms-2">
-                <abbr title="Buy now."><i class="bi bi-cash-stack"></i></abbr> Buy
+                <abbr title="Buy now."><i class="bi bi-cash-stack"></i></abbr> <span class="hide_on_big">Buy</span>
               </button>
               <input class="ms-2 bg-black text-white p-2"
                      :id="'AMT_' + JSON.parse(item).uID"
@@ -65,10 +62,6 @@
             <p class="text-end fw-bold lead">
               {{ JSON.parse((JSON.parse(item).prices[0])).gp }} €
             </p>
-            <hr>
-          </div>
-          <div class="card-footer text-center">
-            <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
           </div>
         </div>
       </div>
@@ -189,7 +182,7 @@ export default {
 
 .wrapper {
   display: grid;
-  gap: 10px;
+  gap: 1em;
   grid-auto-rows: minmax(100px, auto);
 }
 
@@ -210,14 +203,18 @@ export default {
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   .wrapper {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hide_on_big {
+    display: none
   }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   .wrapper {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 

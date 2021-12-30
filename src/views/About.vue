@@ -18,7 +18,7 @@
             people to their newly created home.
             <br><br><i class="bi bi-dot"/>How can I join?
             Just join our
-            <a :href="'https://discord.gg/pr2vwr8'">Discord</a>
+            <a :href="'https://discord.gg/pr2vwr8'" style="color: white">Discord</a>
             server!
             We will discuss everything else afterwards.
             It could not be simpler than that.
