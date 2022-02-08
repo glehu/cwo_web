@@ -5,7 +5,7 @@
     <img src="../assets/graffitifalls/Banner.png" alt=""
          style="width:100%; height:100%" class="pt-5"/>
     <div class="text-white"
-         style="width: 250px; height: 50px; position: absolute; top: 80%; left: 50%; margin: -50px 0 0 -125px;">
+         style="width: 250px; height: 50px; position: absolute; top: 80%; left: 50%; margin: -25px 0 0 -125px;">
       <div style="display: flex">
         <button class="btn btn-warning btn-lg muArrow fw-bold mt-3"
                 v-on:click="gotoArtist('graffitifalls')"
@@ -18,6 +18,11 @@
           <i class="bi bi-box-arrow-down"></i>
         </button>
       </div>
+      <button class="btn btn-success btn-lg muArrow fw-bold mt-3"
+              v-on:click="gotoShop"
+              style="width: 250px; height: 50px">
+        Buy Tickets <i class="bi bi-ticket ps-2"></i>
+      </button>
     </div>
   </div>
   <div id="cloudday" class="d-md-block d-none"
@@ -75,7 +80,7 @@
   </div>
   <div id="pg1" style="min-height: 100vh; background-color: #080808; position: relative">
     <div class="container" style="position: relative;">
-      <div style="display: flex; justify-content: center; align-items: center; position: relative; top: 25vh">
+      <div style="display: flex; justify-content: center; align-items: center; position: relative; top: 20vh">
         <div class="align-items-center justify-content-between text-light p-3">
           <section class="mt-2">
             <h1 class="fw-bold m-3 d-flex">
@@ -94,7 +99,8 @@
               We've got you covered.
             </h3>
           </section>
-          <button class="btn mdArrow" v-on:click="scrollTo('pg2')" style="position: relative; left: 50%">
+          <button class="btn mdArrow" v-on:click="scrollTo('pg2')"
+                  style="position: relative; width: 50px; left: 50%; margin: 10px 0 0 -25px">
             <i class="bi bi-arrow-down h1" style="color: white"></i>
           </button>
         </div>
@@ -103,7 +109,7 @@
   </div>
   <div id="pg2" style="min-height: 100vh; position: relative" :style="{ backgroundImage: bg2 }">
     <div class="container" style="position: relative;">
-      <div style="display: flex; justify-content: center; align-items: center; position: relative; top: 25vh">
+      <div style="display: flex; justify-content: center; align-items: center; position: relative; top: 20vh">
         <div class="align-items-center justify-content-between text-light p-3">
           <section class="container mt-5">
             <h1 style="font-weight: bold; color: white">Be part of the collective.</h1>
@@ -118,7 +124,8 @@
               From <span style="font-size: 200%">19</span> countries<br>across the world.
             </h3>
           </section>
-          <button class="btn mdArrow" v-on:click="scrollTo('pg3')" style="position: relative; left: 50%">
+          <button class="btn mdArrow" v-on:click="scrollTo('pg3')"
+                  style="position: relative; width: 50px; left: 50%; margin: 10px 0 0 -25px">
             <i class="bi bi-arrow-down h1" style="color: white"></i>
           </button>
         </div>

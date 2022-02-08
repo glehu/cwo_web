@@ -11,9 +11,10 @@
                   <i class="bi bi-bag"></i>
                 </div>
                 <h3 class="card-title">
-                  Merchandise
+                  <span style="text-decoration: line-through">Merchandise</span>
                 </h3>
-                <p class="fw-bold text-dark">View Items</p>
+                <p class="fw-bold text-dark"><span style="text-decoration: line-through">View Items</span></p>
+                Coming Soon
               </div>
             </div>
           </button>
