@@ -1,5 +1,25 @@
 <template>
   <!-- Artist -->
+  <div id="graffitifalls" class="d-md-block d-none"
+       style="min-height: 100vh; max-height: 100vh; overflow: hidden; background-color: black">
+    <img src="../assets/graffitifalls/Banner.png" alt=""
+         style="width:100%; height:100%" class="pt-5"/>
+    <div class="text-white"
+         style="width: 250px; height: 50px; position: absolute; top: 80%; left: 50%; margin: -50px 0 0 -125px;">
+      <div style="display: flex">
+        <button class="btn btn-warning btn-lg muArrow fw-bold mt-3"
+                v-on:click="gotoArtist('graffitifalls')"
+                style="width: 200px; height: 50px">
+          Check 'em out!
+        </button>
+        <button class="btn btn-dark btn-lg muArrow fw-bold mt-3"
+                v-on:click="scrollTo('cloudday')"
+                style="width: 50px; height: 50px">
+          <i class="bi bi-box-arrow-down"></i>
+        </button>
+      </div>
+    </div>
+  </div>
   <div id="cloudday" class="d-md-block d-none"
        style="min-height: 100vh; max-height: 100vh; overflow: hidden; background-color: black">
     <div class="d-flex">
@@ -53,9 +73,9 @@
       </div>
     </div>
   </div>
-  <div id="pg1" style="min-height: 100vh; background-color: #080808">
-    <section class="container" style="position: relative; top: 5em">
-      <div style="display: flex; justify-content: center; align-items: center;">
+  <div id="pg1" style="min-height: 100vh; background-color: #080808; position: relative">
+    <div class="container" style="position: relative;">
+      <div style="display: flex; justify-content: center; align-items: center; position: relative; top: 25vh">
         <div class="align-items-center justify-content-between text-light p-3">
           <section class="mt-2">
             <h1 class="fw-bold m-3 d-flex">
@@ -74,24 +94,16 @@
               We've got you covered.
             </h3>
           </section>
+          <button class="btn mdArrow" v-on:click="scrollTo('pg2')" style="position: relative; left: 50%">
+            <i class="bi bi-arrow-down h1" style="color: white"></i>
+          </button>
         </div>
       </div>
-    </section>
-    <div>
-      <section class="text-center p-3 d-flex" style="margin-top: 5em">
-        <div class="container">
-          <div>
-            <button class="btn mdArrow" v-on:click="scrollTo('pg2')">
-              <i class="bi bi-arrow-down h1" style="color: white"></i>
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
   </div>
-  <div id="pg2" style="min-height: 100vh" :style="{ backgroundImage: bg2 }">
-    <section class="container" style="position: relative; top: 5em">
-      <div style="display: flex; justify-content: center; align-items: center;">
+  <div id="pg2" style="min-height: 100vh; position: relative" :style="{ backgroundImage: bg2 }">
+    <div class="container" style="position: relative;">
+      <div style="display: flex; justify-content: center; align-items: center; position: relative; top: 25vh">
         <div class="align-items-center justify-content-between text-light p-3">
           <section class="container mt-5">
             <h1 style="font-weight: bold; color: white">Be part of the collective.</h1>
@@ -106,24 +118,18 @@
               From <span style="font-size: 200%">19</span> countries<br>across the world.
             </h3>
           </section>
-        </div>
-      </div>
-    </section>
-    <section class="text-center p-3 d-flex">
-      <div class="container">
-        <div style="margin-top: 4.5em;">
-          <button class="btn mdArrow" v-on:click="scrollTo('pg3')">
+          <button class="btn mdArrow" v-on:click="scrollTo('pg3')" style="position: relative; left: 50%">
             <i class="bi bi-arrow-down h1" style="color: white"></i>
           </button>
         </div>
       </div>
-    </section>
+    </div>
   </div>
   <!-- Box View -->
   <div id="pg3" style="min-height: 100vh" :style="{ backgroundImage: bg3 }">
     <section class="container">
-      <div style="display: flex; justify-content: center; align-items: center;">
-        <div class="d-md-flex text-light p-3" style="margin-top: 5em">
+      <div style="display: flex; justify-content: center; align-items: center; padding-top: 20vh">
+        <div class="d-md-flex text-light p-3">
           <h1 class="fw-bold text-start">
           <span style="color: white; font-size: 200%">
                 Join now.<br>
@@ -189,11 +195,11 @@
         </div>
       </div>
     </section>
-    <section class="p-1 mt-5">
+    <section class="p-1">
       <div class="container card-group">
         <div class="row text-center">
           <div class="col-md mt-1 d-md-flex">
-            <div class="card text-light" style="background: black">
+            <div class="card-subtitle text-dark">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-file-earmark-music"></i>
@@ -208,7 +214,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card text-light" style="background: black">
+            <div class="card-subtitle text-dark">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-mic"></i>
@@ -224,7 +230,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card text-light" style="background: black">
+            <div class="card-subtitle text-dark">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-broadcast-pin"></i>
@@ -239,7 +245,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card text-light" style="background: black">
+            <div class="card-subtitle text-dark">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-soundwave"></i>
@@ -254,7 +260,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card text-light" style="background: black">
+            <div class="card-subtitle text-dark">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-heart"></i>
@@ -269,7 +275,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card text-light" style="background: black">
+            <div class="card-subtitle text-dark">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-shop-window"></i>
@@ -333,6 +339,9 @@ export default {
     },
     gotoLogin () {
       this.$router.push('/login?redirect=/account')
+    },
+    gotoArtist (artist) {
+      this.$router.push('/artist/' + artist)
     },
     redirectDiscord () {
       if (this.usageTracker) {
@@ -441,6 +450,7 @@ export default {
 </script>
 
 <style scoped>
+
 .muArrow, .mdArrow {
   position: relative;
   top: 0;
@@ -454,4 +464,5 @@ export default {
 .mdArrow:hover {
   top: +8px;
 }
+
 </style>

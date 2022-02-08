@@ -2,10 +2,10 @@
   <div id="root" class="home">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: black">
       <div class="container">
-        <a href="#" class="navbar-brand fw-bold">
+        <!--<a href="#" class="navbar-brand fw-bold">
           <img src="../public/orochiicon.png" alt=""/>
           Orochi Batsuzoku
-        </a>
+        </a>-->
         <button
           class="navbar-toggler"
           type="button"
@@ -55,7 +55,7 @@
         </div>
       </div>
     </nav>
-    <div style="min-height: 100vh" :style="{ backgroundImage: bg }">
+    <div style="min-height: 100vh; background-color: #0A0A0F">
       <router-view/>
     </div>
     <notifications position="bottom right"/>

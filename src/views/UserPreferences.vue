@@ -1,17 +1,19 @@
 <template>
-  <div class="preferences">
-    <div class="d-md-none d-block" style="min-height: 10vh"></div>
-    <div class="d-md-block d-none" style="min-height: 10vh"></div>
-    <div class="container">
-      <h1 class="fw-bold text-white p-3" style="border-radius: 1rem; background: black">
+  <div class="preferences" style="min-height: 100vh; background-color: #0A0A0F">
+    <div class="container" style="position: absolute; top: 10%">
+      <h1 class="fw-bold text-white p-3">
         Hey, no running in the hallways!
       </h1>
-      <div class="mt-3 p-3"
-           style="border-radius: 1rem; background: black">
-        <h2 class="text-white">
-          This website makes use of cookies!.
-        </h2>
-        <p class="text-white">
+      <div class="mt-3 p-3">
+        <div class="text-white" style="display: flex">
+          <h2>
+            This website makes use of cookies!
+          </h2>
+          <button class="btn text-white" v-on:click="toggleExplanation('cookieExplanation')">
+            What's that <i class="bi bi-question fw-bold"></i>
+          </button>
+        </div>
+        <p id="cookieExplanation" class="text-white" style="display: none">
           Cookies (data stored locally on your device) are required for this website.
           <br>Without those, the website cannot operate as intended, and worse, the cookie monster will be saddened.
         </p>
@@ -34,11 +36,16 @@
           </p>
         </div>
       </div>
-      <div class="mt-2 p-3" style="border-radius: 1rem; background: black">
-        <h2 class="text-white">
-          Allow usage tracking?
-        </h2>
-        <p class="text-white">
+      <div class="mt-2 p-3">
+        <div style="display: flex">
+          <h2 class="text-white">
+            Allow usage tracking?
+          </h2>
+          <button class="btn text-white" v-on:click="toggleExplanation('trackingExplanation')">
+            What's that <i class="bi bi-question fw-bold"></i>
+          </button>
+        </div>
+        <p id="trackingExplanation" class="text-white" style="display: none">
           In order to optimize the website, I need your usage data to know what you're doing most of the time.
           <br>No personal data will be sent to the server.
         </p>
@@ -61,7 +68,7 @@
           </p>
         </div>
       </div>
-      <div class="mt-3 p-3" style="border-radius: 1rem; background: black">
+      <div class="mt-3 p-3">
         <button class="btn btn-lg btn-outline-success mt-2" v-on:click="confirm">Confirm</button>
       </div>
     </div>
@@ -100,6 +107,14 @@ export default {
           module: 'preferences',
           action: 'allowUsageTracking'
         })
+      }
+    },
+    toggleExplanation (explanationId) {
+      const explanation = document.getElementById(explanationId)
+      if (explanation.style.display === 'block') {
+        explanation.style.display = 'none'
+      } else {
+        explanation.style.display = 'block'
       }
     },
     confirm () {

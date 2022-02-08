@@ -65,6 +65,12 @@ const routes = [
     name: 'Invoices',
     component: () =>
       import('../views/Invoices.vue')
+  },
+  {
+    path: '/artist/graffitifalls',
+    name: 'Graffiti Falls',
+    component: () =>
+      import('../views/GraffitiFalls.vue')
   }
 ]
 
@@ -75,7 +81,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // If the route requires authentication and the user is not authenticated, show log-in screen
-  document.title = 'CWO ' + to.name
+  document.title = to.name
   if ((to.matched.some(record => record.meta.requiresAuth)) && (to.name !== 'Login' && !store.state.authenticated)) {
     next({
       path: '/login',

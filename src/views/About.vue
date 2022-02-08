@@ -1,9 +1,8 @@
 <template>
   <div class="about">
-    <div style="min-height: 10vh"></div>
-    <div class="mt-2 text-white" style="padding-left: 10vw">
+    <div class="text-white supercenter">
       <div class="d-flex">
-        <div class="mb-2" style="text-align: justify; text-justify: inter-word; width: 400px">
+        <div style="text-align: justify; text-justify: inter-word; width: 300px">
           <span class="h1 fw-bold"><i class="bi bi-fingerprint"/> About us </span>
           <span class="p-2">
             <i class="bi bi-dot"/>What/Who is Orochi Batsuzoku?
@@ -23,21 +22,29 @@
             We will discuss everything else afterwards.
             It could not be simpler than that.
           </span>
+          <p class="text-end">
+            Designed with <i class="bi bi-heart-fill" style="color: red"></i> by
+            <br>
+            <a style="color: white" :href="'https://www.instagram.com/blk.ghst/'">BLKGHST 死霊</a> &
+            <a style="color: white" :href="'https://www.instagram.com/11.nrv/'">NIRV</a> &
+            <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki Ric G</a>
+          </p>
         </div>
       </div>
     </div>
-    <section
-      class="text-light text-center text-sm-start">
-      <div class="container">
-        <p class="text-end">
-          Designed with
-          <i class="bi bi-heart-fill" style="color: red"></i>
-          by
-          <a style="color: white" :href="'https://www.instagram.com/blk.ghst/'">BLKGHST 死霊</a> &
-          <a style="color: white" :href="'https://www.instagram.com/11.nrv/'">NIRV</a> &
-          <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki Ric G</a>
-        </p>
-      </div>
-    </section>
   </div>
 </template>
+
+<style>
+
+.supercenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 10px 0 0 -150px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+</style>

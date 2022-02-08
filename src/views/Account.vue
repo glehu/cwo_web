@@ -2,13 +2,12 @@
   <div style="min-height: 10vh"></div>
   <section
     class="container">
-    <div class="text-light p-3"
-         style="border-radius: 1rem; background: black">
+    <div class="text-light p-3">
       <h1 class="fw-bold m-3 d-flex">
         <i class="bi bi-stars mb-2" style="font-size: 200%"></i><br>
         Hey, {{ this.$store.state.username }}.<br><br>
       </h1>
-      <h3>What's next?</h3>
+      <h3 class="pb-1">What's next?</h3>
       <div class="card text-white border-2"
            style="border-radius: 1rem; background: black; border-color: white">
         <section

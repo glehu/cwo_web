@@ -18,7 +18,7 @@
             </div>
           </button>
           <div class="text-start">
-            <h1 class="m-2 fw-bold text-white">0R0CHI Batsuzoku</h1>
+            <h1 class="m-2 fw-bold text-white">Graffiti Falls</h1>
             <button class="btn text-white animRot" v-on:click="console.log('')">
               <i class="bi bi-arrow-clockwise h1 text-start"></i>
             </button>
