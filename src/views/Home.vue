@@ -206,7 +206,7 @@
       <div class="container card-group">
         <div class="row text-center">
           <div class="col-md mt-1 d-md-flex">
-            <div class="card-subtitle text-dark">
+            <div class="card-subtitle text-white">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-file-earmark-music"></i>
@@ -221,7 +221,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card-subtitle text-dark">
+            <div class="card-subtitle text-white">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-mic"></i>
@@ -237,7 +237,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card-subtitle text-dark">
+            <div class="card-subtitle text-white">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-broadcast-pin"></i>
@@ -252,7 +252,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card-subtitle text-dark">
+            <div class="card-subtitle text-white">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-soundwave"></i>
@@ -267,7 +267,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card-subtitle text-dark">
+            <div class="card-subtitle text-white">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-heart"></i>
@@ -282,7 +282,7 @@
             </div>
           </div>
           <div class="col-md mt-1 d-md-flex">
-            <div class="card-subtitle text-dark">
+            <div class="card-subtitle text-white">
               <div class="card-body text-center">
                 <div class="h1 mb-3">
                   <i class="bi bi-shop-window"></i>
@@ -311,6 +311,7 @@ export default {
     return {
       angle: '45',
       angleC1: '180',
+      angleC3: '-45',
       colorA1: 'darkred',
       colorA2: 'rebeccapurple',
       colorB1: 'darkblue',
@@ -447,7 +448,7 @@ export default {
       return `linear-gradient(${this.angle}deg, ${this.colorA2}, ${this.colorB1})`
     },
     bg3 () {
-      return `linear-gradient(${this.angleC1}deg, ${this.colorB1}, ${this.colorC1})`
+      return `linear-gradient(${this.angleC3}deg, ${this.colorB1}, ${this.colorA2})`
     },
     usageTracker () {
       return this.$store.state.usageTracking

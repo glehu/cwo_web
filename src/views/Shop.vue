@@ -32,6 +32,9 @@
   <section id="itemsSection" style="min-height: 100vh" :style="{ backgroundImage: bg }">
     <div class="container">
       <div style="height: 1em"></div>
+      <iframe src="https://www.eventbrite.com/e/graffiti-falls-live-victoria-club-street-tickets-264498430927"
+              width="100%" height="1000px" allowfullscreen="allowfullscreen" style="background-color: white"
+              placeholder="Tickets"></iframe>
       <div class="wrapper">
         <div class="card"
              v-for="item in shopItemList" :key="item"
