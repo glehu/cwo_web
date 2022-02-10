@@ -14,7 +14,7 @@
                       required
                       v-model="user.email"
                       type="email"
-                      placeholder="EMail"
+                      placeholder="Email"
                     />
                   </div>
                   <div class="form-outline form-white mb-4">
