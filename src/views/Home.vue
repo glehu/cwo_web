@@ -5,6 +5,25 @@
     <img src="../assets/graffitifalls/Banner.png" alt=""
          style="width:100%; height:100%" class="pt-5"/>
     <div class="text-white"
+         style="width: 250px; height: 50px; position: absolute; top: 38%; left: 10%; margin: -25px 0 0 -125px;">
+      <div>
+        <p class="fw-bold text-white">You can find us on those platforms:</p>
+        <div class="text-white">
+          <button title="SoundCloud"
+                  class="btn bi-cloud-fill btn-lg muArrow" style="color: white;"
+                  v-on:click="redirectSoundcloudGraffitiFalls"><span class="ms-2 small">SoundCloud</span></button>
+          <br>
+          <button title="Youtube"
+                  class="btn bi-youtube btn-lg muArrow" style="color: white;"
+                  v-on:click="redirectYoutubeGraffitiFalls"><span class="ms-2 small">Youtube</span></button>
+          <br>
+          <button title="Instagram"
+                  class="btn bi-instagram btn-lg muArrow" style="color: white;"
+                  v-on:click="redirectInstagramGraffitiFalls"><span class="ms-2 small">Instagram</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="text-white"
          style="width: 250px; height: 50px; position: absolute; top: 80%; left: 50%; margin: -25px 0 0 -125px;">
       <div style="display: flex">
         <button class="btn btn-warning btn-lg muArrow fw-bold mt-3"
@@ -421,6 +440,36 @@ export default {
       }
       window.open('https://open.spotify.com/artist/56NVjfoRlGzoUWiZxrqj0P?si=YXgxJhWCS8WYMFsSyBTCtw')
     },
+    redirectSoundcloudGraffitiFalls () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'graffitifalls',
+          action: 'redirectSoundcloud'
+        })
+      }
+      window.open('https://soundcloud.com/graffiti_falls')
+    },
+    redirectInstagramGraffitiFalls () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'graffitifalls',
+          action: 'redirectInstagram'
+        })
+      }
+      window.open('https://www.instagram.com/graffitifallsband/')
+    },
+    redirectYoutubeGraffitiFalls () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'graffitifalls',
+          action: 'redirectYoutube'
+        })
+      }
+      window.open('https://www.youtube.com/channel/UCf28Jwvrdb6Qeu8t--rBk2Q')
+    },
     async sendUsageData (usageObj) {
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
@@ -440,9 +489,6 @@ export default {
   computed: {
     isLoggedIn () {
       return this.$store.state.authenticated
-    },
-    bg1 () {
-      return `linear-gradient(${this.angle}deg, ${this.colorA1}, ${this.colorA2})`
     },
     bg2 () {
       return `linear-gradient(${this.angle}deg, ${this.colorA2}, ${this.colorB1})`
