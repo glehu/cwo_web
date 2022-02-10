@@ -41,11 +41,9 @@ h1 {
   0% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(15%);
   }
-
   100% {
     transform: translateY(0);
   }

@@ -118,7 +118,7 @@ export default {
         'Content-Type', 'application/json'
       )
       fetch(
-        'http://localhost:8000/api/register',
+        'http://localhost:8000/register',
         {
           method: 'post',
           headers: headers,

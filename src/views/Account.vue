@@ -3,10 +3,10 @@
   <section
     class="container">
     <div class="text-light p-3">
-      <h1 class="fw-bold m-3 d-flex">
-        <i class="bi bi-stars mb-2" style="font-size: 200%"></i><br>
+      <h2 class="fw-bold my-3 d-flex doHover" style="overflow: hidden">
+        <i class="bi bi-stars" style="font-size: 200%"></i><br>
         Hey, {{ this.$store.state.username }}.<br><br>
-      </h1>
+      </h2>
       <h3 class="pb-1">What's next?</h3>
       <div class="card text-white border-2"
            style="border-radius: 1rem; background: black; border-color: white">
@@ -144,4 +144,22 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.doHover {
+  animation: hover 3s ease-in-out infinite;
+}
+
+@keyframes hover {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+</style>
