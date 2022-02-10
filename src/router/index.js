@@ -74,7 +74,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'Not Found',
+    name: '404 Shadow Realms',
     component: () =>
       import('../views/NotFoundErrorPage.vue')
   }
