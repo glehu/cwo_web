@@ -71,6 +71,12 @@ const routes = [
     name: 'Graffiti Falls',
     component: () =>
       import('../views/GraffitiFalls.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'Not Found',
+    component: () =>
+      import('../views/NotFoundErrorPage.vue')
   }
 ]
 
