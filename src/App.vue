@@ -22,8 +22,8 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link fw-bold">
-                <i class="bi bi-question-circle"></i> About
+              <router-link to="/artists" class="nav-link fw-bold">
+                <i class="bi bi-people"></i> Artists
               </router-link>
             </li>
             <li class="nav-item">
@@ -34,6 +34,11 @@
             <li class="nav-item">
               <router-link to="/shop" class="nav-link fw-bold">
                 <i class="bi bi-shop-window"></i> Shop
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/about" class="nav-link fw-bold">
+                <i class="bi bi-question-circle"></i> About
               </router-link>
             </li>
             <!-- Account -->

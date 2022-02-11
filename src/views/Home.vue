@@ -368,7 +368,7 @@ export default {
       this.$router.push('/login?redirect=/account')
     },
     gotoArtist (artist) {
-      this.$router.push('/artist/' + artist)
+      this.$router.push('/artists/' + artist)
     },
     redirectDiscord () {
       if (this.usageTracker) {

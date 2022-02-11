@@ -67,10 +67,16 @@ const routes = [
       import('../views/Invoices.vue')
   },
   {
-    path: '/artist/graffitifalls',
+    path: '/artists/graffitifalls',
     name: 'Graffiti Falls',
     component: () =>
       import('../views/GraffitiFalls.vue')
+  },
+  {
+    path: '/artists',
+    name: 'Artists',
+    component: () =>
+      import('../views/ArtistOverview.vue')
   },
   {
     path: '/:pathMatch(.*)*',

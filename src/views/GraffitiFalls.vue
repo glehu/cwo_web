@@ -12,8 +12,8 @@
         <p class="h1 fw-bold text-white">Graffiti Falls</p>
         <p class="text-white fw-lighter">
           We are a somerset based band, we play many genres of music ranging from mellow acoustic songs to a gritty
-          blues style. The band is formed from 4 members, Gus with vocals and guitar, Sam on guitar, joe on drums and
-          Oscar on the bass. We have music out on youtube and soundcloud the links are under social media, We have
+          blues style. The band is formed from 4 members, Gus with vocals and guitar, Sam on guitar, Joe on drums and
+          Oscar on the bass. We have music out on youtube and SoundCloud the links are under social media, We have
           played at local festivals and have done many gigs around the area. We are very keen to perform live and have
           many plans from upcoming music and music videos.
         </p>
