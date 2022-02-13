@@ -284,11 +284,21 @@ export default {
     },
     getArtistStyle () {
       let string = '...'
-      if (this.formData.style_value !== '') {
-        string = this.formData.style_value + '.'
+      if (this.formData.type_value !== 'Visual Artist') {
+        if (this.formData.style_value !== '') {
+          string = this.formData.style_value + '.'
+        } else {
+          if (this.styleSkipped) {
+            string = '... nope, I really can\'t categorize it. I guess they will find out themselves!'
+          }
+        }
       } else {
-        if (this.styleSkipped) {
-          string = '... nope, I really can\'t categorize it. I guess they will find out themselves!'
+        if (this.formData.style_visual_value !== '') {
+          string = this.formData.style_visual_value + '.'
+        } else {
+          if (this.styleSkipped) {
+            string = '... nope, I really can\'t categorize it. I guess they will find out themselves!'
+          }
         }
       }
       return string
@@ -319,8 +329,14 @@ export default {
     },
     styleSkipped () {
       let skipped = false
-      if (this.formData.style_value === '') {
-        if (this.formData.lore_value !== '') skipped = true
+      if (this.formData.type_value !== 'Visual Artist') {
+        if (this.formData.style_value === '') {
+          if (this.formData.lore_value !== '') skipped = true
+        }
+      } else {
+        if (this.formData.style_visual_value === '') {
+          if (this.formData.lore_value !== '') skipped = true
+        }
       }
       return skipped
     },
