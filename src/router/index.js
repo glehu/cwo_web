@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/core/Home.vue'
 import store from '../store'
 
 const routes = [
@@ -12,77 +12,77 @@ const routes = [
     path: '/about',
     name: 'About',
     component: () =>
-      import('../views/About.vue')
+      import('../views/core/About.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login')
+    component: () => import('../views/forms/Login')
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/Register')
+    component: () => import('../views/forms/Register')
   },
   {
     path: '/account',
     name: 'Account',
-    component: () => import('../views/Account'),
+    component: () => import('../views/core/Account'),
     meta: { logout: true }
   },
   {
-    path: '/m1',
+    path: '/apps/songfinder',
     name: 'Songs',
-    component: () => import('../views/SongFinder'),
+    component: () => import('../views/apps/SongFinder'),
     meta: { requiresAuth: true }
   },
   {
     path: '/shop',
     name: 'Shop',
     component: () =>
-      import('../views/Shop.vue')
+      import('../views/core/Shop.vue')
   },
   {
     path: '/cart',
     name: 'Cart',
     component: () =>
-      import('../views/Cart.vue')
+      import('../views/core/Cart.vue')
   },
   {
     path: '/preferences',
     name: 'Preferences',
     component: () =>
-      import('../views/UserPreferences.vue')
+      import('../views/settings/UserPreferences.vue')
   },
   {
     path: '/apimanager',
     name: 'API Manager',
     component: () =>
-      import('../views/APIManager.vue')
+      import('../views/settings/APIManager.vue')
   },
   {
     path: '/invoices',
     name: 'Invoices',
     component: () =>
-      import('../views/Invoices.vue')
+      import('../views/core/Invoices.vue')
   },
   {
     path: '/artists/graffitifalls',
     name: 'Graffiti Falls',
     component: () =>
-      import('../views/GraffitiFalls.vue')
+      import('../views/artists/GraffitiFalls.vue')
   },
   {
     path: '/artists',
     name: 'Artists',
     component: () =>
-      import('../views/ArtistOverview.vue')
+      import('../views/core/Artists.vue')
   },
   {
     path: '/:pathMatch(.*)*',
     name: '404 Shadow Realms',
     component: () =>
-      import('../views/NotFoundErrorPage.vue')
+      import('../views/errors/NotFoundErrorPage.vue')
   }
 ]
 

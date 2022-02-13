@@ -76,7 +76,7 @@
                   <button title="Spotify"
                           class="btn btn-lg muArrow" style="color: white;"
                           v-on:click="redirectSpotifyCloudday">
-                    <img src="../assets/spotify/Spotify_Icon_RGB_White.png" alt="Spotify"
+                    <img src="src/assets/spotify/Spotify_Icon_RGB_White.png" alt="Spotify"
                          style="width: 20px; height: 20px" class="mb-1"/> Spotify
                   </button>
                   <button title="Instagram"
@@ -106,7 +106,7 @@
                 <button title="Spotify"
                         class="btn btn-lg muArrow" style="color: white;"
                         v-on:click="redirectSpotifyCasper">
-                  <img src="../assets/spotify/Spotify_Icon_RGB_White.png" alt="Spotify"
+                  <img src="src/assets/spotify/Spotify_Icon_RGB_White.png" alt="Spotify"
                        style="width: 20px; height: 20px" class="mb-1"/> Spotify
                 </button>
                 <button title="Youtube"
