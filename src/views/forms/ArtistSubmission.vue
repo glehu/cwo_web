@@ -11,9 +11,10 @@
           [ For the best experience, use a large screen by using a desktop PC for example. ]
         </p>
         <form
-          data-netlify="true"
+          id="artistform"
           name="form_artistsubmission"
           method="POST"
+          data-netlify="true"
           netlify-honeypot="bot-field"
           class="form-control-plaintext text-white"
           enctype="application/x-www-form-urlencoded"
@@ -209,8 +210,7 @@ export default {
     handleSubmit () {
       const data = {
         'form-name': 'form_artistsubmission',
-        'artist-name': this.formData.name_value,
-        'artist-email': this.formData.email_value
+        ...this.formData
       }
       fetch('/', {
         method: 'POST',
