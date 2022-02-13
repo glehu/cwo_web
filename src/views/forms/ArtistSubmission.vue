@@ -10,17 +10,24 @@
         <p class="text-white text-center fw-light d-md-none">
           [ For the best experience, use a large screen by using a desktop PC for example. ]
         </p>
-        <form name="artistsubmission" method="POST" data-netlify="true" netlify-honeypot="bot-field"
-              class="form-control-plaintext text-white">
+        <form
+          data-netlify="true"
+          name="form_artistsubmission"
+          method="POST"
+          netlify-honeypot="bot-field"
+          class="form-control-plaintext text-white"
+          enctype="application/x-www-form-urlencoded"
+          @submit.prevent="handleSubmit">
+          <input type="hidden" name="form-name" value="form_artistsubmission"/>
           <p>
             <label for="artist_name" class="fw-bold h2">Name:</label><br>
-            <input id="artist_name" v-model="name_value" type="text" name="artist_name" style="width: 100%"
+            <input id="artist_name" v-model="formData.name_value" type="text" name="name_value" style="width: 100%"
                    class="fw-bold form-control" required/>
           </p>
           <div class="wrapper">
             <p>
               <label for="artist_type" class="fw-bold h2">Type:</label><br>
-              <select id="artist_type" name="artist_type" v-model="type_value" class="fw-bold form-control"
+              <select id="artist_type" name="type_value" v-model="formData.type_value" class="fw-bold form-control"
                       style="width: 100%" required>
                 <option>Band</option>
                 <option>Singer-Songwriter</option>
@@ -34,10 +41,11 @@
               </select>
             </p>
             <div v-if="typeFilled">
-              <div v-if="type_value !== 'Visual Artist'">
+              <div v-if="formData.type_value !== 'Visual Artist'">
                 <p>
                   <label for="artist_style" class="fw-bold h2">Typically:</label><br>
-                  <select id="artist_style" name="artist_style" v-model="style_value" class="fw-bold form-control"
+                  <select id="artist_style" name="style_value" v-model="formData.style_value"
+                          class="fw-bold form-control"
                           style="width: 100%">
                     <option>Blues</option>
                     <option>Dubstep</option>
@@ -60,10 +68,10 @@
                   </select>
                 </p>
               </div>
-              <div v-if="type_value === 'Visual Artist'">
+              <div v-if="formData.type_value === 'Visual Artist'">
                 <p>
                   <label for="artist_style_visual" class="fw-bold h2">Typically:</label><br>
-                  <select id="artist_style_visual" name="artist_style_visual" v-model="style_value"
+                  <select id="artist_style_visual" name="style_visual_value" v-model="formData.style_visual_value"
                           class="fw-bold form-control"
                           style="width: 100%">
                     <option>Paintings</option>
@@ -77,36 +85,36 @@
           </div>
           <p>
             <label for="artist_lore" class="fw-bold h2">Your Lore:</label><br>
-            <textarea id="artist_lore" v-model="lore_value" style="width: 100%; height: 15ch"
+            <textarea id="artist_lore" name="lore_value" v-model="formData.lore_value" style="width: 100%; height: 15ch"
                       class="fw-bold form-control"></textarea>
           </p>
           <p>
             <label for="artist_soundcloud" class="fw-bold h2">SoundCloud:</label><br>
-            <input id="artist_soundcloud" v-model="soundcloud_value" type="text" name="artist_soundcloud_link"
+            <input id="artist_soundcloud" v-model="formData.soundcloud_value" type="text" name="soundcloud_value"
                    style="width: 100%"
                    class="fw-bold form-control"/>
           </p>
           <p>
             <label for="artist_spotify" class="fw-bold h2">Spotify:</label><br>
-            <input id="artist_spotify" v-model="spotify_value" type="text" name="artist_spotify_link"
+            <input id="artist_spotify" v-model="formData.spotify_value" type="text" name="spotify_value"
                    style="width: 100%"
                    class="fw-bold form-control"/>
           </p>
           <p>
             <label for="artist_youtube" class="fw-bold h2">Youtube:</label><br>
-            <input id="artist_youtube" v-model="youtube_value" type="text" name="artist_youtube_link"
+            <input id="artist_youtube" v-model="formData.youtube_value" type="text" name="youtube_value"
                    style="width: 100%"
                    class="fw-bold form-control"/>
           </p>
           <p>
             <label for="artist_instagram" class="fw-bold h2">Instagram:</label><br>
-            <input id="artist_instagram" v-model="instagram_value" type="text" name="artist_instagram_link"
+            <input id="artist_instagram" v-model="formData.instagram_value" type="text" name="instagram_value"
                    style="width: 100%"
                    class="fw-bold form-control"/>
           </p>
           <p>
             <label for="artist_email" class="fw-bold h2">Email:</label><br>
-            <input id="artist_email" v-model="email_value" type="text" name="artist_email"
+            <input id="artist_email" v-model="formData.email_value" type="email" name="email_value"
                    style="width: 100%"
                    class="fw-bold form-control"/>
           </p>
@@ -173,27 +181,51 @@ export default {
   name: 'ArtistSubmission',
   data () {
     return {
-      name_value: '',
-      type_value: '',
-      style_value: '',
-      lore_value: '',
-      soundcloud_value: '',
-      spotify_value: '',
-      youtube_value: '',
-      instagram_value: '',
-      email_value: ''
+      formData: {
+        name_value: '',
+        type_value: '',
+        style_value: '',
+        style_visual_value: '',
+        lore_value: '',
+        soundcloud_value: '',
+        spotify_value: '',
+        youtube_value: '',
+        instagram_value: '',
+        email_value: ''
+      }
     }
   },
   methods: {
     scrollTo (content) {
       document.getElementById(content).scrollIntoView({ behavior: 'smooth' })
     },
+    createFormDataObj (data) {
+      const formData = new FormData()
+      for (const key of Object.keys(data)) {
+        formData.append(key, data[key])
+      }
+      return formData
+    },
+    handleSubmit () {
+      const data = {
+        'form-name': 'form_artistsubmission',
+        'artist-name': this.formData.name_value,
+        'artist-email': this.formData.email_value
+      }
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(this.createFormDataObj(data)).toString()
+      })
+        .then(() => this.$router.push('/artists'))
+        .catch(error => alert(error))
+    },
     getArtistName () {
       let string = '...'
-      if (this.name_value !== '') {
-        string = this.name_value + '. Glad you asked.'
+      if (this.formData.name_value !== '') {
+        string = this.formData.name_value + '. Glad you asked.'
       } else {
-        if (this.nameSkipped) {
+        if (this.formData.nameSkipped) {
           string = '... well that\'s not important now, is it? I\'ll get back to this later.'
         }
       }
@@ -201,14 +233,14 @@ export default {
     },
     getArtistType () {
       let string = '...'
-      if (this.type_value !== '') {
-        if (this.type_value === 'Other') {
+      if (this.formData.type_value !== '') {
+        if (this.formData.type_value === 'Other') {
           string = '... actually, I don\'t really know what I am just yet. I bet you can assist me on this journey, though.'
         } else {
-          if (this.type_value === 'Band') {
-            string = 'representing a ' + this.type_value + '.'
+          if (this.formData.type_value === 'Band') {
+            string = 'representing a ' + this.formData.type_value + '.'
           } else {
-            string = 'a ' + this.type_value + '.'
+            string = 'a ' + this.formData.type_value + '.'
           }
         }
       } else {
@@ -220,8 +252,8 @@ export default {
     },
     getArtistTypeDescription () {
       let string = ''
-      if (this.type_value !== '') {
-        switch (this.type_value) {
+      if (this.formData.type_value !== '') {
+        switch (this.formData.type_value) {
           case 'Band':
             string = 'We\'re the biggest and greatest! I mean that is our goal at least. Team spirit!'
             break
@@ -252,26 +284,19 @@ export default {
     },
     getArtistStyle () {
       let string = '...'
-      if (this.style_value !== '') {
-        string = this.style_value + '.'
-        this.scrollTo('artist_style')
+      if (this.formData.style_value !== '') {
+        string = this.formData.style_value + '.'
       } else {
         if (this.styleSkipped) {
           string = '... nope, I really can\'t categorize it. I guess they will find out themselves!'
-          this.scrollTo('artist_style')
         }
       }
       return string
     },
     getArtistLore () {
       let string = ''
-      if (this.lore_value !== '') {
-        string = this.lore_value
-        if (document.getElementById('artist_style') !== null) {
-          this.scrollTo('artist_style')
-        } else {
-          this.scrollTo('artist_type')
-        }
+      if (this.formData.lore_value !== '') {
+        string = this.formData.lore_value
       }
       return string
     }
@@ -279,34 +304,34 @@ export default {
   computed: {
     nameSkipped () {
       let skipped = false
-      if (this.name_value === '') {
-        if (this.type_value !== '') skipped = true
-        if (this.lore_value !== '') skipped = true
+      if (this.formData.name_value === '') {
+        if (this.formData.type_value !== '') skipped = true
+        if (this.formData.lore_value !== '') skipped = true
       }
       return skipped
     },
     typeSkipped () {
       let skipped = false
-      if (this.type_value === '') {
-        if (this.lore_value !== '') skipped = true
+      if (this.formData.type_value === '') {
+        if (this.formData.lore_value !== '') skipped = true
       }
       return skipped
     },
     styleSkipped () {
       let skipped = false
-      if (this.style_value === '') {
-        if (this.lore_value !== '') skipped = true
+      if (this.formData.style_value === '') {
+        if (this.formData.lore_value !== '') skipped = true
       }
       return skipped
     },
     nameFilled () {
-      return (this.name_value !== '')
+      return (this.formData.name_value !== '')
     },
     typeFilled () {
-      return (this.type_value !== '')
+      return (this.formData.type_value !== '')
     },
     styleFilled () {
-      return (this.style_value !== '')
+      return (this.formData.style_value !== '')
     }
   }
 }
