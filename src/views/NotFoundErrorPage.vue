@@ -2,9 +2,13 @@
   <div class="supercenter text-center text-white" style="width: 350px">
     <p class="fw-bold doHover" style="font-size: 400%;">404</p>
     <p class="doHover" style="color: gray; font-size: 200%;">(╯°□°）╯︵ ┻━┻</p>
-    <p style="color: gray">How could this happen...</p>
-    <p class="fw-bold mt-5">
-      <i class="bi bi-door-closed mx-2"/><a href="/">Homepage</a>
+    <p class="mt-5" style="color: gray">
+      How could this happen...
+      <br>Those ones will work though, I promise:
+    </p>
+    <p class="fw-bold">
+      <i class="bi bi-house mx-2"/><a href="/">Homepage</a>
+      <i class="bi bi-people mx-2 ms-3"/><a href="/artists">Artists</a>
     </p>
   </div>
 </template>
