@@ -347,7 +347,7 @@ export default {
       return (this.formData.type_value !== '')
     },
     styleFilled () {
-      return (this.formData.style_value !== '')
+      return (this.formData.style_value !== '' || this.formData.style_visual_value !== '')
     }
   }
 }
