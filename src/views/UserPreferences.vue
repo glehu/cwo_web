@@ -1,15 +1,16 @@
 <template>
   <div class="preferences" style="min-height: 100vh; background-color: #0A0A0F">
-    <div class="container" style="position: absolute; top: 10%">
+    <div class="container" style="position: absolute; top: 10ch">
       <h1 class="fw-bold text-white p-3">
         Hey, no running in the hallways!
       </h1>
-      <div class="mt-3 p-3">
-        <div class="text-white" style="display: flex">
+      <div class="mt-3">
+        <div class="text-white">
           <h2>
-            This website makes use of cookies!
+            Allow Cookies?
           </h2>
-          <button class="btn text-white" v-on:click="toggleExplanation('cookieExplanation')">
+          <button class="btn text-white text-decoration-underline"
+                  v-on:click="toggleExplanation('cookieExplanation')">
             What's that <i class="bi bi-question fw-bold"></i>
           </button>
         </div>
@@ -36,12 +37,13 @@
           </p>
         </div>
       </div>
-      <div class="mt-2 p-3">
-        <div style="display: flex">
-          <h2 class="text-white">
+      <div class="mt-5">
+        <div class="text-white">
+          <h2>
             Allow usage tracking?
           </h2>
-          <button class="btn text-white" v-on:click="toggleExplanation('trackingExplanation')">
+          <button class="btn text-white text-decoration-underline"
+                  v-on:click="toggleExplanation('trackingExplanation')">
             What's that <i class="bi bi-question fw-bold"></i>
           </button>
         </div>

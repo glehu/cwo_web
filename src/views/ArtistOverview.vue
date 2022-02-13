@@ -30,7 +30,7 @@
       <!-- Artists -->
       <div>
         <div id="indie" class="mt-3">
-          <p class="h3 fw-bold text-white text-center">Indie / Indie Rock</p>
+          <p class="h3 fw-bold text-white text-center">Indie / Rock</p>
           <hr style="color: white">
           <div>
             <!-- Graffiti Falls -->
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div id="hiphop" class="mt-3">
-          <p class="h3 fw-bold text-white text-center">Hip-Hop</p>
+          <p class="h3 fw-bold text-white text-center">Hip-Hop / Rap</p>
           <hr style="color: white">
           <!-- Casper: TFD -->
           <div class="card-subtitle text-white mt-2">
@@ -116,6 +116,35 @@
                 <button title="Instagram"
                         class="btn bi-instagram btn-lg muArrow" style="color: white;"
                         v-on:click="redirectInstagramCasper"><span class="ms-2 small">Instagram</span></button>
+              </p>
+            </div>
+          </div>
+          <!-- Krag / Kräuteraggro / Blütenaggressivität -->
+          <div class="card-subtitle text-white mt-2">
+            <div class="card-body">
+              <h3 class="card-title fw-bold text-light">
+                Krag / Kräuteraggro / Blütenaggressivität
+              </h3>
+              <p class="card-text cardtext">
+                Singer-Songwriter, Producer
+              </p>
+              <p class="card-footer">
+                <button title="SoundCloud"
+                        class="btn bi-cloud-fill btn-lg muArrow" style="color: white;"
+                        v-on:click="redirectSoundcloudKrag">
+                  <span class="ms-2 small">SoundCloud (Krag)</span>
+                </button>
+                <button title="SoundCloud"
+                        class="btn bi-cloud-fill btn-lg muArrow" style="color: white;"
+                        v-on:click="redirectSoundcloudBluetenaggressivitaet">
+                  <span class="ms-2 small">SoundCloud (Blütenaggressivität)</span>
+                </button>
+                <button title="Youtube"
+                        class="btn bi-youtube btn-lg muArrow" style="color: white;"
+                        v-on:click="redirectYoutubeKrag"><span class="ms-2 small">Youtube</span></button>
+                <button title="Instagram"
+                        class="btn bi-instagram btn-lg muArrow" style="color: white;"
+                        v-on:click="redirectInstagramKrag"><span class="ms-2 small">Instagram</span></button>
               </p>
             </div>
           </div>
@@ -215,7 +244,7 @@ export default {
           action: 'redirectInstagramCasper'
         })
       }
-      window.open('https://www.instagram.com/caspertfd/')
+      window.open('https://www.instagram.com/caspertfd_/')
     },
     redirectSoundcloudCasper () {
       if (this.usageTracker) {
@@ -246,6 +275,46 @@ export default {
         })
       }
       window.open('https://www.youtube.com/c/CablizzCTFD')
+    },
+    redirectSoundcloudKrag () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'artists',
+          action: 'redirectSoundCloudKrag'
+        })
+      }
+      window.open('https://soundcloud.com/kraaag')
+    },
+    redirectSoundcloudBluetenaggressivitaet () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'artists',
+          action: 'redirectSoundCloudBluetenaggressivitaet'
+        })
+      }
+      window.open('https://soundcloud.com/bluetenaggressivitaet')
+    },
+    redirectInstagramKrag () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'artists',
+          action: 'redirectInstagramKrag'
+        })
+      }
+      window.open('https://www.instagram.com/wannabepunkjesus/')
+    },
+    redirectYoutubeKrag () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'artists',
+          action: 'redirectYoutubeKrag'
+        })
+      }
+      window.open('https://www.youtube.com/channel/UCiWJT6QbpVr51V2lCa7xZ5w')
     }
   },
   computed: {
