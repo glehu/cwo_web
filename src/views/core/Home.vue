@@ -2,7 +2,7 @@
   <!-- Artist -->
   <div id="graffitifalls" class="d-md-block d-none"
        style="min-height: 100vh; max-height: 100vh; overflow: hidden; background-color: black">
-    <img src="src/assets/graffitifalls/Banner.png" alt=""
+    <img src="../../assets/graffitifalls/Banner.png" alt=""
          style="width:100%; height:100%" class="pt-5"/>
     <div class="text-white"
          style="width: 250px; height: 50px; position: absolute; top: 38%; left: 10%; margin: -25px 0 0 -125px;">
@@ -47,7 +47,7 @@
   <div id="cloudday" class="d-md-block d-none"
        style="min-height: 100vh; max-height: 100vh; overflow: hidden; background-color: black">
     <div class="d-flex">
-      <img src="src/assets/clouddaybannerformatted.png" alt=""
+      <img src="../../assets/clouddaybannerformatted.png" alt=""
            style="max-width:100%; height:auto"/>
       <div class="container text-white" style="position: relative; top: 5em; right: 100%; padding-left: 5em">
         <h2 class="fw-bold">Featured Artist:</h2>

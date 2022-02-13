@@ -79,6 +79,13 @@ const routes = [
       import('../views/core/Artists.vue')
   },
   {
+    path: '/submissions/artist',
+    name: 'E1: Becoming one of us',
+    component: () =>
+      import('../views/forms/ArtistSubmission')
+  },
+  // 404 NOT FOUND ERROR PAGE MUST BE AT THE VERY BOTTOM
+  {
     path: '/:pathMatch(.*)*',
     name: '404 Shadow Realms',
     component: () =>

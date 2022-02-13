@@ -22,9 +22,18 @@
           Fresh, organic picks out of the garden, whose sole purpose is to please your sonic portals to the world.
           Creative juices sizzling out of excitement, unable to contain themselves any longer, just for you.
         </p>
-        <p class="text-white text-center mt-5 fw-light" style="font-style: italic">
-          Let's celebrate this moment, where hearts touch and souls connect -&nbsp;sincerely,&nbsp;wiki.
+        <p class="text-white text-end mt-5 fw-light" style="font-style: italic">
+          <i class="bi bi-quote"></i> Let's celebrate this moment, where hearts touch and souls connect. -&nbsp;sincerely,&nbsp;wiki.
         </p>
+        <hr style="color: white">
+        <p class="text-white text-start">
+          For when your life feels like a movie:
+        </p>
+        <button title="SoundCloud"
+                class="btn bi-file-earmark-text btn-lg muArrow" style="color: white;"
+                v-on:click="gotoArtistSubmission"><span
+          class="ms-2 small">Episode 1: Becoming one of us</span>
+        </button>
       </div>
       <!-- Artists -->
       <div>
@@ -314,6 +323,16 @@ export default {
         })
       }
       window.open('https://www.youtube.com/channel/UCiWJT6QbpVr51V2lCa7xZ5w')
+    },
+    gotoArtistSubmission () {
+      if (this.usageTracker) {
+        this.sendUsageData({
+          source: 'web',
+          module: 'artists',
+          action: 'gotoArtistSubmission'
+        })
+      }
+      this.$router.push('/submissions/artist')
     }
   },
   computed: {
