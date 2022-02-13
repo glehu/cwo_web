@@ -10,7 +10,8 @@
         <p class="text-white text-center fw-light d-md-none">
           [ For the best experience, use a large screen by using a desktop PC for example. ]
         </p>
-        <form name="artistsubmission" method="POST" data-netlify="true" class="form-control-plaintext text-white">
+        <form name="artistsubmission" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+              class="form-control-plaintext text-white">
           <p>
             <label for="artist_name" class="fw-bold h2">Name:</label><br>
             <input id="artist_name" v-model="name_value" type="text" name="artist_name" style="width: 100%"
