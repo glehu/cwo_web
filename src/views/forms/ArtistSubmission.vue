@@ -111,6 +111,9 @@
                    class="fw-bold form-control"/>
           </p>
           <!-- FORM END -->
+          <p class="text-white text-end">
+            By submitting this form, you agree to the storage of any provided data.
+          </p>
           <p class="text-end">
             <button class="btn btn-outline-success btn-lg" type="submit">Submit</button>
           </p>

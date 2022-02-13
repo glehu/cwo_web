@@ -29,7 +29,7 @@
         <p class="text-white text-start">
           For when your life feels like a movie:
         </p>
-        <button title="SoundCloud"
+        <button title="Become one of us"
                 class="btn bi-file-earmark-text btn-lg muArrow" style="color: white;"
                 v-on:click="gotoArtistSubmission"><span
           class="ms-2 small">Episode 1: Becoming one of us</span>
