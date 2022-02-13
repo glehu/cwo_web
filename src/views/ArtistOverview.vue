@@ -23,8 +23,7 @@
           Creative juices sizzling out of excitement, unable to contain themselves any longer, just for you.
         </p>
         <p class="text-white text-center mt-5 fw-light" style="font-style: italic">
-          Let's celebrate this moment, where hearts touch and souls connect
-          <br>- sincerely, wiki.
+          Let's celebrate this moment, where hearts touch and souls connect -&nbsp;sincerely,&nbsp;wiki.
         </p>
       </div>
       <!-- Artists -->

@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 10vh"></div>
-  <div class="text-center">
-    <div class="card container">
+  <div class="text-center text-white">
+    <div class="card-subtitle container">
       <h5 class="card-header">CWO_ERP M1 API</h5>
       <div class="card-body">
         <input
@@ -11,10 +11,9 @@
         />
       </div>
 
-      <table class="table table-bordered">
+      <table class="table table-bordered text-white">
         <thead>
         <tr>
-          <th>uID</th>
           <th>Name</th>
           <th>Vocalist</th>
           <th>Producer</th>
@@ -25,7 +24,6 @@
         </thead>
         <tbody>
         <tr v-for="item in myObj.resultsList" :key="item.uID">
-          <td>{{ JSON.parse(item).uID }}</td>
           <td>{{ JSON.parse(item).name }}</td>
           <td>{{ JSON.parse(item).vocalist }}</td>
           <td>{{ JSON.parse(item).producer }}</td>
@@ -46,8 +44,7 @@ export default {
     return {
       songResults: null,
       message: '',
-      myObj: {},
-      fields: ['uID', 'name', 'vocalist']
+      myObj: {}
     }
   },
   methods: {
