@@ -11,8 +11,7 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: () =>
-      import('../views/core/About.vue')
+    component: () => import('../views/core/About.vue')
   },
   {
     path: '/login',
@@ -37,59 +36,58 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/apps/processplanner',
+    name: 'Process Planner',
+    component: () => import('../views/apps/ProcessPlanner'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/shop',
     name: 'Shop',
-    component: () =>
-      import('../views/core/Shop.vue')
+    component: () => import('../views/core/Shop.vue')
   },
   {
     path: '/cart',
     name: 'Cart',
-    component: () =>
-      import('../views/core/Cart.vue')
+    component: () => import('../views/core/Cart.vue')
   },
   {
     path: '/preferences',
     name: 'Preferences',
-    component: () =>
-      import('../views/settings/UserPreferences.vue')
+    component: () => import('../views/settings/UserPreferences.vue')
   },
   {
     path: '/apimanager',
     name: 'API Manager',
-    component: () =>
-      import('../views/settings/APIManager.vue')
+    component: () => import('../views/settings/APIManager.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/invoices',
     name: 'Invoices',
-    component: () =>
-      import('../views/core/Invoices.vue')
+    component: () => import('../views/core/Invoices.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/artists/graffitifalls',
     name: 'Graffiti Falls',
-    component: () =>
-      import('../views/artists/GraffitiFalls.vue')
+    component: () => import('../views/artists/GraffitiFalls.vue')
   },
   {
     path: '/artists',
     name: 'Artists',
-    component: () =>
-      import('../views/core/Artists.vue')
+    component: () => import('../views/core/Artists.vue')
   },
   {
     path: '/submissions/artist',
     name: 'E1: Becoming one of us',
-    component: () =>
-      import('../views/forms/ArtistSubmission')
+    component: () => import('../views/forms/ArtistSubmission')
   },
   // 404 NOT FOUND ERROR PAGE MUST BE AT THE VERY BOTTOM
   {
     path: '/:pathMatch(.*)*',
     name: '404 Shadow Realms',
-    component: () =>
-      import('../views/errors/NotFoundErrorPage.vue')
+    component: () => import('../views/errors/NotFoundErrorPage.vue')
   }
 ]
 
