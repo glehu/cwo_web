@@ -72,6 +72,17 @@
         </section>
         <section
           class="container">
+          <div class="d-md-flex justify-content-between text-light mt-3"
+               style="border-radius: 1rem; background: black">
+            <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                    v-on:click="gotoPlanner">
+              <i class="bi bi-wrench-adjustable-circle p-1"></i> Planner
+            </button>
+            <h3 class="d-none d-md-block">Kanban Style ToDo's et cetera</h3>
+          </div>
+        </section>
+        <section
+          class="container">
           <div class="d-md-flex justify-content-between text-light mt-3 mb-3"
                style="border-radius: 1rem; background: black">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
@@ -139,6 +150,9 @@ export default {
     },
     gotoInvoices () {
       this.$router.push('/invoices')
+    },
+    gotoPlanner () {
+      this.$router.push('/apps/planner')
     }
   }
 }

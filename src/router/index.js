@@ -36,9 +36,9 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/apps/processplanner',
+    path: '/apps/planner',
     name: 'Process Planner',
-    component: () => import('../views/apps/ProcessPlanner'),
+    component: () => import('../views/apps/Planner'),
     meta: { requiresAuth: true }
   },
   {

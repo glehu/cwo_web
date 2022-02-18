@@ -31,8 +31,8 @@
         </p>
         <button title="Become one of us"
                 class="btn bi-file-earmark-text btn-lg muArrow" style="color: white;"
-                v-on:click="gotoArtistSubmission"><span
-          class="ms-2 small">Episode 1: Becoming one of us</span>
+                v-on:click="gotoArtistSubmission">
+          <span class="ms-2 small">Episode 1: Becoming one of us <span class="fw-light small ms-1">(Click Me!)</span></span>
         </button>
       </div>
       <!-- Artists -->
@@ -356,7 +356,7 @@ export default {
 }
 
 .doHover {
-  animation: hover 3s ease-in-out infinite;
+  animation: hover 4s ease-in-out infinite;
 }
 
 @keyframes hover {
@@ -372,7 +372,7 @@ export default {
 }
 
 .doHover2 {
-  animation: hover2 4s ease-in-out infinite;
+  animation: hover2 5s ease-in-out infinite;
 }
 
 @keyframes hover2 {
@@ -380,7 +380,7 @@ export default {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(60%);
+    transform: translateY(30%);
   }
   100% {
     transform: translateY(0);
@@ -388,7 +388,7 @@ export default {
 }
 
 .doHover3 {
-  animation: hover3 3.5s ease-in-out infinite;
+  animation: hover3 6s ease-in-out infinite;
 }
 
 @keyframes hover3 {
