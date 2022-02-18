@@ -2,22 +2,24 @@
   <div class="wrapper">
     <div class="hide p-5" id="contextmenu">
       <div style="display: flex">
-        <i id="btn_cut" class="btn text-white bi bi-x-circle"></i>
-        <i id="btn_info" class="btn text-white bi bi-info-lg"></i>
+        <i id="btn_cut" title="Remove" class="btn text-white bi-x-circle"></i>
+        <i id="btn_info" title="Info" class="btn text-white bi-info-lg"></i>
         <p id="selected_cell" class="pt-2 text-white"></p>
-        <i id="btn_history" class="btn text-white bi bi-clock-history"></i>
+        <i id="btn_history" title="History" class="btn text-white bi-clock-history"></i>
+        <i id="btn_deselect" title="Deselect" class="btn text-white bi-x-lg"></i>
       </div>
     </div>
     <nav id="sidebar">
       <div class="sidebar-header">
         <h3 class="text-center"
             style="padding-top: 4rem; padding-bottom: 1rem; background-color: black">
-          <i class="bi bi-wrench-adjustable-circle text-white"></i> Planner
+          <i class="bi bi-wrench-adjustable-circle text-white"></i> <span class="fw-bold">Planner</span>
         </h3>
         <p id="count_cell" class="ps-2"></p>
       </div>
     </nav>
-    <canvas id="canvas" style="display: block; background-color: #0A0A0F"></canvas>
+    <canvas id="grid" style="position: absolute; display: block; background-color: #0A0A0F"></canvas>
+    <canvas id="canvas" style="position: absolute; display: block"></canvas>
     <div id="editor" style="width:100%; height:100%; position: absolute"></div>
   </div>
 </template>
@@ -41,26 +43,31 @@ export default {
 
       // #### Logic ####
 
+      const grid = document.getElementById('grid')
+      const gridCtx = grid.getContext('2d')
+
       const canvas = document.getElementById('canvas')
       const ctx = canvas.getContext('2d')
 
       function resizeCanvas () {
         canvas.width = 10000
-        canvas.height = 5000
+        canvas.height = 10000
+        grid.width = 10000
+        grid.height = 10000
+        update()
         drawGrid()
-        showCellCount()
       }
 
       resizeCanvas()
 
       function drawGrid () {
         for (let i = 0; i < maxCellAmount; i++) {
-          ctx.fillStyle = '#1F1F1F'
-          ctx.fillRect((i * cellWidth), 0, 1, canvas.height)
+          gridCtx.fillStyle = '#1F1F1F'
+          gridCtx.fillRect((i * cellWidth), 0, 1, grid.height)
         }
         for (let i = 0; i < maxCellAmount; i++) {
-          ctx.fillStyle = '#1F1F1F'
-          ctx.fillRect(0, (i * cellHeight), canvas.width, 1)
+          gridCtx.fillStyle = '#1F1F1F'
+          gridCtx.fillRect(0, (i * cellHeight), grid.width, 1)
         }
       }
 
@@ -86,26 +93,35 @@ export default {
                 case 'btn_cut':
                   removeCell(getCellId(selectedCell))
                   break
+                case 'btn_history':
+                  alert(getCell(getCellId(selectedCell)).history[0])
+                  break
+                case 'btn_deselect':
+                  selectedCell = null
+                  break
               }
             }
             document.getElementById('contextmenu').className = 'hide'
             selectedCell = null
           }
         }
+        update()
         showSelectedCell()
       }
 
       function addCell (x, y) {
         // JavaScript Part
         const id = (cells.length + 1)
+        const history = ['Created']
         cells.unshift({
           x: x,
           y: y,
-          id: id
+          id: id,
+          history: history
         })
-        showCellCount()
-        drawCells()
+        update()
         // HTML Part
+        // Container Cell
         const cell = document.createElement('div')
         cell.id = 'cell_' + id
         cell.style.position = 'absolute'
@@ -113,17 +129,32 @@ export default {
         cell.style.top = ((y + 10) + 'px')
         cell.style.width = ((cellWidth - 20) + 'px')
         cell.style.height = ((cellHeight - 20) + 'px')
+        // Cell Name
         const nameField = document.createElement('input')
         nameField.id = 'cellname_' + id
         nameField.style.width = '100%'
-        nameField.style.height = 'auto'
         nameField.style.textAlign = 'center'
         nameField.style.backgroundColor = '#0A0A0A'
         nameField.style.color = 'white'
         nameField.setAttribute('class', 'fw-bold')
         cell.append(nameField)
+        // Cell Content
+        const contentField = document.createElement('input')
+        contentField.id = 'cellvalue_' + id
+        contentField.style.width = '100%'
+        contentField.style.textAlign = 'center'
+        contentField.style.color = 'black'
+        contentField.setAttribute('class', 'fw-bold')
+        cell.append(contentField)
+        // Append to editor screen
         document.getElementById('editor').appendChild(cell)
         selectedCell = cell
+      }
+
+      function getCell (id) {
+        return cells.filter(function (ele) {
+          return ele.id.toString() === id.toString()
+        })[0]
       }
 
       function removeCell (id) {
@@ -132,18 +163,21 @@ export default {
           return ele.id.toString() !== id.toString()
         })
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        drawGrid()
-        drawCells()
-        showCellCount()
+        update()
         // Now remove HTML content
         const elem = document.getElementById('cell_' + id)
         elem.remove()
       }
 
+      function update () {
+        drawCells()
+        showCellCount()
+      }
+
       function openMenu (x, y) {
         document.getElementById('contextmenu').className = 'show'
         document.getElementById('contextmenu').style.left = (x + 100) + 'px'
-        document.getElementById('contextmenu').style.top = (y - 100) + 'px'
+        document.getElementById('contextmenu').style.top = (y - (cellHeight / 2)) + 'px'
       }
 
       function getPositionX (mousePos) {
@@ -170,7 +204,9 @@ export default {
         }
         const cellId = getCellId(selectedCell)
         const cellNameField = document.getElementById('cellname_' + cellId)
-        cellSelected.innerText = 'Selected: Cell ' + cellId + ' ' + cellNameField.value
+        let valueString = ': ' + cellNameField.value
+        if (cellNameField.value === '') valueString = ''
+        cellSelected.innerText = 'Cell ' + cellId + valueString
       }
 
       showSelectedCell()
