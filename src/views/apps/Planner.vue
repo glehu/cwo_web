@@ -2,11 +2,11 @@
   <div class="wrapper">
     <div class="hide" id="contextmenu">
       <div style="display: flex; align-items: center">
-        <i id="btn_done" title="Done" class="btn text-white bi-check2-circle" style="font-size: 150%"></i>
-        <i id="btn_info" title="Info" class="btn text-white bi-info-circle" style="font-size: 150%"></i>
-        <i id="btn_cut" title="Remove" class="btn text-white bi-x-circle" style="font-size: 150%"></i>
-        <i id="btn_history" title="History" class="btn text-white bi-clock-history" style="font-size: 150%"></i>
-        <i id="btn_deselect" title="Deselect" class="btn text-white bi-x-lg ps-5" style="font-size: 150%"></i>
+        <i id="btn_done" title="Done" class="btn text-white bi-check2-circle muArrow" style="font-size: 150%"></i>
+        <i id="btn_info" title="Info" class="btn text-white bi-info-circle muArrow" style="font-size: 150%"></i>
+        <i id="btn_cut" title="Remove" class="btn text-white bi-x-circle muArrow" style="font-size: 150%"></i>
+        <i id="btn_history" title="History" class="btn text-white bi-clock-history muArrow" style="font-size: 150%"></i>
+        <i id="btn_deselect" title="Deselect" class="btn text-white bi-x-lg ps-5 muArrow" style="font-size: 150%"></i>
         <p id="selected_cell" class="text-white pt-3" style="width: 250px"></p>
       </div>
     </div>
@@ -14,9 +14,10 @@
       <div style="display: flex; align-items: center">
         <i id="btn_addbox" title="Add Box" class="btn text-white bi-square" style="font-size: 200%"></i>
         <input id="addmenu_rows" class="bg-black text-white p-2"
-               type="number" value="10" min="1" max="50" size="2"
+               type="number" value="5" min="1" max="50" size="2"
                style="border-radius: 1rem">
-        <i id="btn_addtask" title="Add Task" class="btn text-white bi-list-task" style="font-size: 200%"></i>
+        <i id="btn_addtask" title="Add Task" class="btn text-white bi-file-earmark-check doHover"
+           style="font-size: 200%"></i>
         <i id="btn_deselect2" title="Deselect" class="btn text-white bi-x-lg pt-2 ps-5" style="font-size: 150%"></i>
       </div>
     </div>
@@ -40,12 +41,15 @@
 
 <script>
 export default {
+  mounted () {
+    this.planner()
+  },
   name: 'ProcessPlanner',
   methods: {
-    processplanner () {
+    planner () {
       // #### Variables ####
 
-      const maxCellAmount = 100
+      const maxCellAmount = 20
       const cellWidth = 400
       const cellHeight = 150
       let cells = []
@@ -64,24 +68,25 @@ export default {
       const ctx = canvas.getContext('2d')
 
       function resizeCanvas () {
-        canvas.width = 10000
-        canvas.height = 10000
-        grid.width = 10000
-        grid.height = 10000
+        canvas.width = maxCellAmount * cellWidth
+        canvas.height = maxCellAmount * cellHeight
+        grid.width = maxCellAmount * cellWidth
+        grid.height = maxCellAmount * cellHeight
         update()
         drawGrid()
       }
 
-      resizeCanvas()
-
       function drawGrid () {
         for (let i = 0; i < maxCellAmount; i++) {
-          gridCtx.fillStyle = '#1F1F1F'
-          gridCtx.fillRect((i * cellWidth), 0, 1, grid.height)
-        }
-        for (let i = 0; i < maxCellAmount; i++) {
-          gridCtx.fillStyle = '#1F1F1F'
-          gridCtx.fillRect(0, (i * cellHeight), grid.width, 1)
+          for (let j = 0; j < maxCellAmount; j++) {
+            // Lines
+            gridCtx.fillStyle = '#0F0F0F'
+            gridCtx.fillRect((i * cellWidth), (j * cellHeight), cellWidth, 1)
+            gridCtx.fillRect((i * cellWidth), (j * cellHeight), 1, cellHeight)
+            // Dots
+            gridCtx.fillStyle = 'white'
+            gridCtx.fillRect(((i * cellWidth) - 1), ((j * cellHeight) - 1), 4, 4)
+          }
         }
       }
 
@@ -102,12 +107,10 @@ export default {
           const elemUnderCursor = document.elementFromPoint(xc, yc)
           if (elemUnderCursor.id.includes('cell')) {
             document.getElementById('addmenu').className = 'hide'
-            openMenu(x, y)
             selectedCell = elemUnderCursor
-            showSelectedCell()
+            openMenu(x, y)
           } else {
             // Buttons?
-            console.log(elemUnderCursor.id.toString())
             if (elemUnderCursor.id.includes('btn')) {
               switch (elemUnderCursor.id.toString()) {
                 case 'btn_addbox':
@@ -148,14 +151,31 @@ export default {
         // JavaScript Part
         const id = (cells.length + 1)
         const history = ['Created']
-        cells.unshift({
+        let belongsToBox = -1
+        for (let i = cells.length - 1; i >= 0; i--) {
+          if (cells[i].x === x) {
+            if (cells[i].type === 'box') {
+              // Check if the cell is inside the box's boundaries
+              const boxStart = cells[i].y
+              const boxEnd = (cells[i].rows * cellHeight)
+              if (y >= boxStart && y <= boxEnd) {
+                // Reference the box
+                belongsToBox = cells[i].id
+              }
+            }
+          }
+        }
+        const cCell = {
           x: x,
           y: y,
           id: id,
           type: 'task',
           rows: '1',
+          box: belongsToBox,
           history: history
-        })
+        }
+        console.log(cCell)
+        cells.unshift(cCell)
         update()
         // HTML Part
         // Container Cell
@@ -186,10 +206,13 @@ export default {
         // Append to editor screen
         document.getElementById('editor').appendChild(task)
         selectedCell = task
+        // Focus input field
+        document.getElementById('cellname_' + id).focus()
+        document.getElementById('cellname_' + id).select()
+        openMenu(x, y)
       }
 
       function addBox (x, y) {
-        console.log('addBox')
         // JavaScript Part
         const id = (cells.length + 1)
         const history = ['Created']
@@ -200,6 +223,7 @@ export default {
           id: id,
           type: 'box',
           rows: boxRows,
+          box: -1,
           history: history
         })
         update()
@@ -208,6 +232,7 @@ export default {
         const cell = document.createElement('div')
         cell.id = 'cell_' + id
         cell.style.position = 'absolute'
+        cell.style.backgroundColor = '#0A5F4F'
         cell.style.left = ((x + 10) + 'px')
         cell.style.top = ((y + 10) + 'px')
         cell.style.width = ((cellWidth - 20) + 'px')
@@ -215,8 +240,11 @@ export default {
         // Cell Name
         const nameField = document.createElement('input')
         nameField.id = 'cellname_' + id
-        nameField.style.width = '100%'
-        nameField.style.fontSize = '120%'
+        nameField.style.width = (cellWidth - 60) + 'px'
+        nameField.style.marginTop = 20 + 'px'
+        nameField.style.marginLeft = 20 + 'px'
+        nameField.style.borderRadius = '2em'
+        nameField.style.fontSize = '130%'
         nameField.style.textAlign = 'center'
         nameField.style.backgroundColor = '#0F2F2F'
         nameField.style.color = 'white'
@@ -225,6 +253,10 @@ export default {
         // Append to editor screen
         document.getElementById('editor').appendChild(cell)
         selectedCell = cell
+        // Focus input field
+        document.getElementById('cellname_' + id).focus()
+        document.getElementById('cellname_' + id).select()
+        openMenu(x, y)
       }
 
       function getCell (id) {
@@ -251,8 +283,12 @@ export default {
         cell.style.width = '100%'
         // Cell Name
         const cellId = getCellId(selectedCell)
-        const cellNameField = document.getElementById('cellname_' + cellId)
-        const valueString = '✓ ' + cellNameField.value
+        const cellName = document.getElementById('cellname_' + cellId).value
+        let boxInfo = ''
+        if (getCell(id).box !== -1) {
+          boxInfo = '[' + document.getElementById('cellname_' + getCell(id).box).value + '] '
+        }
+        const valueString = '✓ ' + boxInfo + cellName
         const nameField = document.createTextNode(valueString)
         cell.append(nameField)
         const finishedList = document.getElementById('hall_of_fame')
@@ -273,6 +309,7 @@ export default {
       }
 
       function openMenu (x, y) {
+        showSelectedCell()
         document.getElementById('contextmenu').className = 'show'
         document.getElementById('contextmenu').style.left = x + 'px'
         document.getElementById('contextmenu').style.top = (y - (cellHeight / 2)) + 'px'
@@ -298,8 +335,6 @@ export default {
         cellCounter.innerText = 'Elements: ' + cellCount
       }
 
-      showCellCount()
-
       function showSelectedCell () {
         const cellSelected = document.getElementById('selected_cell')
         if (selectedCell === null) {
@@ -313,26 +348,22 @@ export default {
         cellSelected.innerText = 'ID:' + cellId + valueString
       }
 
-      showSelectedCell()
-
       function getCellId (cell) {
         return cell.id.split('_')[1]
       }
 
       function drawCells () {
-        console.log(cells)
         for (let i = 0; i < cells.length; i++) {
           switch (cells[i].type) {
             case 'task':
-              ctx.fillStyle = '#FFFFFF'
               break
             case 'box':
               ctx.fillStyle = '#0F2F2F'
+              ctx.fillRect(
+                (cells[i].x + 10), (cells[i].y + 10), (cellWidth - 20), ((cellHeight * cells[i].rows) - 20)
+              )
               break
           }
-          ctx.fillRect(
-            (cells[i].x + 10), (cells[i].y + 10), (cellWidth - 20), ((cellHeight * cells[i].rows) - 20)
-          )
         }
       }
 
@@ -349,10 +380,10 @@ export default {
         }
         return true
       }
+
+      resizeCanvas()
+      drawGrid()
     }
-  },
-  mounted: function () {
-    this.processplanner()
   }
 }
 </script>
@@ -371,7 +402,7 @@ export default {
   left: 0;
   height: 100vh;
   z-index: 999;
-  background: #0A1A1F;
+  background: #0A2C2F;
   color: #ffff;
   transition: all 0.3s;
 }
@@ -384,8 +415,9 @@ export default {
 .show {
   z-index: 1000;
   position: absolute;
-  background-color: #0A1A1F;
+  background-color: #0A2C2F;
   border-radius: 2em;
+  border: 3px solid black;
   display: block;
   margin: 0;
   list-style: none;
@@ -398,6 +430,32 @@ export default {
 
 .hide {
   display: none;
+}
+
+.muArrow {
+  position: relative;
+  top: 0;
+  transition: top ease 0.5s;
+}
+
+.muArrow:hover {
+  top: -5px;
+}
+
+.doHover {
+  animation: hover 3s ease-in-out infinite;
+}
+
+@keyframes hover {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 </style>
