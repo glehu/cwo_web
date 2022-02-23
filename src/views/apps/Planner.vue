@@ -43,6 +43,7 @@
 export default {
   mounted () {
     this.planner()
+    this.drawGrid()
   },
   name: 'ProcessPlanner',
   methods: {
@@ -61,33 +62,13 @@ export default {
 
       // #### Logic ####
 
-      const grid = document.getElementById('grid')
-      const gridCtx = grid.getContext('2d')
-
       const canvas = document.getElementById('canvas')
       const ctx = canvas.getContext('2d')
 
       function resizeCanvas () {
         canvas.width = maxCellAmount * cellWidth
         canvas.height = maxCellAmount * cellHeight
-        grid.width = maxCellAmount * cellWidth
-        grid.height = maxCellAmount * cellHeight
         update()
-        drawGrid()
-      }
-
-      function drawGrid () {
-        for (let i = 0; i < maxCellAmount; i++) {
-          for (let j = 0; j < maxCellAmount; j++) {
-            // Lines
-            gridCtx.fillStyle = '#0F0F0F'
-            gridCtx.fillRect((i * cellWidth), (j * cellHeight), cellWidth, 1)
-            gridCtx.fillRect((i * cellWidth), (j * cellHeight), 1, cellHeight)
-            // Dots
-            gridCtx.fillStyle = 'white'
-            gridCtx.fillRect(((i * cellWidth) - 1), ((j * cellHeight) - 1), 4, 4)
-          }
-        }
       }
 
       function handleMouseClick () {
@@ -382,7 +363,26 @@ export default {
       }
 
       resizeCanvas()
-      drawGrid()
+    },
+    drawGrid () {
+      const cellWidth = 400
+      const cellHeight = 150
+      const maxCellAmount = 20
+      const grid = document.getElementById('grid')
+      const gridCtx = grid.getContext('2d')
+      grid.width = maxCellAmount * cellWidth
+      grid.height = maxCellAmount * cellHeight
+      for (let i = 0; i < maxCellAmount; i++) {
+        for (let j = 0; j < maxCellAmount; j++) {
+          // Lines
+          gridCtx.fillStyle = '#1F1F1F'
+          gridCtx.fillRect((i * cellWidth), (j * cellHeight), cellWidth, 2)
+          gridCtx.fillRect((i * cellWidth), (j * cellHeight), 2, cellHeight)
+          // Dots
+          gridCtx.fillStyle = 'white'
+          gridCtx.fillRect(((i * cellWidth) - 1), ((j * cellHeight) - 1), 4, 4)
+        }
+      }
     }
   }
 }
