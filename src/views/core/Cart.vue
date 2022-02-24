@@ -3,8 +3,7 @@
     <div style="min-height: 10vh"></div>
     <section
       class="container">
-      <div class="text-light p-3"
-           style="border-radius: 1rem; background: black">
+      <div class="text-light p-3">
         <h1 class="fw-bold d-flex">
           Shopping Cart, Total: {{ cartTotal }} €
         </h1>

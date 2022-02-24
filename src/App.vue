@@ -27,7 +27,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/m1" class="nav-link fw-bold">
+              <router-link to="/apps/songfinder" class="nav-link fw-bold">
                 <i class="bi bi-music-note"></i> Songs
               </router-link>
             </li>

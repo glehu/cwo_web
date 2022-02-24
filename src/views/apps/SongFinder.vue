@@ -2,12 +2,14 @@
   <div style="min-height: 10vh"></div>
   <div class="text-center text-white">
     <div class="card-subtitle container">
-      <h5 class="card-header">CWO_ERP M1 API</h5>
+      <h5 class="card-header" style="font-weight: lighter">CWO_ERP M1 API</h5>
       <div class="card-body">
         <input
           v-model="message"
           v-on:keyup.enter="processInput(message)"
-          placeholder="Search text"
+          placeholder="Song Title, Artist..."
+          class="text-center"
+          style="border-radius: 3em; font-size: 200%; font-weight: bold; padding: 1rem"
         />
       </div>
 
@@ -48,12 +50,12 @@ export default {
     }
   },
   methods: {
-    getSongFromUID (uID) {
+    getSongFromSearchText (text) {
       this.myObj = {}
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       fetch(
-        'http://localhost:8000/api/m1/entry/' + uID + '?type=name&format=json&lock=false',
+        'http://localhost:8000/api/m1/entry/' + text.replace(/\s+/g, '') + '?type=name&format=json&lock=false',
         {
           method: 'get',
           headers: headers
@@ -64,7 +66,7 @@ export default {
         .catch((err) => console.log(err.message))
     },
     processInput (searchString) {
-      this.getSongFromUID(searchString)
+      this.getSongFromSearchText(searchString)
     }
   }
 }

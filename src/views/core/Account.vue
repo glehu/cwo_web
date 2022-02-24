@@ -8,16 +8,16 @@
         Hey, {{ this.$store.state.username }}.<br><br>
       </h2>
       <h3 class="pb-1">What's next?</h3>
-      <div class="card text-white border-2"
-           style="border-radius: 1rem; background: black; border-color: white">
+      <div class="card text-white"
+           style="border-radius: 1rem; border-color: black" :style="{ backgroundImage: bg3 }">
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light mt-3"
-               style="border-radius: 1rem; background: black">
+          <div class="d-md-flex justify-content-between text-white mt-3"
+               style="border-radius: 1rem;">
             <div class="d-flex">
               <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                       v-on:click="showCart">
-                <i class="bi bi-cart p-1"></i> Cart
+                <i class="bi bi-cart p-1"></i><span class="fw-bold"> Cart</span>
               </button>
               <div class="d-lg-flex">
                 <div class="d-flex">
@@ -34,62 +34,62 @@
                 </div>
               </div>
             </div>
-            <h3 class="d-none d-md-block">View your shopping cart.</h3>
+            <h3 class="d-none d-md-block" style="font-weight: lighter">View your shopping cart.</h3>
           </div>
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light mt-3"
-               style="border-radius: 1rem; background: black">
+          <div class="d-md-flex justify-content-between text-white mt-3"
+               style="border-radius: 1rem;">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="gotoInvoices">
-              <i class="bi bi-journal-text p-1"></i> Invoices
+              <i class="bi bi-journal-text p-1"></i><span class="fw-bold"> Invoices</span>
             </button>
-            <h3 class="d-none d-md-block">View your invoices</h3>
+            <h3 class="d-none d-md-block" style="font-weight: lighter">View your invoices</h3>
           </div>
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light mt-3"
-               style="border-radius: 1rem; background: black">
+          <div class="d-md-flex justify-content-between text-white mt-3"
+               style="border-radius: 1rem;">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="gotoPreferences">
-              <i class="bi bi-wrench p-1"></i> Preferences
+              <i class="bi bi-wrench p-1"></i><span class="fw-bold"> Preferences</span>
             </button>
-            <h3 class="d-none d-md-block">Cookies and Trackers</h3>
+            <h3 class="d-none d-md-block" style="font-weight: lighter">Cookies and Trackers</h3>
           </div>
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light mt-3"
-               style="border-radius: 1rem; background: black">
+          <div class="d-md-flex justify-content-between text-white mt-3"
+               style="border-radius: 1rem;">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="gotoAPI">
-              <i class="bi bi-cloud-upload p-1"></i> API Manager
+              <i class="bi bi-cloud-upload p-1"></i><span class="fw-bold"> API Manager</span>
             </button>
-            <h3 class="d-none d-md-block">API Settings & Authorization</h3>
+            <h3 class="d-none d-md-block" style="font-weight: lighter">API Settings & Authorization</h3>
           </div>
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light mt-3"
-               style="border-radius: 1rem; background: black">
+          <div class="d-md-flex justify-content-between text-white mt-3"
+               style="border-radius: 1rem;">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="gotoPlanner">
-              <i class="bi bi-wrench-adjustable-circle p-1"></i> Planner
+              <i class="bi bi-wrench-adjustable-circle p-1"></i><span class="fw-bold"> Planner</span>
             </button>
-            <h3 class="d-none d-md-block">Kanban Style ToDo's et cetera</h3>
+            <h3 class="d-none d-md-block" style="font-weight: lighter">Kanban Style ToDo's et cetera</h3>
           </div>
         </section>
         <section
           class="container">
-          <div class="d-md-flex justify-content-between text-light mt-3 mb-3"
-               style="border-radius: 1rem; background: black">
+          <div class="d-md-flex justify-content-between text-white mt-3 mb-3"
+               style="border-radius: 1rem;">
             <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                     v-on:click="logout">
-              <i class="bi bi-door-open p-1"></i> Logout
+              <i class="bi bi-door-open p-1"></i><span class="fw-bold"> Logout</span>
             </button>
-            <h3 class="d-none d-md-block">Want to leave? See you soon.</h3>
+            <h3 class="d-none d-md-block" style="font-weight: lighter">Want to leave? See you soon.</h3>
           </div>
         </section>
       </div>
@@ -100,9 +100,16 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      angleC3: '180',
+      colorA2: 'rebeccapurple',
+      colorB1: 'darkblue'
+    }
   },
   computed: {
+    bg3 () {
+      return `linear-gradient(${this.angleC3}deg, ${this.colorB1}, ${this.colorA2})`
+    },
     cartTotal () {
       let total = 0
       for (let i = 0; i < this.$store.state.cart.length; i++) {
