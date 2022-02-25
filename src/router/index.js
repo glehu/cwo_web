@@ -118,7 +118,7 @@ router.beforeEach((to, from, next) => {
     } else {
       if (to.fullPath === '/apps/planner' || to.fullPath === '/apps/planner/' || to.fullPath === '/planner') {
         next({
-          path: to.fullPath + '/' + store.state.username.split('@')[0]
+          path: '/apps/planner/' + store.state.username.split('@')[0]
         })
       } else {
         next()
