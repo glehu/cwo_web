@@ -9,7 +9,7 @@
           v-on:keyup.enter="processInput(message)"
           placeholder="Song Title, Artist..."
           class="text-center"
-          style="border-radius: 3em; font-size: 200%; font-weight: bold; padding: 1rem"
+          style="border-radius: 3em; font-size: 200%; font-weight: bold; padding: 10px"
         />
       </div>
 

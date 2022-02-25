@@ -36,7 +36,7 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/apps/planner',
+    path: '/apps/planner/:id',
     name: 'Planner',
     component: () => import('../views/apps/Planner'),
     meta: { requiresAuth: true }
@@ -116,7 +116,13 @@ router.beforeEach((to, from, next) => {
         }
       })
     } else {
-      next()
+      if (to.fullPath === '/apps/planner') {
+        next({
+          path: to.fullPath + '/' + store.state.username.split('@')[0]
+        })
+      } else {
+        next()
+      }
     }
   }
 })

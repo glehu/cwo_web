@@ -5,7 +5,7 @@
     <div class="text-light p-3">
       <h2 class="fw-bold my-3 d-flex doHover" style="overflow: hidden">
         <i class="bi bi-stars" style="font-size: 200%"></i><br>
-        Hey, {{ this.$store.state.username }}.<br><br>
+        Hey, {{ this.$store.state.username.split('@')[0] }}.<br><br>
       </h2>
       <h3 class="pb-1">What's next?</h3>
       <div class="card text-white"
@@ -159,7 +159,7 @@ export default {
       this.$router.push('/invoices')
     },
     gotoPlanner () {
-      this.$router.push('/apps/planner')
+      this.$router.push('/apps/planner/' + this.$store.state.username.split('@')[0])
     }
   }
 }

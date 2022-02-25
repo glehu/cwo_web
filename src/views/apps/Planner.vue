@@ -35,7 +35,7 @@
     </nav>
     <canvas id="grid" style="position: absolute; display: block; background-color: #0A0A0F"></canvas>
     <canvas id="canvas" style="position: absolute; display: block"></canvas>
-    <div id="editor" style="width:100%; height:100%; position: absolute"></div>
+    <div id="editor" style="position: absolute"></div>
   </div>
 </template>
 
@@ -132,7 +132,8 @@ export default {
     addTask (x, y) {
       // JavaScript Part
       const id = (this.cells.length + 1)
-      const history = ['Created']
+      const historyEntry = 'Created by ' + this.$store.state.username
+      const history = [historyEntry]
       let belongsToBox = -1
       for (let i = this.cells.length - 1; i >= 0; i--) {
         if (this.cells[i].x === x) {
