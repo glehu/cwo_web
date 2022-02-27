@@ -50,7 +50,8 @@ export default {
   name: 'ProcessPlanner',
   data () {
     return {
-      maxCellAmount: 20,
+      maxCellRows: 25,
+      maxCellCols: 15,
       cellWidth: 400,
       cellHeight: 150,
       cells: [],
@@ -128,6 +129,7 @@ export default {
         }
       }
       this.update()
+      this.save()
     },
     addTask (x, y) {
       // JavaScript Part
@@ -294,7 +296,8 @@ export default {
     showCellCount () {
       const cellCounter = document.getElementById('count_cell')
       const cellCount = this.cells.length
-      cellCounter.innerText = 'Elements: ' + cellCount
+      const maxCells = this.maxCellCols * this.maxCellRows
+      cellCounter.innerText = 'Elements: ' + cellCount + ' / ' + maxCells
     },
     showSelectedCell () {
       const cellSelected = document.getElementById('selected_cell')
@@ -323,15 +326,15 @@ export default {
       }
     },
     resizeCanvas () {
-      this.canvas.width = this.maxCellAmount * this.cellWidth
-      this.canvas.height = this.maxCellAmount * this.cellHeight
+      this.canvas.width = this.maxCellCols * this.cellWidth
+      this.canvas.height = this.maxCellRows * this.cellHeight
       this.update()
     },
     drawGrid () {
-      this.grid.width = this.maxCellAmount * this.cellWidth
-      this.grid.height = this.maxCellAmount * this.cellHeight
-      for (let i = 0; i < this.maxCellAmount; i++) {
-        for (let j = 0; j < this.maxCellAmount; j++) {
+      this.grid.width = this.maxCellCols * this.cellWidth
+      this.grid.height = this.maxCellRows * this.cellHeight
+      for (let i = 0; i < this.maxCellRows; i++) {
+        for (let j = 0; j < this.maxCellRows; j++) {
           // Lines
           this.gridCtx.fillStyle = '#1F1F1F'
           this.gridCtx.fillRect((i * this.cellWidth), (j * this.cellHeight), this.cellWidth, 2)
@@ -368,6 +371,36 @@ export default {
       return this.cells.filter(function (ele) {
         return ele.id.toString() === id.toString()
       })[0]
+    },
+    async save () {
+      // Gather information
+      let cellID
+      for (let i = 0; i < this.cells.length; i++) {
+        cellID = this.cells[i].id
+        this.cells[i].name = document.getElementById('cellname_' + cellID).value
+        if (this.cells[i].type === 'task') {
+          this.cells[i].description = document.getElementById('cellvalue_' + cellID).value
+        }
+      }
+      // Send data to server
+      const headers = new Headers()
+      headers.set('Authorization', 'Bearer ' + this.$store.state.token)
+      headers.set(
+        'Content-Type', 'application/json'
+      )
+      const payload = {
+        action: 'save',
+        project: this.$store.state.username.split('@')[0],
+        cells: this.cells
+      }
+      fetch(
+        'http://localhost:8000/api/planner',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify(payload)
+        }
+      ).then(r => console.log(r))
     }
   }
 }
