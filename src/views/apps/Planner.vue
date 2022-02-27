@@ -468,7 +468,7 @@ export default {
       )
       const payload = {
         action: 'save',
-        project: this.$store.state.username.split('@')[0],
+        project: this.$route.params.id,
         cells: this.cells
       }
       fetch(
