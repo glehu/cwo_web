@@ -1,6 +1,7 @@
 <template>
   <div class="preferences" style="min-height: 100vh; background-color: #0A0A0F">
-    <div class="container" style="position: absolute; top: 10ch">
+    <div style="min-height: 10ch"></div>
+    <div class="container" style="margin: auto">
       <h1 class="fw-bold text-white p-3">
         Hey, no running in the hallways!
       </h1>
