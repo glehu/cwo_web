@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: () => import('../views/core/About.vue')
+    component: () => import('../views/info/About.vue')
   },
   {
     path: '/login',
@@ -83,6 +83,11 @@ const routes = [
     name: 'E1: Becoming one of us',
     component: () => import('../views/forms/ArtistSubmission')
   },
+  {
+    path: '/vision',
+    name: 'Vision',
+    component: () => import('../views/info/Vision')
+  },
   // 404 NOT FOUND ERROR PAGE MUST BE AT THE VERY BOTTOM
   {
     path: '/:pathMatch(.*)*',
@@ -116,11 +121,13 @@ router.beforeEach((to, from, next) => {
         }
       })
     } else {
+      // Handle Planner Route
       if (to.fullPath === '/apps/planner' || to.fullPath === '/apps/planner/' || to.fullPath === '/planner') {
         next({
           path: '/apps/planner/' + store.state.username.split('@')[0]
         })
       } else {
+        // #### Any Other Route
         next()
       }
     }

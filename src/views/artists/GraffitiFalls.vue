@@ -140,7 +140,7 @@ export default {
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 300px) {
   .wrapper {
     grid-template-columns: repeat(1, 1fr);
   }
