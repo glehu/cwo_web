@@ -40,12 +40,14 @@
 </template>
 
 <script>
+import { toRaw } from 'vue'
+
 export default {
   mounted () {
     this.planner()
     this.resizeCanvas()
     this.drawGrid()
-    this.update()
+    this.load()
   },
   name: 'ProcessPlanner',
   data () {
@@ -59,7 +61,11 @@ export default {
       grid: null,
       gridCtx: null,
       canvas: null,
-      ctx: null
+      ctx: null,
+      serverResponse: {
+        type: '',
+        content: ''
+      }
     }
   },
   methods: {
@@ -75,6 +81,8 @@ export default {
       this.ctx = this.canvas.getContext('2d')
     },
     handleMouseClick () {
+      if (!this.$route.fullPath.includes('/planner/')) return
+      this.save()
       const x = this.getPositionX(event.pageX)
       const y = this.getPositionY(event.pageY)
       const xc = event.clientX
@@ -128,8 +136,6 @@ export default {
           }
         }
       }
-      this.update()
-      this.save()
     },
     addTask (x, y) {
       // JavaScript Part
@@ -159,10 +165,13 @@ export default {
         box: belongsToBox,
         history: history
       }
-      console.log(cCell)
-      this.cells.unshift(cCell)
+      this.getCells.unshift(cCell)
+      this.createTaskDom(x, y, id, '', '', true)
       this.update()
-      // HTML Part
+      this.save()
+      this.openMenu(x, y)
+    },
+    createTaskDom (x, y, id, name, description, focus = false) {
       // Container Cell
       const task = document.createElement('div')
       task.id = 'cell_' + id
@@ -179,6 +188,11 @@ export default {
       taskName.style.backgroundColor = '#0A0A0A'
       taskName.style.color = 'white'
       taskName.setAttribute('class', 'fw-bold')
+      if (name !== '' && name !== undefined) {
+        taskName.value = name
+      } else {
+        taskName.value = ''
+      }
       task.append(taskName)
       // Cell Content
       const taskValue = document.createElement('textarea')
@@ -187,21 +201,27 @@ export default {
       taskValue.style.textAlign = 'center'
       taskValue.style.color = 'black'
       taskValue.setAttribute('class', 'fw-bold')
+      if (description !== '' && description !== undefined) {
+        taskValue.value = description
+      } else {
+        taskValue.value = ''
+      }
       task.append(taskValue)
       // Append to editor screen
       document.getElementById('editor').appendChild(task)
       this.selectedCell = task
-      // Focus input field
-      document.getElementById('cellname_' + id).focus()
-      document.getElementById('cellname_' + id).select()
-      this.openMenu(x, y)
+      if (focus) {
+        // Focus input field
+        document.getElementById('cellname_' + id).focus()
+        document.getElementById('cellname_' + id).select()
+      }
     },
     addBox (x, y) {
       // JavaScript Part
       const id = (this.cells.length + 1)
       const history = ['Created']
       const boxRows = parseInt(document.getElementById('addmenu_rows').value) + 1
-      this.cells.unshift({
+      const cCell = {
         x: x,
         y: y,
         id: id,
@@ -209,9 +229,15 @@ export default {
         rows: boxRows,
         box: -1,
         history: history
-      })
-      this.update()
+      }
+      this.getCells.unshift(cCell)
       // HTML Part
+      this.createBoxDom(x, y, id, '', true)
+      this.update()
+      this.save()
+      this.openMenu(x, y)
+    },
+    createBoxDom (x, y, id, name, focus = false) {
       // Container Cell
       const cell = document.createElement('div')
       cell.id = 'cell_' + id
@@ -222,35 +248,47 @@ export default {
       cell.style.width = ((this.cellWidth - 20) + 'px')
       cell.style.height = ((this.cellHeight - 20) + 'px')
       // Cell Name
-      const nameField = document.createElement('input')
-      nameField.id = 'cellname_' + id
-      nameField.style.width = (this.cellWidth - 60) + 'px'
-      nameField.style.marginTop = 20 + 'px'
-      nameField.style.marginLeft = 20 + 'px'
-      nameField.style.borderRadius = '2em'
-      nameField.style.fontSize = '130%'
-      nameField.style.textAlign = 'center'
-      nameField.style.backgroundColor = '#0F2F2F'
-      nameField.style.color = 'white'
-      nameField.setAttribute('class', 'fw-bold')
-      cell.append(nameField)
+      const cellName = document.createElement('input')
+      cellName.id = 'cellname_' + id
+      cellName.style.width = (this.cellWidth - 60) + 'px'
+      cellName.style.marginTop = 20 + 'px'
+      cellName.style.marginLeft = 20 + 'px'
+      cellName.style.borderRadius = '2em'
+      cellName.style.fontSize = '130%'
+      cellName.style.textAlign = 'center'
+      cellName.style.backgroundColor = '#0F2F2F'
+      cellName.style.color = 'white'
+      cellName.setAttribute('class', 'fw-bold')
+      if (name !== '' && name !== undefined) {
+        cellName.value = name
+      } else {
+        cellName.value = ''
+      }
+      cell.append(cellName)
       // Append to editor screen
       document.getElementById('editor').appendChild(cell)
       this.selectedCell = cell
-      // Focus input field
-      document.getElementById('cellname_' + id).focus()
-      document.getElementById('cellname_' + id).select()
-      this.openMenu(x, y)
+      if (focus) {
+        // Focus input field
+        document.getElementById('cellname_' + id).focus()
+        document.getElementById('cellname_' + id).select()
+      }
     },
     removeCell (id) {
+      // Remove HTML content
+      let elemToRemove = document.getElementById('cell_' + id)
+      elemToRemove.remove()
+      elemToRemove = document.getElementById('cell_' + id)
+      if (elemToRemove !== null) {
+        elemToRemove.remove()
+      }
       // Remove Canvas content
-      this.cells = this.cells.filter(function (ele) {
+      this.cells = this.getCells.filter(function (ele) {
         return ele.id.toString() !== id.toString()
       })
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.save()
       this.update()
-      // Now remove HTML content
-      document.getElementById('cell_' + id).remove()
     },
     finishCell (id) {
       // Container Cell
@@ -269,14 +307,20 @@ export default {
       cell.append(nameField)
       const finishedList = document.getElementById('hall_of_fame')
       finishedList.insertBefore(cell, finishedList.children[0])
+      // Remove HTML content
+      let elemToRemove = document.getElementById('cell_' + id)
+      elemToRemove.remove()
+      elemToRemove = document.getElementById('cell_' + id)
+      if (elemToRemove !== null) {
+        elemToRemove.remove()
+      }
       // Remove Canvas content
-      this.cells = this.cells.filter(function (ele) {
+      this.cells = this.getCells.filter(function (ele) {
         return ele.id.toString() !== id.toString()
       })
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.save()
       this.update()
-      // Now remove HTML content
-      document.getElementById('cell_' + id).remove()
     },
     update () {
       this.drawCells()
@@ -312,15 +356,42 @@ export default {
       cellSelected.innerText = 'ID:' + cellId + valueString
     },
     drawCells () {
-      for (let i = 0; i < this.cells.length; i++) {
-        switch (this.cells[i].type) {
+      console.log('DRAW', this.getCells)
+      let cellElem
+      for (let i = 0; i < this.getCells.length; i++) {
+        const cell = this.getCells[i]
+        switch (cell.type) {
           case 'task':
-            break
-          case 'box':
+            // Canvas
             this.ctx.fillStyle = '#0F2F2F'
             this.ctx.fillRect(
-              (this.cells[i].x + 10), (this.cells[i].y + 10), (this.cellWidth - 20), ((this.cellHeight * this.cells[i].rows) - 20)
+              (cell.x + 10),
+              (cell.y + 10),
+              (this.cellWidth - 20),
+              ((this.cellHeight * cell.rows) - 20)
             )
+            // HTML
+            cellElem = document.getElementById('cell_' + cell.id)
+            if (cellElem === null) {
+              this.createTaskDom(cell.x, cell.y, cell.id, cell.name, cell.description)
+              console.log('Cell Created')
+            }
+            break
+          case 'box':
+            // Canvas
+            this.ctx.fillStyle = '#0F2F2F'
+            this.ctx.fillRect(
+              (cell.x + 10),
+              (cell.y + 10),
+              (this.cellWidth - 20),
+              ((this.cellHeight * cell.rows) - 20)
+            )
+            // HTML
+            cellElem = document.getElementById('cell_' + cell.id)
+            if (cellElem === null) {
+              this.createBoxDom(cell.x, cell.y, cell.id, cell.name)
+              console.log('Box Created')
+            }
             break
         }
       }
@@ -328,7 +399,6 @@ export default {
     resizeCanvas () {
       this.canvas.width = this.maxCellCols * this.cellWidth
       this.canvas.height = this.maxCellRows * this.cellHeight
-      this.update()
     },
     drawGrid () {
       this.grid.width = this.maxCellCols * this.cellWidth
@@ -372,16 +442,24 @@ export default {
         return ele.id.toString() === id.toString()
       })[0]
     },
-    async save () {
+    save () {
       // Gather information
       let cellID
-      for (let i = 0; i < this.cells.length; i++) {
-        cellID = this.cells[i].id
-        this.cells[i].name = document.getElementById('cellname_' + cellID).value
-        if (this.cells[i].type === 'task') {
-          this.cells[i].description = document.getElementById('cellvalue_' + cellID).value
+      let containerCell
+      const cells = this.getCells
+      // Get Name and Description from HTML Content
+      for (let i = 0; i < cells.length; i++) {
+        cellID = cells[i].id
+        containerCell = document.getElementById('cell_' + cellID)
+        if (containerCell !== null) {
+          cells[i].name = document.getElementById('cellname_' + cellID).value
+          if (cells[i].type === 'task') {
+            cells[i].description = document.getElementById('cellvalue_' + cellID).value
+          }
         }
       }
+      this.cells = cells
+      console.log('SAVE', this.getCells)
       // Send data to server
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
@@ -400,7 +478,45 @@ export default {
           headers: headers,
           body: JSON.stringify(payload)
         }
-      ).then(r => console.log(r))
+      )
+    },
+    load () {
+      console.log('Loading Project...')
+      this.cells = []
+      const headers = new Headers()
+      headers.set('Authorization', 'Bearer ' + this.$store.state.token)
+      headers.set(
+        'Content-Type', 'application/json'
+      )
+      const payload = {
+        action: 'load',
+        project: this.$store.state.username.split('@')[0]
+      }
+      fetch(
+        'http://localhost:8000/api/planner/load',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify(payload)
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => (this.serverResponse = data))
+        .then(() => (this.handleLoadResponse()))
+        .catch((err) => console.log(err.message))
+    },
+    handleLoadResponse () {
+      if (this.serverResponse === {}) return
+      if (this.serverResponse.type !== 'load') return
+      this.cells = []
+      this.cells = toRaw(this.serverResponse.content)
+      console.log('LOADED', this.getCells)
+      this.update()
+    }
+  },
+  computed: {
+    getCells () {
+      return toRaw(this.cells)
     }
   }
 }

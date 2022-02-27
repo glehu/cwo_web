@@ -3,7 +3,7 @@
     <div style="min-height: 10ch"></div>
     <div class="container text-white wrapper">
       <div class="text-wrapper mb-5" style="text-align: justify; text-justify: inter-word; margin: auto">
-        <span class="h1 fw-bold"><i class="bi bi-fingerprint"/> About us </span>
+        <span class="h1 fw-bold"><i class="bi bi-fingerprint"/> About Us </span>
         <span class="p-2">
             <i class="bi bi-dot"/>What/Who is Orochi Batsuzoku?
             Orochi Batsuzoku, or in short Orochi, is a collective that dedicates
@@ -31,9 +31,9 @@
         </p>
       </div>
       <div class="text-center" style="margin: auto">
-        <p class="h1 fw-bold pb-5">More info:</p>
+        <p class="h1 fw-bold pb-5">More Info:</p>
         <button class="btn btn-outline-light"
-                style="font-size: 250%"
+                style="font-size: 250%; width: 250px"
                 v-on:click="gotoVision">
           V i s i o n
         </button>

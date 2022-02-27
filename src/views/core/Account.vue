@@ -36,7 +36,7 @@
                     </div>
                   </div>
                 </div>
-                <h3 class="d-none d-md-block" style="font-weight: lighter">Your cart</h3>
+                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Your Cart</h3>
               </div>
             </section>
             <section
@@ -47,7 +47,7 @@
                         v-on:click="gotoInvoices">
                   <i class="bi bi-journal-text p-1"></i><span class="fw-bold"> Invoices</span>
                 </button>
-                <h3 class="d-none d-md-block" style="font-weight: lighter">Your invoices</h3>
+                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Your Invoices</h3>
               </div>
             </section>
             <section
@@ -58,7 +58,7 @@
                         v-on:click="gotoPreferences">
                   <i class="bi bi-wrench p-1"></i><span class="fw-bold"> Preferences</span>
                 </button>
-                <h3 class="d-none d-md-block" style="font-weight: lighter">Cookies and Trackers</h3>
+                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Cookies & Trackers</h3>
               </div>
             </section>
             <section
@@ -69,7 +69,7 @@
                         v-on:click="gotoAPI">
                   <i class="bi bi-cloud-upload p-1"></i><span class="fw-bold"> API Manager</span>
                 </button>
-                <h3 class="d-none d-md-block" style="font-weight: lighter">API Settings & Authorization</h3>
+                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">API & Auth</h3>
               </div>
             </section>
             <section
@@ -80,7 +80,7 @@
                         v-on:click="logout">
                   <i class="bi bi-door-open p-1"></i><span class="fw-bold"> Logout</span>
                 </button>
-                <h3 class="d-none d-md-block" style="font-weight: lighter">Want to leave? See you soon</h3>
+                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">See you soon</h3>
               </div>
             </section>
           </div>
@@ -97,7 +97,7 @@
                         v-on:click="gotoPlanner">
                   <i class="bi bi-wrench-adjustable-circle p-1"></i><span class="fw-bold"> Planner</span>
                 </button>
-                <h3 class="d-none d-md-block" style="font-weight: lighter">Kanban Style ToDo's et cetera</h3>
+                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Kanban Board</h3>
               </div>
             </section>
           </div>

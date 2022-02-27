@@ -8,6 +8,10 @@
       <i class="bi bi-calendar-event"/> SITREP 2022-XX-XX
     </h2>
     <p class="text-center"
+        style="font-family: 'JetBrains Mono Bold',sans-serif; color: white">
+      Author: <a :href="'https://github.com/glehu'" style="color: white"> Luca Goldhausen </a>
+    </p>
+    <p class="text-center"
        style="font-family: 'JetBrains Mono Bold',sans-serif; color: white; border: 2px solid white; padding: 10px">
       Goals and ambitions. Information about the path we're about to walk and what we've been doing so far.
     </p>
@@ -27,7 +31,10 @@
           make information and useful apps accessible for everybody as far as the internet reaches.
         </p>
         <p style="font-family: 'JetBrains Mono Bold',sans-serif; color: white">
-          Using modern technology like Kotlin Ktor for our applications and super fast website hosts like Netlify,
+          Using modern technology like
+          <a :href="'https://ktor.io/'" style="color: white">Ktor</a>
+          for our applications and super fast website hosts like
+          <a :href="'https://app.netlify.com/'" style="color: white">Netlify</a>,
           we guarantee fast speeds. Welcome to the IoT.
         </p>
         <p style="font-family: 'JetBrains Mono Bold',sans-serif; color: white">
