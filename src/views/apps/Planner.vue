@@ -490,7 +490,7 @@ export default {
       )
       const payload = {
         action: 'load',
-        project: this.$store.state.username.split('@')[0]
+        project: this.$route.params.id
       }
       fetch(
         'http://localhost:8000/api/planner/load',
