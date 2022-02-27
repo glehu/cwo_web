@@ -30,7 +30,7 @@
           <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki Ric G</a>
         </p>
       </div>
-      <div class="text-center" style="margin: auto">
+      <div class="text-center mb-5" style="margin: auto">
         <p class="h1 fw-bold pb-5">More Info:</p>
         <button class="btn btn-outline-light"
                 style="font-size: 250%; width: 250px"
