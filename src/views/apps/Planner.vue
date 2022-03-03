@@ -29,7 +29,6 @@
         </h3>
         <p id="count_cell" class="ps-2"></p>
         <hr style="color:white">
-        <p class="fw-bold ps-2">Done:</p>
         <div id="hall_of_fame" class="ps-3"></div>
       </div>
     </nav>
@@ -81,7 +80,7 @@ export default {
       this.ctx = this.canvas.getContext('2d')
     },
     handleMouseClick () {
-      if (!this.$route.fullPath.includes('/planner/')) return
+      if (!this.$route.fullPath.includes('/planner/')) return // We don't want to do stuff outside the planner!
       this.save()
       const x = this.getPositionX(event.pageX)
       const y = this.getPositionY(event.pageY)
@@ -536,7 +535,7 @@ export default {
   left: 0;
   height: 100vh;
   z-index: 999;
-  background: #0A2C2F;
+  background: #003F3F;
   color: #ffff;
   transition: all 0.3s;
 }
