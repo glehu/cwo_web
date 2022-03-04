@@ -2,7 +2,6 @@
   <div style="min-height: 10vh"></div>
   <div class="text-center text-white">
     <div class="card-subtitle container">
-      <h5 class="card-header" style="font-weight: lighter">CWO_ERP M1 API</h5>
       <div class="card-body">
         <input
           v-model="message"
@@ -52,10 +51,11 @@ export default {
   methods: {
     getSongFromSearchText (text) {
       this.myObj = {}
+      const searchText = text.replace(/\s+/g, '')
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       fetch(
-        'http://localhost:8000/api/m1/entry/' + text.replace(/\s+/g, '') + '?type=name&format=json&lock=false',
+        this.$store.state.serverIP + 'api/m1/entry/' + searchText + '?type=name&format=json&lock=false',
         {
           method: 'get',
           headers: headers

@@ -4,6 +4,8 @@ import createPersistedState from 'vuex-persistedstate'
 export default createStore({
   plugins: [createPersistedState(this)],
   state: {
+    // --- Server ---
+    serverIP: 'http://localhost:8000/',
     // --- Cookies ---
     cookieAllowance: false,
     cookies: [
@@ -89,6 +91,9 @@ export default createStore({
     },
     denyUsageTracking (state) {
       state.usageTracking = false
+    },
+    setServerIP (state, newServerIP) {
+      state.serverIP = newServerIP
     }
   },
   actions: {},

@@ -145,7 +145,7 @@ export default {
             .toString('base64')
         )
         fetch(
-          'http://localhost:8000/logout',
+          this.$store.state.serverIP + '/logout',
           {
             method: 'get',
             headers: headers

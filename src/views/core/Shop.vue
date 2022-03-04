@@ -104,7 +104,7 @@ export default {
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       fetch(
-        'http://localhost:8000/api/m4/entry/*?type=name&format=json&lock=false',
+        this.$store.state.serverIP + '/api/m4/entry/*?type=name&format=json&lock=false',
         {
           method: 'get',
           headers: headers
@@ -145,7 +145,7 @@ export default {
         'Content-Type', 'application/json'
       )
       fetch(
-        'http://localhost:8000/api/utr',
+        this.$store.state.serverIP + '/api/utr',
         {
           method: 'post',
           headers: headers,

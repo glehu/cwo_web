@@ -104,7 +104,7 @@ export default {
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       fetch(
-        'http://localhost:8000/api/m3/owninvoices',
+        this.$store.state.serverIP + '/api/m3/owninvoices',
         {
           method: 'get',
           headers: headers

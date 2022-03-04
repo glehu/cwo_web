@@ -93,7 +93,7 @@ export default {
           'Content-Type', 'application/json'
         )
         fetch(
-          'http://localhost:8000/api/m3/neworder',
+          this.$store.state.serverIP + '/api/m3/neworder',
           {
             method: 'post',
             headers: headers,
@@ -136,7 +136,7 @@ export default {
         'Content-Type', 'application/json'
       )
       fetch(
-        'http://localhost:8000/api/utr',
+        this.$store.state.serverIP + '/api/utr',
         {
           method: 'post',
           headers: headers,

@@ -30,9 +30,9 @@ const routes = [
     meta: { logout: true }
   },
   {
-    path: '/apps/songfinder',
+    path: '/songs',
     name: 'Songs',
-    component: () => import('../views/apps/SongFinder'),
+    component: () => import('../views/core/SongFinder'),
     meta: { requiresAuth: true }
   },
   {
@@ -88,7 +88,7 @@ const routes = [
     name: 'Vision',
     component: () => import('../views/info/Vision')
   },
-  // 404 NOT FOUND ERROR PAGE MUST BE AT THE VERY BOTTOM
+  // 404 NOT FOUND ERROR PAGE --- MUST BE AT THE VERY BOTTOM ---
   {
     path: '/:pathMatch(.*)*',
     name: '404 Shadow Realms',

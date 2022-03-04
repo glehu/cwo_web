@@ -88,7 +88,7 @@ export default {
         'Basic ' + Buffer.from(this.user.email + ':' + this.user.password).toString('base64')
       )
       fetch(
-        'http://localhost:8000/login',
+        this.$store.state.serverIP + '/login',
         {
           method: 'get',
           headers: headers
@@ -126,7 +126,7 @@ export default {
         'Content-Type', 'application/json'
       )
       fetch(
-        'http://localhost:8000/api/utr',
+        this.$store.state.serverIP + '/api/utr',
         {
           method: 'post',
           headers: headers,

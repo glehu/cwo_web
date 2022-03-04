@@ -118,7 +118,7 @@ export default {
         'Content-Type', 'application/json'
       )
       fetch(
-        'http://localhost:8000/register',
+        this.$store.state.serverIP + '/register',
         {
           method: 'post',
           headers: headers,
@@ -177,7 +177,7 @@ export default {
         'Content-Type', 'application/json'
       )
       fetch(
-        'http://localhost:8000/api/utr',
+        this.$store.state.serverIP + '/api/utr',
         {
           method: 'post',
           headers: headers,

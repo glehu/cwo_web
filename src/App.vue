@@ -27,7 +27,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/apps/songfinder" class="nav-link fw-bold">
+              <router-link to="/songs" class="nav-link fw-bold">
                 <span style="color: white"><i class="bi bi-music-note"></i> Songs</span>
               </router-link>
             </li>
@@ -45,15 +45,21 @@
             <li v-if="isLoggedIn"
                 class="nav-item">
               <router-link to="/account" class="nav-link">
-                <span style="color: white"><i class="bi bi-person-bounding-box"></i> {{ this.$store.state.username }}</span>
-                <span style="color: white">(<i class="bi bi-stack small"></i> {{ this.$store.state.cart.length }})</span>
+                <span style="color: white"><i class="bi bi-person-bounding-box"></i> {{
+                    this.$store.state.username
+                  }}</span>
+                <span style="color: white">(<i class="bi bi-stack small"></i> {{
+                    this.$store.state.cart.length
+                  }})</span>
               </router-link>
             </li>
             <li v-else
                 class="nav-item">
               <router-link to="/login?redirect=/account" class="nav-link">
                 <span style="color: white"><i class="bi bi-person-bounding-box"></i> Login</span>
-                  <span style="color: white">(<i class="bi bi-stack small"></i> {{ this.$store.state.cart.length }})</span>
+                <span style="color: white">(<i class="bi bi-stack small"></i> {{
+                    this.$store.state.cart.length
+                  }})</span>
               </router-link>
             </li>
           </ul>
@@ -87,11 +93,22 @@
 
 <script>
 export default {
+  mounted () {
+    this.checkServerIP()
+  },
   data () {
     return {
       angle: '45',
       color1: 'darkred',
       color2: 'rebeccapurple'
+    }
+  },
+  methods: {
+    checkServerIP () {
+      console.log(this.$store.state.serverIP)
+      if (this.$store.state.serverIP === null || this.$store.state.serverIP === undefined) {
+        this.$store.commit('setServerIP', 'http://localhost:8000/')
+      }
     }
   },
   computed: {

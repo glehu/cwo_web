@@ -176,7 +176,7 @@ export default {
         'Content-Type', 'application/json'
       )
       fetch(
-        'http://localhost:8000/api/utr',
+        this.$store.state.serverIP + '/api/utr',
         {
           method: 'post',
           headers: headers,
