@@ -1,110 +1,110 @@
 <template>
-  <section
-    class="container">
-    <div style="min-height: 5ch"></div>
-    <div class="text-light p-3">
-      <h2 class="fw-bold my-3 d-flex doHover" style="overflow: hidden">
-        <i class="bi bi-stars" style="font-size: 200%"></i><br>
-        Hey, {{ this.$store.state.username.split('@')[0] }}.<br><br>
-      </h2>
-      <div class="wrapper">
-        <div id="account">
-          <h3 class="pb-1">What's next?</h3>
-          <div class="card text-white pb-3"
-               style="border-radius: 1rem; border-color: black" :style="{ backgroundImage: bg3 }">
-            <section
-              class="container">
-              <div class="d-md-flex justify-content-between text-white mt-3"
-                   style="border-radius: 1rem;">
-                <div class="d-flex">
-                  <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                          v-on:click="showCart">
-                    <i class="bi bi-cart p-1"></i><span class="fw-bold"> Cart</span>
-                  </button>
-                  <div class="d-lg-flex">
-                    <div class="d-flex">
-                      <i class="bi bi-stack ms-3"></i>
-                      <p class="ms-2">
-                        {{ this.$store.state.cart.length }} Items
-                      </p>
-                    </div>
-                    <div class="d-flex">
-                      <i class="bi bi-cash-stack ms-3"></i>
-                      <p class="ms-2">
-                        {{ cartTotal }} €
-                      </p>
+  <div style="min-height: 100vh"
+       :style="{backgroundImage: 'url('+require('@/assets/'+'account/pexels-dexter-fernandes-2646237.jpg')+')'}">
+    <section class="container">
+      <div style="min-height: 5ch"></div>
+      <div class="text-light p-3">
+        <h2 class="fw-bold my-3 d-flex doHover" style="overflow: hidden">
+          <i class="bi bi-stars" style="font-size: 200%"></i><br>
+          Hey, {{ this.$store.state.username.split('@')[0] }}.<br><br>
+        </h2>
+        <div class="wrapper">
+          <div id="account">
+            <h3 class="pb-1">What's next?</h3>
+            <div class="card text-white pb-3 shadow-box">
+              <section
+                class="container">
+                <div class="d-md-flex justify-content-between text-white mt-3"
+                     style="border-radius: 1rem;">
+                  <div class="d-flex">
+                    <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                            v-on:click="showCart">
+                      <i class="bi bi-cart p-1"></i><span class="fw-bold"> Cart</span>
+                    </button>
+                    <div class="d-lg-flex">
+                      <div class="d-flex">
+                        <i class="bi bi-stack ms-3"></i>
+                        <p class="ms-2">
+                          {{ this.$store.state.cart.length }} Items
+                        </p>
+                      </div>
+                      <div class="d-flex">
+                        <i class="bi bi-cash-stack ms-3"></i>
+                        <p class="ms-2">
+                          {{ cartTotal }} €
+                        </p>
+                      </div>
                     </div>
                   </div>
+                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Your Cart</h3>
                 </div>
-                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Your Cart</h3>
-              </div>
-            </section>
-            <section
-              class="container">
-              <div class="d-md-flex justify-content-between text-white mt-3"
-                   style="border-radius: 1rem;">
-                <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                        v-on:click="gotoInvoices">
-                  <i class="bi bi-journal-text p-1"></i><span class="fw-bold"> Invoices</span>
-                </button>
-                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Your Invoices</h3>
-              </div>
-            </section>
-            <section
-              class="container">
-              <div class="d-md-flex justify-content-between text-white mt-3"
-                   style="border-radius: 1rem;">
-                <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                        v-on:click="gotoPreferences">
-                  <i class="bi bi-wrench p-1"></i><span class="fw-bold"> Preferences</span>
-                </button>
-                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Cookies & Trackers</h3>
-              </div>
-            </section>
-            <section
-              class="container">
-              <div class="d-md-flex justify-content-between text-white mt-3"
-                   style="border-radius: 1rem;">
-                <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                        v-on:click="gotoAPI">
-                  <i class="bi bi-cloud-upload p-1"></i><span class="fw-bold"> API Manager</span>
-                </button>
-                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">API & Auth</h3>
-              </div>
-            </section>
-            <section
-              class="container">
-              <div class="d-md-flex justify-content-between text-white mt-3"
-                   style="border-radius: 1rem;">
-                <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                        v-on:click="logout">
-                  <i class="bi bi-door-open p-1"></i><span class="fw-bold"> Logout</span>
-                </button>
-                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">See you soon</h3>
-              </div>
-            </section>
+              </section>
+              <section
+                class="container">
+                <div class="d-md-flex justify-content-between text-white mt-3"
+                     style="border-radius: 1rem;">
+                  <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                          v-on:click="gotoInvoices">
+                    <i class="bi bi-journal-text p-1"></i><span class="fw-bold"> Invoices</span>
+                  </button>
+                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Your Invoices</h3>
+                </div>
+              </section>
+              <section
+                class="container">
+                <div class="d-md-flex justify-content-between text-white mt-3"
+                     style="border-radius: 1rem;">
+                  <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                          v-on:click="gotoPreferences">
+                    <i class="bi bi-wrench p-1"></i><span class="fw-bold"> Preferences</span>
+                  </button>
+                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Cookies & Trackers</h3>
+                </div>
+              </section>
+              <section
+                class="container">
+                <div class="d-md-flex justify-content-between text-white mt-3"
+                     style="border-radius: 1rem;">
+                  <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                          v-on:click="gotoAPI">
+                    <i class="bi bi-cloud-upload p-1"></i><span class="fw-bold"> API Manager</span>
+                  </button>
+                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">API & Auth</h3>
+                </div>
+              </section>
+              <section
+                class="container">
+                <div class="d-md-flex justify-content-between text-white mt-3"
+                     style="border-radius: 1rem;">
+                  <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                          v-on:click="logout">
+                    <i class="bi bi-door-open p-1"></i><span class="fw-bold"> Logout</span>
+                  </button>
+                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">See you soon</h3>
+                </div>
+              </section>
+            </div>
           </div>
-        </div>
-        <div id="apps">
-          <h3 class="pb-1">Apps</h3>
-          <div class="card text-white pb-3"
-               style="border-radius: 1rem; border-color: black" :style="{ backgroundImage: bg3 }">
-            <section
-              class="container">
-              <div class="d-md-flex justify-content-between text-white mt-3"
-                   style="border-radius: 1rem;">
-                <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                        v-on:click="gotoPlanner">
-                  <i class="bi bi-wrench-adjustable-circle p-1"></i><span class="fw-bold"> Planner</span>
-                </button>
-                <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Kanban Board</h3>
-              </div>
-            </section>
+          <div id="apps">
+            <h3 class="pb-1">Apps</h3>
+            <div class="card text-white pb-3 shadow-box">
+              <section
+                class="container">
+                <div class="d-md-flex justify-content-between text-white mt-3"
+                     style="border-radius: 1rem;">
+                  <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                          v-on:click="gotoPlanner">
+                    <i class="bi bi-wrench-adjustable-circle p-1"></i><span class="fw-bold"> Planner</span>
+                  </button>
+                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Kanban Board</h3>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -211,6 +211,12 @@ export default {
   .wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.shadow-box {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 1em
 }
 
 </style>

@@ -11,10 +11,9 @@
                   <i class="bi bi-bag"></i>
                 </div>
                 <h3 class="card-title">
-                  <span style="text-decoration: line-through">Merchandise</span>
+                  <span style="text-decoration: line-through">Items</span>
                 </h3>
-                <p class="fw-bold text-dark"><span style="text-decoration: line-through">View Items</span></p>
-                Coming Soon
+                <p class="fw-bold text-dark">View Items</p>
               </div>
             </div>
           </button>
@@ -32,9 +31,9 @@
   <section id="itemsSection" style="min-height: 100vh" :style="{ backgroundImage: bg }">
     <div class="container">
       <div style="height: 1em"></div>
-      <iframe src="https://www.eventbrite.com/e/graffiti-falls-live-victoria-club-street-tickets-264498430927"
+      <!--<iframe src="https://www.eventbrite.com/e/graffiti-falls-live-victoria-club-street-tickets-264498430927"
               width="100%" height="1000px" allowfullscreen="allowfullscreen" style="background-color: white"
-              placeholder="Tickets"></iframe>
+              placeholder="Tickets"></iframe>-->
       <div class="wrapper">
         <div class="card"
              v-for="item in shopItemList" :key="item"

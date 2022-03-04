@@ -12,7 +12,7 @@
         <button class="btn btn-outline-warning ms-5" v-on:click="submitOrder()">Submit Order</button>
         <br>
         <textarea class="bg-black text-white mt-3" style="width: 75%"
-                  v-model="note" placeholder="Add a note for the seller.">
+                  v-model="note" placeholder="&nbsp;Add a note for the seller.">
         </textarea>
       </div>
     </section>
