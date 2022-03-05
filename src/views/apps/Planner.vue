@@ -138,7 +138,7 @@ export default {
     },
     addTask (x, y) {
       // JavaScript Part
-      const id = (this.cells.length + 1)
+      const id = this.getUUID()
       const historyEntry = 'Created by ' + this.$store.state.username
       const history = [historyEntry]
       let belongsToBox = -1
@@ -217,8 +217,9 @@ export default {
     },
     addBox (x, y) {
       // JavaScript Part
-      const id = (this.cells.length + 1)
-      const history = ['Created']
+      const id = this.getUUID()
+      const historyEntry = 'Created by ' + this.$store.state.username
+      const history = [historyEntry]
       const boxRows = parseInt(document.getElementById('addmenu_rows').value) + 1
       const cCell = {
         x: x,
@@ -350,9 +351,9 @@ export default {
       }
       const cellId = this.getCellId(this.selectedCell)
       const cellNameField = document.getElementById('cellname_' + cellId)
-      let valueString = ': ' + cellNameField.value
+      let valueString = cellNameField.value
       if (cellNameField.value === '') valueString = ''
-      cellSelected.innerText = 'ID:' + cellId + valueString
+      cellSelected.innerText = valueString
     },
     drawCells () {
       console.log('DRAW', this.getCells)
@@ -511,6 +512,11 @@ export default {
       this.cells = toRaw(this.serverResponse.content)
       console.log('LOADED', this.getCells)
       this.update()
+    },
+    getUUID: function () {
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      )
     }
   },
   computed: {
