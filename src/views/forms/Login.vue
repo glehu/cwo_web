@@ -70,7 +70,8 @@ export default {
         if (this.user.email === 'test@cwo') {
           this.$store.commit('logIn', {
             email: 'test@cwo',
-            password: 'test'
+            password: 'test',
+            token: '! Test Account - No Token In Offline Mode !'
           })
           this.$router.push(this.$route.query.redirect.toString() || '/')
         } else {

@@ -12,13 +12,17 @@
           </h2>
           <button class="btn text-white text-decoration-underline"
                   v-on:click="toggleExplanation('cookieExplanation')">
-            What's that <i class="bi bi-question fw-bold"></i>
+            What's that?
           </button>
         </div>
-        <p id="cookieExplanation" class="text-white" style="display: none">
-          Cookies (data stored locally on your device) are required for this website.
-          <br>Without those, the website cannot operate as intended, and worse, the cookie monster will be saddened.
-        </p>
+        <div id="cookieExplanation" style="display: none">
+          <hr style="color: white">
+          <p class="text-white">
+            Cookies (data stored locally on your device) are required for this website.
+            <br>Without those, the website cannot operate as intended, and worse, the cookie monster will be saddened.
+          </p>
+          <hr style="color: white">
+        </div>
         <div class="d-md-flex">
           <div class="btn-group">
             <button class="btn btn-lg btn-outline-danger" v-on:click="revokeCookieAllowances"
@@ -45,13 +49,17 @@
           </h2>
           <button class="btn text-white text-decoration-underline"
                   v-on:click="toggleExplanation('trackingExplanation')">
-            What's that <i class="bi bi-question fw-bold"></i>
+            What's that?
           </button>
         </div>
-        <p id="trackingExplanation" class="text-white" style="display: none">
-          In order to optimize the website, I need your usage data to know what you're doing most of the time.
-          <br>No personal data will be sent to the server.
-        </p>
+        <div id="trackingExplanation" style="display: none">
+          <hr style="color: white">
+          <p class="text-white">
+            In order to optimize the website, I need your usage data to know what you're doing most of the time.
+            <br>No personal data will be sent to the server.
+          </p>
+          <hr style="color: white">
+        </div>
         <div class="d-md-flex">
           <div class="btn-group">
             <button class="btn btn-lg btn-outline-danger" v-on:click="denyUsageTracking"

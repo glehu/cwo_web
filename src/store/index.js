@@ -94,6 +94,9 @@ export default createStore({
     },
     setServerIP (state, newServerIP) {
       state.serverIP = newServerIP
+    },
+    setServerToken (state, newServerToken) {
+      state.token = newServerToken
     }
   },
   actions: {},

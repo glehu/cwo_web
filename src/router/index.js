@@ -57,9 +57,9 @@ const routes = [
     component: () => import('../views/settings/UserPreferences.vue')
   },
   {
-    path: '/apimanager',
+    path: '/dev/api',
     name: 'API Manager',
-    component: () => import('../views/settings/APIManager.vue'),
+    component: () => import('../views/dev/api/APIManager.vue'),
     meta: { requiresAuth: true }
   },
   {

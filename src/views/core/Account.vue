@@ -1,6 +1,7 @@
 <template>
   <div style="min-height: 100vh"
-       :style="{backgroundImage: 'url('+require('@/assets/'+'account/pexels-dexter-fernandes-2646237.jpg')+')'}">
+       :style="{backgroundImage: 'url('+require('@/assets/'+'account/pexels-dexter-fernandes-2646237.jpg')+')',
+       backgroundPosition: 'center top', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }">
     <section class="container">
       <div style="min-height: 5ch"></div>
       <div class="text-light p-3">
@@ -66,17 +67,6 @@
                 <div class="d-md-flex justify-content-between text-white mt-3"
                      style="border-radius: 1rem;">
                   <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
-                          v-on:click="gotoAPI">
-                    <i class="bi bi-cloud-upload p-1"></i><span class="fw-bold"> API Manager</span>
-                  </button>
-                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">API & Auth</h3>
-                </div>
-              </section>
-              <section
-                class="container">
-                <div class="d-md-flex justify-content-between text-white mt-3"
-                     style="border-radius: 1rem;">
-                  <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                           v-on:click="logout">
                     <i class="bi bi-door-open p-1"></i><span class="fw-bold"> Logout</span>
                   </button>
@@ -97,6 +87,20 @@
                     <i class="bi bi-wrench-adjustable-circle p-1"></i><span class="fw-bold"> Planner</span>
                   </button>
                   <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Kanban Board</h3>
+                </div>
+              </section>
+            </div>
+            <h3 class="pb-1">Development</h3>
+            <div class="card text-white pb-3 shadow-box">
+              <section
+                class="container">
+                <div class="d-md-flex justify-content-between text-white mt-3"
+                     style="border-radius: 1rem;">
+                  <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
+                          v-on:click="gotoAPI">
+                    <i class="bi bi-cloud-upload p-1"></i><span class="fw-bold"> API Manager</span>
+                  </button>
+                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Back-End Management</h3>
                 </div>
               </section>
             </div>
@@ -163,7 +167,7 @@ export default {
       this.$router.push('/preferences?redirect=/account')
     },
     gotoAPI () {
-      this.$router.push('/apimanager')
+      this.$router.push('/dev/api')
     },
     gotoInvoices () {
       this.$router.push('/invoices')
@@ -195,7 +199,7 @@ export default {
 
 .wrapper {
   display: grid;
-  gap: 1em;
+  gap: 2em;
   grid-auto-rows: minmax(100px, auto);
 }
 
@@ -214,8 +218,8 @@ export default {
 }
 
 .shadow-box {
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.6);
   border-radius: 1em
 }
 
