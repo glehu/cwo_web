@@ -106,9 +106,9 @@ export default {
   methods: {
     checkServerIP () {
       console.log(this.$store.state.serverIP)
-      if (this.$store.state.serverIP === null || this.$store.state.serverIP === undefined) {
-        this.$store.commit('setServerIP', 'http://localhost:8000/')
-      }
+      // if (this.$store.state.serverIP === null || this.$store.state.serverIP === undefined) {
+      this.$store.commit('setServerIP', 'https://wikiric.xyz')
+      // }
     }
   },
   computed: {

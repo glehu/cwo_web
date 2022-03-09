@@ -5,7 +5,7 @@ export default createStore({
   plugins: [createPersistedState(this)],
   state: {
     // --- Server ---
-    serverIP: 'http://localhost:8000/',
+    serverIP: 'https://wikiric.xyz',
     // --- Cookies ---
     cookieAllowance: false,
     cookies: [

@@ -55,7 +55,7 @@ export default {
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       fetch(
-        this.$store.state.serverIP + 'api/m1/entry/' + searchText + '?type=name&format=json&lock=false',
+        this.$store.state.serverIP + '/api/m1/entry/' + searchText + '?type=name&format=json&lock=false',
         {
           method: 'get',
           headers: headers
