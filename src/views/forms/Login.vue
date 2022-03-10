@@ -102,7 +102,12 @@ export default {
         .then((res) => res.json())
         .then((data) => (this.loginResponse = JSON.parse(data.contentJson)))
         .then(this.processLogin)
-        .catch((err) => console.log(err.message))
+        .catch(() => this.$notify(
+          {
+            title: 'Login Failed',
+            text: 'Check Credentials or Register.',
+            type: 'error'
+          }))
     },
     processLogin () {
       if (this.loginResponse.httpCode === 200) {

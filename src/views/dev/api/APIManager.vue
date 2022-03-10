@@ -1,6 +1,6 @@
 <template>
   <div
-    style="min-height: 100vh; min-width: 100vw; max-width: 100vw; background-color: black; overflow-x: hidden"
+    style="min-height: 100vh; background-color: black; overflow-x: clip"
     :style="{ backgroundImage: 'url('+require('@/assets/'+'account/pexels-cottonbro-9668535.jpg')+')', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }">
     <div style="min-height: 10vh"></div>
     <div class="container">
@@ -16,16 +16,16 @@
       <div id="settings" class="mt-5 shadow-box" style="width: 100%; border-radius: 1em">
         <div id="_server_ip" class="ps-2">
           <label class="text-white jetb" for="server_ip">Server IP Address</label><br>
-          <input class="ms-3 fw-bold" id="server_ip"
-                 style="height: 4ch; width: 75%; background: transparent; color: white">
+          <input class="ms-3 fw-bold big-on-small" id="server_ip"
+                 style="height: 4ch; background: black; color: white">
           <button title="Save Setting" class="btn text-white" v-on:click="updateServerIP">
             <i class="bi bi-layer-backward px-1" style="font-size: 150%"/> Save
           </button>
         </div>
         <div id="_server_token" class="ps-2">
           <label class="text-white jetb" for="server_ip">Token</label><br>
-          <input class="ms-3 fw-bold" id="server_token"
-                 style="height: 4ch; width: 75%; background: transparent; color: white">
+          <input class="ms-3 fw-bold big-on-small" id="server_token"
+                 style="height: 4ch; background: black; color: white">
           <button title="Save Setting" class="btn text-white" v-on:click="updateServerToken">
             <i class="bi bi-layer-backward px-1" style="font-size: 150%"/> Save
           </button>
@@ -38,8 +38,8 @@
         <div class="ps-2">
           <div style="display: flex">
             <h2 class="ps-2 jetb">M<span><i class="bi bi-hurricane text-white"/></span>CK Service</h2>
-            <button class="ms-5 btn text-white text-decoration-underline"
-                    v-on:click="toggleExplanation('mock_explanation')">
+            <button id="mockDescToggler" class="ms-5 btn text-white text-decoration-underline"
+                    v-on:click="toggleElement('mock_explanation')">
               What's that?
             </button>
           </div>
@@ -55,8 +55,114 @@
             <p class="jetb">
               Requires a valid token.
             </p>
-            <hr style="color: white">
           </div>
+          <hr style="color: white">
+          <p class="jetb">Send requests to
+            <span class="ms-2" style="display: inline-block">
+              <span class="fw-bold" style="font-size: 115%"
+                    @click="copyMockDestination">{{ this.$store.state.serverIP }}/mockingbird</span>
+              <span class="tooltip-mock-destination" :class="{'show':showMockDestinationCopied}">Copied!</span>
+            </span>
+          </p>
+          <h4 class="jetb">Configuration</h4>
+          <!-- Return Type -->
+          <div class="config_wrapper d-block">
+            <label for="return_type" class="fw-bold jetb">Return&nbsp;Type:</label>
+            <select id="return_type" name="return_type" v-model="config.return_type"
+                    class="fw-bold jetb text-black ms-2">
+              <option>Message</option>
+              <option>HTTP Code</option>
+            </select>
+            <!-- Message Type if Message -->
+            <div v-if="config.return_type === 'Message'">
+              <label for="message_type" class="fw-bold jetb">Message&nbsp;Type:</label>
+              <select id="message_type" name="message_type" v-model="config.message_type"
+                      class="fw-bold jetb text-black ms-2">
+                <option>Same Message</option>
+                <option>Fixed Message</option>
+              </select>
+            </div>
+            <!-- Content Type if Fixed Message Type -->
+            <div v-if="((config.return_type === 'Message') && (config.message_type === 'Fixed Message'))">
+              <label for="content_type" class="fw-bold jetb">Content&nbsp;Type:</label>
+              <select id="content_type" name="content_type" v-model="config.content_type"
+                      class="fw-bold jetb text-black ms-2">
+                <option>text/xml</option>
+                <option>application/xml</option>
+                <option>application/json</option>
+              </select>
+            </div>
+            <!-- Return HTTP Code if HTTP Code -->
+            <div v-if="config.return_type === 'HTTP Code'">
+              <label for="return_code" class="fw-bold jetb">Return&nbsp;Code:</label>
+              <select id="return_code" name="return_code" v-model="config.return_code"
+                      class="fw-bold jetb text-black ms-2">
+                <optgroup label="Success Codes">
+                  <option>200 OK</option>
+                  <option>201 Created</option>
+                  <option>202 Accepted</option>
+                </optgroup>
+                <optgroup label="Error Codes">
+                  <option>400 Bad Request</option>
+                  <option>401 Unauthorized</option>
+                  <option>403 Forbidden</option>
+                  <option>404 Not Found</option>
+                </optgroup>
+              </select>
+            </div>
+            <!-- Return Type -->
+            <label for="return_delay" class="fw-bold jetb">Return&nbsp;Delay:</label>
+            <input type="number" id="return_delay" name="return_delay" v-model="config.return_delay"
+                   class="fw-bold jetb text-black ms-2"
+                   style="width: 6ch"
+            >
+            <select id="return_delay_unit" name="return_delay_unit" v-model="config.return_delay_unit"
+                    class="fw-bold jetb text-black ms-2" style="width: auto">
+              <option>Milliseconds</option>
+              <option>Seconds</option>
+            </select>
+          </div>
+          <!-- Return Message if Fixed Message Type -->
+          <br>
+          <div v-if="((config.return_type === 'Message') && (config.message_type === 'Fixed Message'))">
+            <textarea id="return_message" name="message_type" v-model="config.return_message"
+                      class="fw-bold jetb text-black"
+                      style="height: 20ch; width: 100%"
+            ></textarea>
+          </div>
+          <!-- Return Redirect -->
+          <br>
+          <label for="return_redirect" class="fw-bold jetb">Redirect:</label>
+          <input id="return_redirect" name="return_redirect" v-model="config.return_redirect"
+                 class="fw-bold jetb text-black ms-2"
+          >
+          <!-- #### #### Confirm Button needs to be at the bottom #### #### -->
+          <br>
+          <button class="btn btn-lg btn-dark m-3 conf_confirm_btn" title="Confirm Settings"
+                  style="display: flex"
+                  v-on:click="confirmSettings()">
+            Confirm
+            <span id="confirm_spinner" style="display: none; margin-left: 2em">
+              <span class="spinner-grow spinner-grow-sm text-info" role="status" aria-hidden="true"></span>
+              <span class="jetb ms-2">Communicating with Server...</span>
+            </span>
+          </button>
+          <br>
+          <!-- #### #### Confirm Button needs to be at the bottom #### #### -->
+          <!-- History -->
+          <table class="mt-2" style="width: 100%; color: white">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Timestamp</th>
+              <th>Direction</th>
+              <th>Result (Outgoing)</th>
+              <th>Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -69,7 +175,18 @@ export default {
   data () {
     return {
       time: '',
-      user: {}
+      user: {},
+      showMockDestinationCopied: false,
+      config: {
+        return_type: 'Message',
+        message_type: 'Same Message',
+        content_type: 'text/xml',
+        return_message: '',
+        return_code: '',
+        return_redirect: '',
+        return_delay: 0,
+        return_delay_unit: 'Seconds'
+      }
     }
   },
   created () {
@@ -157,13 +274,23 @@ export default {
           })
       }
     },
-    toggleExplanation: function (explanationId) {
-      const explanation = document.getElementById(explanationId)
+    toggleElement: function (id) {
+      const explanation = document.getElementById(id)
       if (explanation.style.display === 'block') {
         explanation.style.display = 'none'
       } else {
         explanation.style.display = 'block'
       }
+    },
+    copyMockDestination: function () {
+      this.showMockDestinationCopied = true
+      navigator.clipboard.writeText(this.$store.state.serverIP + '/mockingbird')
+      setTimeout(() => {
+        this.showMockDestinationCopied = false
+      }, 1000)
+    },
+    confirmSettings: function () {
+      this.toggleElement('confirm_spinner')
     }
   },
   computed: {
@@ -185,6 +312,47 @@ export default {
 .jetb, .btn {
   color: white;
   font-family: 'JetBrains Mono Bold', sans-serif;
+}
+
+.big-on-small {
+  width: 90%
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .big-on-small {
+    width: 75%
+  }
+  label {
+    margin-left: 2em;
+  }
+}
+
+.tooltip-mock-destination.show {
+  opacity: 1;
+  transition: 0.5s;
+  transform: translateY(-60%);
+}
+
+.tooltip-mock-destination {
+  margin-left: 1ch;
+  color: #ffff;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  width: auto;
+  opacity: 0;
+  transform: translateY(0);
+}
+
+label {
+  display: inline-block;
+  width: 150px;
+  margin-left: 0;
+}
+
+select {
+  width: 200px;
 }
 
 </style>
