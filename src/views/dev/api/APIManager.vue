@@ -37,7 +37,7 @@
       <div id="mock-service" class="mt-5 shadow-box" style="width: 100%; border-radius: 1em">
         <div class="ps-2">
           <div style="display: flex">
-            <h2 class="ps-2 jetb">M<span><i class="bi bi-hurricane text-white"/></span>CK Service</h2>
+            <h2 class="ps-2 jetb">M<span><i class="bi bi-hurricane text-white"/></span>CKING BIRD</h2>
             <button id="mockDescToggler" class="ms-5 btn text-white text-decoration-underline"
                     v-on:click="toggleElement('mock_explanation')">
               What's that?
@@ -46,21 +46,24 @@
           <div id="mock_explanation" style="display: none">
             <hr style="color: white">
             <p class="jetb">
-              Test your own API using the brand-new service for anything mocking-server related.
+              Test your own API using the brand-new service for anything mocking-service related.
             </p>
             <p class="jetb">
-              Send requests and receive either predefined messages or error codes.
+              We've prepared a special endpoint just for you.
+              <br>Configure it as needed and you're ready to get mocked.
+            </p>
+            <p class="jetb">
+              Send requests and receive either predefined messages or HTTP response status codes.
               <br>Responses can be sent with or without delay to simulate a more realistic backend.
-            </p>
-            <p class="jetb">
-              Requires a valid token.
             </p>
           </div>
           <hr style="color: white">
-          <p class="jetb">Send requests to
-            <span class="ms-2" style="display: inline-block">
+          <p class="jetb">Send POST requests to
+            <span class="ms-1" style="display: inline-block">
               <span class="fw-bold" style="font-size: 115%"
-                    @click="copyMockDestination">{{ this.$store.state.serverIP }}/mockingbird</span>
+                    @click="copyMockDestination">
+                {{ this.endpoint }}
+              </span>
               <span class="tooltip-mock-destination" :class="{'show':showMockDestinationCopied}">Copied!</span>
             </span>
           </p>
@@ -122,6 +125,13 @@
               <option>Seconds</option>
             </select>
           </div>
+          <!-- Return Redirect -->
+          <div v-if="config.return_type === 'Message'">
+            <label for="return_redirect" class="fw-bold jetb">Redirect:</label>
+            <input id="return_redirect" name="return_redirect" v-model="config.return_redirect"
+                   class="fw-bold jetb text-black ms-2"
+            >
+          </div>
           <!-- Return Message if Fixed Message Type -->
           <br>
           <div v-if="((config.return_type === 'Message') && (config.message_type === 'Fixed Message'))">
@@ -130,19 +140,13 @@
                       style="height: 20ch; width: 100%"
             ></textarea>
           </div>
-          <!-- Return Redirect -->
-          <br>
-          <label for="return_redirect" class="fw-bold jetb">Redirect:</label>
-          <input id="return_redirect" name="return_redirect" v-model="config.return_redirect"
-                 class="fw-bold jetb text-black ms-2"
-          >
           <!-- #### #### Confirm Button needs to be at the bottom #### #### -->
           <br>
           <button class="btn btn-lg btn-dark m-3 conf_confirm_btn" title="Confirm Settings"
                   style="display: flex"
                   v-on:click="confirmSettings()">
             Confirm
-            <span id="confirm_spinner" style="display: none; margin-left: 2em">
+            <span id="confirm_settings_loading" style="display: none; margin-left: 2em">
               <span class="spinner-grow spinner-grow-sm text-info" role="status" aria-hidden="true"></span>
               <span class="jetb ms-2">Communicating with Server...</span>
             </span>
@@ -177,10 +181,11 @@ export default {
       time: '',
       user: {},
       showMockDestinationCopied: false,
+      mockServiceActive: false,
       config: {
-        return_type: 'Message',
-        message_type: 'Same Message',
         content_type: 'text/xml',
+        message_type: 'Same Message',
+        return_type: 'Message',
         return_message: '',
         return_code: '',
         return_redirect: '',
@@ -263,7 +268,7 @@ export default {
           {
             title: 'Token Retrieved',
             text: 'A Token was received from the server.',
-            type: 'info'
+            type: 'success'
           })
       } else {
         this.$notify(
@@ -284,18 +289,55 @@ export default {
     },
     copyMockDestination: function () {
       this.showMockDestinationCopied = true
-      navigator.clipboard.writeText(this.$store.state.serverIP + '/mockingbird')
+      navigator.clipboard.writeText(this.endpoint)
       setTimeout(() => {
         this.showMockDestinationCopied = false
       }, 1000)
     },
     confirmSettings: function () {
-      this.toggleElement('confirm_spinner')
+      this.toggleElement('confirm_settings_loading')
+      // Get new token just in case
+      this.serverLogin()
+      // Transfer config to server
+      this.submitConfig()
+    },
+    submitConfig: function () {
+      const headers = new Headers()
+      headers.set('Authorization', 'Bearer ' + this.$store.state.token)
+      headers.set('Content-Type', 'application/json')
+      fetch(
+        this.$store.state.serverIP + '/mock/submit?type=config',
+        {
+          method: 'post',
+          headers: headers,
+          body: JSON.stringify({
+            config: this.config
+          })
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => (this.loginResponse = JSON.parse(data.contentJson)))
+        .then(this.processLogin)
+        .catch((err) => this.handleSubmitError(err))
+    },
+    handleSubmitError: function (err) {
+      this.toggleElement('confirm_settings_loading')
+      this.$notify(
+        {
+          title: 'Error',
+          text: err.message,
+          type: 'error'
+        })
     }
   },
   computed: {
     token: function () {
       return this.$store.state.token
+    },
+    endpoint: function () {
+      return this.$store.state.serverIP +
+        '/mockingbird?who=' +
+        encodeURIComponent(Buffer.from(this.$store.state.username).reverse().toString('base64'))
     }
   }
 }
@@ -323,6 +365,7 @@ export default {
   .big-on-small {
     width: 75%
   }
+
   label {
     margin-left: 2em;
   }

@@ -167,15 +167,8 @@ export default {
     },
     async sendUsageData (usageObj) {
       const headers = new Headers()
-      headers.set(
-        'Authorization',
-        'Basic ' + Buffer.from(
-          this.$store.state.username + ':' + this.$store.state.password)
-          .toString('base64')
-      )
-      headers.set(
-        'Content-Type', 'application/json'
-      )
+      headers.set('Authorization', 'Basic ' + Buffer.from(this.$store.state.username + ':' + this.$store.state.password).toString('base64'))
+      headers.set('Content-Type', 'application/json')
       fetch(
         this.$store.state.serverIP + '/api/utr',
         {

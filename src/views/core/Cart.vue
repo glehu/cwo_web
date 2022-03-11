@@ -89,9 +89,7 @@ export default {
       if (!this.emptyCart) {
         const headers = new Headers()
         headers.set('Authorization', 'Bearer ' + this.$store.state.token)
-        headers.set(
-          'Content-Type', 'application/json'
-        )
+        headers.set('Content-Type', 'application/json')
         fetch(
           this.$store.state.serverIP + '/api/m3/neworder',
           {
@@ -132,9 +130,7 @@ export default {
     async sendUsageData (usageObj) {
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
-      headers.set(
-        'Content-Type', 'application/json'
-      )
+      headers.set('Content-Type', 'application/json')
       fetch(
         this.$store.state.serverIP + '/api/utr',
         {
