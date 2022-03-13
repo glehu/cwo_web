@@ -182,6 +182,7 @@ export default {
       user: {},
       showMockDestinationCopied: false,
       mockServiceActive: false,
+      submitResponse: {},
       config: {
         content_type: 'text/xml',
         message_type: 'Same Message',
@@ -197,6 +198,7 @@ export default {
   created () {
     this.getTime()
     setInterval(this.getTime, 1000)
+    this.loadConfig()
   },
   mounted () {
     this.checkServerIPField()
@@ -296,8 +298,6 @@ export default {
     },
     confirmSettings: function () {
       this.toggleElement('confirm_settings_loading')
-      // Get new token just in case
-      this.serverLogin()
       // Transfer config to server
       this.submitConfig()
     },
@@ -306,7 +306,7 @@ export default {
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       headers.set('Content-Type', 'application/json')
       fetch(
-        this.$store.state.serverIP + '/mock/submit?type=config',
+        this.$store.state.serverIP + '/mockingbird/submit?type=config',
         {
           method: 'post',
           headers: headers,
@@ -315,9 +315,7 @@ export default {
           })
         }
       )
-        .then((res) => res.json())
-        .then((data) => (this.loginResponse = JSON.parse(data.contentJson)))
-        .then(this.processLogin)
+        .then(this.processSubmitConfigResponse)
         .catch((err) => this.handleSubmitError(err))
     },
     handleSubmitError: function (err) {
@@ -328,6 +326,30 @@ export default {
           text: err.message,
           type: 'error'
         })
+    },
+    processSubmitConfigResponse: function () {
+      this.toggleElement('confirm_settings_loading')
+      this.$notify(
+        {
+          title: 'Config Submitted',
+          text: 'Serverside settings got updated.',
+          type: 'success'
+        })
+    },
+    loadConfig: function () {
+      const headers = new Headers()
+      headers.set('Authorization', 'Bearer ' + this.$store.state.token)
+      headers.set('Content-Type', 'application/json')
+      fetch(
+        this.$store.state.serverIP + '/mockingbird/submit?type=load_config',
+        {
+          method: 'get',
+          headers: headers
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => (this.config = data.config))
+        .catch((err) => this.handleSubmitError(err))
     }
   },
   computed: {
