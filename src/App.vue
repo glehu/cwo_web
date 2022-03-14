@@ -18,48 +18,58 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <router-link to="/" class="nav-link fw-bold">
-                <span style="color: white"><i class="bi bi-house"></i> Home</span>
+                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
+                      style="color: white">
+                  <i class="bi bi-house"></i> Home</span>
               </router-link>
             </li>
             <li class="nav-item">
               <router-link to="/artists" class="nav-link fw-bold">
-                <span style="color: white"><i class="bi bi-people"></i> Artists</span>
+                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
+                      style="color: white">
+                  <i class="bi bi-people"></i> Artists</span>
               </router-link>
             </li>
             <li class="nav-item">
               <router-link to="/songs" class="nav-link fw-bold">
-                <span style="color: white"><i class="bi bi-music-note"></i> Songs</span>
+                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
+                      style="color: white">
+                  <i class="bi bi-music-note"></i> Songs</span>
               </router-link>
             </li>
             <li class="nav-item">
               <router-link to="/shop" class="nav-link fw-bold">
-                <span style="color: white"><i class="bi bi-shop-window"></i> Shop</span>
+                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
+                      style="color: white">
+                  <i class="bi bi-shop-window"></i> Shop</span>
               </router-link>
             </li>
             <li class="nav-item">
               <router-link to="/about" class="nav-link fw-bold">
-                <span style="color: white"><i class="bi bi-question-circle"></i> About</span>
+                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
+                      style="color: white">
+                  <i class="bi bi-question-circle"></i> About</span>
               </router-link>
             </li>
             <!-- Account -->
             <li v-if="isLoggedIn"
                 class="nav-item">
               <router-link to="/account" class="nav-link">
-                <span style="color: white"><i class="bi bi-person-bounding-box"></i> {{
-                    this.$store.state.username
-                  }}</span>
-                <span style="color: white">(<i class="bi bi-stack small"></i> {{
-                    this.$store.state.cart.length
-                  }})</span>
+                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
+                      style="color: white">
+                  <i class="bi bi-person-bounding-box"></i> {{ this.$store.state.username }}
+                  (<i class="bi bi-stack small"></i> {{ this.$store.state.cart.length }})
+                </span>
               </router-link>
             </li>
             <li v-else
                 class="nav-item">
               <router-link to="/login?redirect=/account" class="nav-link">
-                <span style="color: white"><i class="bi bi-person-bounding-box"></i> Login</span>
-                <span style="color: white">(<i class="bi bi-stack small"></i> {{
-                    this.$store.state.cart.length
-                  }})</span>
+                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
+                      style="color: white">
+                  <i class="bi bi-person-bounding-box"></i> Login
+                  (<i class="bi bi-stack small"></i> {{ this.$store.state.cart.length }})
+                </span>
               </router-link>
             </li>
           </ul>
@@ -105,10 +115,7 @@ export default {
   },
   methods: {
     checkServerIP () {
-      console.log(this.$store.state.serverIP)
-      // if (this.$store.state.serverIP === null || this.$store.state.serverIP === undefined) {
       this.$store.commit('setServerIP', 'https://wikiric.xyz')
-      // }
     }
   },
   computed: {
