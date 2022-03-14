@@ -64,13 +64,13 @@ export default {
       serverResponse: {
         type: '',
         content: ''
-      }
+      },
+      modified: false
     }
   },
   methods: {
     planner () {
       window.addEventListener('resize', this.resizeCanvas, false)
-
       window.addEventListener('mouseup', this.handleMouseClick, false)
 
       this.grid = document.getElementById('grid')
@@ -78,16 +78,25 @@ export default {
 
       this.canvas = document.getElementById('canvas')
       this.ctx = this.canvas.getContext('2d')
+
+      // Auto-Save every 10 seconds
+      setInterval(this.save, 10000)
     },
     handleMouseClick () {
-      if (!this.$route.fullPath.includes('/planner/')) return // We don't want to do stuff outside the planner!
       this.save()
+      // We don't want to do stuff outside the planner!
+      if (!this.$route.fullPath.includes('/planner/')) {
+        window.removeEventListener('resize', this.resizeCanvas, false)
+        window.removeEventListener('mouseup', this.handleMouseClick, false)
+        return
+      }
       const x = this.getPositionX(event.pageX)
       const y = this.getPositionY(event.pageY)
       const xc = event.clientX
       const yc = event.clientY
 
       if (this.checkOccupied(x, y, xc, yc)) {
+        // User clicked on an empty cell
         document.getElementById('contextmenu').className = 'hide'
         this.selectedCell = {
           x: x,
@@ -97,9 +106,11 @@ export default {
       } else {
         const elemUnderCursor = document.elementFromPoint(xc, yc)
         if (elemUnderCursor.id.includes('cell')) {
+          // User clicked on an occupied cell
           document.getElementById('addmenu').className = 'hide'
           this.selectedCell = elemUnderCursor
           this.openMenu(x, y)
+          this.modified = true
         } else {
           // Buttons?
           if (elemUnderCursor.id.includes('btn')) {
@@ -107,6 +118,7 @@ export default {
               case 'btn_addbox':
                 document.getElementById('addmenu').className = 'hide'
                 this.addBox(this.selectedCell.x, this.selectedCell.y)
+                this.modified = true
                 break
               case 'btn_addtask':
                 document.getElementById('addmenu').className = 'hide'
@@ -167,6 +179,7 @@ export default {
       this.getCells.unshift(cCell)
       this.createTaskDom(x, y, id, '', '', true)
       this.update()
+      this.modified = true
       this.save()
       this.openMenu(x, y)
     },
@@ -234,6 +247,7 @@ export default {
       // HTML Part
       this.createBoxDom(x, y, id, '', true)
       this.update()
+      this.modified = true
       this.save()
       this.openMenu(x, y)
     },
@@ -287,8 +301,10 @@ export default {
         return ele.id.toString() !== id.toString()
       })
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.modified = true
       this.save()
       this.update()
+      this.selectedCell = null
     },
     finishCell (id) {
       // Container Cell
@@ -319,8 +335,10 @@ export default {
         return ele.id.toString() !== id.toString()
       })
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.modified = true
       this.save()
       this.update()
+      this.selectedCell = null
     },
     update () {
       this.drawCells()
@@ -443,6 +461,10 @@ export default {
       })[0]
     },
     save () {
+      if (!this.modified) return
+      if (this.selectedCell === null || this.selectedCell.id === undefined || !this.selectedCell.id.includes('cell')) {
+        this.modified = false
+      }
       // Gather information
       let cellID
       let containerCell
