@@ -6,6 +6,7 @@
           <img src="../public/orochiicon.png" alt=""/>
           Orochi Batsuzoku
         </a>-->
+        <a class="navbar-brand fw-bold" href="/">wikiric.xyz</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -14,59 +15,52 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navmenu">
+        <div class="collapse navbar-collapse navm" id="navmenu">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
+            <li class="nav-item" data-bs-toggle="collapse" data-bs-target="#navmenu">
               <router-link to="/" class="nav-link fw-bold">
-                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
-                      style="color: white">
+                <span style="color: white">
                   <i class="bi bi-house"></i> Home</span>
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-bs-toggle="collapse" data-bs-target="#navmenu">
               <router-link to="/artists" class="nav-link fw-bold">
-                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
-                      style="color: white">
+                <span style="color: white">
                   <i class="bi bi-people"></i> Artists</span>
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-bs-toggle="collapse" data-bs-target="#navmenu">
               <router-link to="/songs" class="nav-link fw-bold">
-                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
-                      style="color: white">
+                <span style="color: white">
                   <i class="bi bi-music-note"></i> Songs</span>
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-bs-toggle="collapse" data-bs-target="#navmenu">
               <router-link to="/shop" class="nav-link fw-bold">
-                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
-                      style="color: white">
+                <span style="color: white">
                   <i class="bi bi-shop-window"></i> Shop</span>
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-bs-toggle="collapse" data-bs-target="#navmenu">
               <router-link to="/about" class="nav-link fw-bold">
-                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
-                      style="color: white">
+                <span style="color: white">
                   <i class="bi bi-question-circle"></i> About</span>
               </router-link>
             </li>
             <!-- Account -->
             <li v-if="isLoggedIn"
-                class="nav-item">
+                class="nav-item" data-bs-toggle="collapse" data-bs-target="#navmenu">
               <router-link to="/account" class="nav-link">
-                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
-                      style="color: white">
-                  <i class="bi bi-person-bounding-box"></i> {{ this.$store.state.username }}
+                <span style="color: white">
+                  <i class="bi bi-person-bounding-box"></i> {{ this.$store.state.username.split('@')[0] }}
                   (<i class="bi bi-stack small"></i> {{ this.$store.state.cart.length }})
                 </span>
               </router-link>
             </li>
             <li v-else
-                class="nav-item">
+                class="nav-item" data-bs-toggle="collapse" data-bs-target="#navmenu">
               <router-link to="/login?redirect=/account" class="nav-link">
-                <span data-bs-toggle="collapse" data-bs-target="#navmenu"
-                      style="color: white">
+                <span style="color: white">
                   <i class="bi bi-person-bounding-box"></i> Login
                   (<i class="bi bi-stack small"></i> {{ this.$store.state.cart.length }})
                 </span>
@@ -105,6 +99,7 @@
 export default {
   mounted () {
     this.checkServerIP()
+    this.serverLogin()
   },
   data () {
     return {
@@ -116,6 +111,34 @@ export default {
   methods: {
     checkServerIP () {
       this.$store.commit('setServerIP', 'https://wikiric.xyz')
+    },
+    serverLogin: function () {
+      const headers = new Headers()
+      headers.set(
+        'Authorization',
+        'Basic ' + Buffer.from(this.$store.state.username + ':' + this.$store.state.password).toString('base64')
+      )
+      fetch(
+        this.$store.state.serverIP + '/login',
+        {
+          method: 'get',
+          headers: headers
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => (this.loginResponse = JSON.parse(data.contentJson)))
+        .then(this.processLogin)
+        .catch((err) => this.$notify(
+          {
+            title: 'Unable to Login',
+            text: err.message,
+            type: 'error'
+          }))
+    },
+    processLogin: function () {
+      if (this.loginResponse.httpCode === 200) {
+        this.$store.commit('setServerToken', this.loginResponse.token)
+      }
     }
   },
   computed: {

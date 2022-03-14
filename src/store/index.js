@@ -35,8 +35,8 @@ export default createStore({
     logOut (state) {
       state.authenticated = false
       state.token = ''
-      state.username = 'admin'
-      state.password = 'admin'
+      state.username = ''
+      state.password = ''
     },
     putInCart (state, itemObj) {
       state.cart.push(itemObj)
