@@ -173,7 +173,9 @@ export default {
       this.$router.push('/invoices')
     },
     gotoPlanner () {
-      this.$router.push('/apps/planner/' + this.$store.state.username.split('@')[0])
+      this.$router.push(
+        '/apps/planner/' +
+        encodeURIComponent(Buffer.from(this.$store.state.username).reverse().toString('base64')))
     }
   }
 }
