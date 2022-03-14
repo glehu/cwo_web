@@ -11,8 +11,8 @@
         </h2>
         <div class="wrapper">
           <div id="account">
-            <h3 class="pb-1">What's next?</h3>
             <div class="card text-white pb-3 shadow-box">
+              <h3 class="p-1">What's next?</h3>
               <section
                 class="container">
                 <div class="d-md-flex justify-content-between text-white mt-3"
@@ -76,8 +76,8 @@
             </div>
           </div>
           <div id="apps">
-            <h3 class="pb-1">Apps</h3>
             <div class="card text-white pb-3 shadow-box">
+              <h3 class="p-1">Apps</h3>
               <section
                 class="container">
                 <div class="d-md-flex justify-content-between text-white mt-3"
@@ -90,8 +90,8 @@
                 </div>
               </section>
             </div>
-            <h3 class="pb-1">Development</h3>
-            <div class="card text-white pb-3 shadow-box">
+            <div class="card text-white my-5 shadow-box">
+              <h3 class="p-1">Development</h3>
               <section
                 class="container">
                 <div class="d-md-flex justify-content-between text-white mt-3"

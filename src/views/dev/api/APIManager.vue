@@ -71,24 +71,24 @@
           <!-- Return Type -->
           <div class="config_wrapper d-block">
             <label for="return_type" class="fw-bold jetb">Return&nbsp;Type:</label>
-            <select id="return_type" name="return_type" v-model="config.return_type"
+            <select id="return_type" name="return_type" v-model="mockConfig.return_type"
                     class="fw-bold jetb text-black ms-2">
               <option>Message</option>
               <option>HTTP Code</option>
             </select>
             <!-- Message Type if Message -->
-            <div v-if="config.return_type === 'Message'">
+            <div v-if="mockConfig.return_type === 'Message'">
               <label for="message_type" class="fw-bold jetb">Message&nbsp;Type:</label>
-              <select id="message_type" name="message_type" v-model="config.message_type"
+              <select id="message_type" name="message_type" v-model="mockConfig.message_type"
                       class="fw-bold jetb text-black ms-2">
                 <option>Same Message</option>
                 <option>Fixed Message</option>
               </select>
             </div>
             <!-- Content Type if Fixed Message Type -->
-            <div v-if="((config.return_type === 'Message') && (config.message_type === 'Fixed Message'))">
+            <div v-if="((mockConfig.return_type === 'Message') && (mockConfig.message_type === 'Fixed Message'))">
               <label for="content_type" class="fw-bold jetb">Content&nbsp;Type:</label>
-              <select id="content_type" name="content_type" v-model="config.content_type"
+              <select id="content_type" name="content_type" v-model="mockConfig.content_type"
                       class="fw-bold jetb text-black ms-2">
                 <option>text/xml</option>
                 <option>application/xml</option>
@@ -96,9 +96,9 @@
               </select>
             </div>
             <!-- Return HTTP Code if HTTP Code -->
-            <div v-if="config.return_type === 'HTTP Code'">
+            <div v-if="mockConfig.return_type === 'HTTP Code'">
               <label for="return_code" class="fw-bold jetb">Return&nbsp;Code:</label>
-              <select id="return_code" name="return_code" v-model="config.return_code"
+              <select id="return_code" name="return_code" v-model="mockConfig.return_code"
                       class="fw-bold jetb text-black ms-2">
                 <optgroup label="Success Codes">
                   <option>200 OK</option>
@@ -115,58 +115,45 @@
             </div>
             <!-- Return Type -->
             <label for="return_delay" class="fw-bold jetb">Return&nbsp;Delay:</label>
-            <input type="number" id="return_delay" name="return_delay" v-model="config.return_delay"
+            <input type="number" id="return_delay" name="return_delay" v-model="mockConfig.return_delay"
                    class="fw-bold jetb text-black ms-2"
                    style="width: 6ch"
             >
-            <select id="return_delay_unit" name="return_delay_unit" v-model="config.return_delay_unit"
+            <select id="return_delay_unit" name="return_delay_unit" v-model="mockConfig.return_delay_unit"
                     class="fw-bold jetb text-black ms-2" style="width: auto">
               <option>Milliseconds</option>
               <option>Seconds</option>
             </select>
           </div>
           <!-- Return Redirect -->
-          <div v-if="config.return_type === 'Message'">
+          <div v-if="mockConfig.return_type === 'Message'">
             <label for="return_redirect" class="fw-bold jetb">Redirect:</label>
-            <input id="return_redirect" name="return_redirect" v-model="config.return_redirect"
+            <input id="return_redirect" name="return_redirect" v-model="mockConfig.return_redirect"
                    class="fw-bold jetb text-black ms-2"
             >
           </div>
           <!-- Return Message if Fixed Message Type -->
           <br>
-          <div v-if="((config.return_type === 'Message') && (config.message_type === 'Fixed Message'))">
-            <textarea id="return_message" name="message_type" v-model="config.return_message"
+          <div v-if="((mockConfig.return_type === 'Message') && (mockConfig.message_type === 'Fixed Message'))">
+            <textarea id="return_message" name="message_type" v-model="mockConfig.return_message"
                       class="fw-bold jetb text-black"
                       style="height: 20ch; width: 100%"
             ></textarea>
           </div>
           <!-- #### #### Confirm Button needs to be at the bottom #### #### -->
-          <br>
-          <button class="btn btn-lg btn-dark m-3 conf_confirm_btn" title="Confirm Settings"
-                  style="display: flex"
-                  v-on:click="confirmSettings()">
-            Confirm
-            <span id="confirm_settings_loading" style="display: none; margin-left: 2em">
+          <div style="display: flex">
+            <button id="mockConfigSubmit" title="Confirm Settings"
+                    class="btn btn-lg btn-dark m-1 conf_confirm_btn"
+                    style="display: flex"
+                    v-on:click="confirmSettings()">
+              Confirm
+            </button>
+            <span id="confirm_settings_loading" style="display: none; margin-left: 2em; align-items: center">
               <span class="spinner-grow spinner-grow-sm text-info" role="status" aria-hidden="true"></span>
               <span class="jetb ms-2">Communicating with Server...</span>
             </span>
-          </button>
-          <br>
-          <!-- #### #### Confirm Button needs to be at the bottom #### #### -->
-          <!-- History -->
-          <table class="mt-2" style="width: 100%; color: white">
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Timestamp</th>
-              <th>Direction</th>
-              <th>Result (Outgoing)</th>
-              <th>Message</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
+          </div>
+          <div style="min-height: 10vh"></div>
         </div>
       </div>
     </div>
@@ -183,7 +170,7 @@ export default {
       showMockDestinationCopied: false,
       mockServiceActive: false,
       submitResponse: {},
-      config: {
+      mockConfig: {
         content_type: 'text/xml',
         message_type: 'Same Message',
         return_type: 'Message',
@@ -220,6 +207,13 @@ export default {
       field.value = this.$store.state.token
     },
     updateServerIP: function () {
+      this.$notify(
+        {
+          title: 'Not Allowed',
+          text: 'The server IP currently cannot be changed.',
+          type: 'error'
+        })
+      /*
       const field = document.getElementById('server_ip')
       this.$store.commit('setServerIP', field.value)
       this.$notify(
@@ -228,6 +222,7 @@ export default {
           text: 'Server IP change was submitted.',
           type: 'info'
         })
+       */
     },
     updateServerToken: function () {
       const field = document.getElementById('server_token')
@@ -281,12 +276,12 @@ export default {
           })
       }
     },
-    toggleElement: function (id) {
+    toggleElement: function (id, display = 'block') {
       const explanation = document.getElementById(id)
-      if (explanation.style.display === 'block') {
+      if (explanation.style.display === display) {
         explanation.style.display = 'none'
       } else {
-        explanation.style.display = 'block'
+        explanation.style.display = display
       }
     },
     copyMockDestination: function () {
@@ -297,7 +292,8 @@ export default {
       }, 1000)
     },
     confirmSettings: function () {
-      this.toggleElement('confirm_settings_loading')
+      this.toggleElement('confirm_settings_loading', 'flex')
+      document.getElementById('mockConfigSubmit').disabled = true
       // Transfer config to server
       this.submitConfig()
     },
@@ -311,7 +307,7 @@ export default {
           method: 'post',
           headers: headers,
           body: JSON.stringify({
-            config: this.config
+            config: this.mockConfig
           })
         }
       )
@@ -319,7 +315,8 @@ export default {
         .catch((err) => this.handleSubmitError(err))
     },
     handleSubmitError: function (err) {
-      this.toggleElement('confirm_settings_loading')
+      this.toggleElement('confirm_settings_loading', 'flex')
+      document.getElementById('mockConfigSubmit').disabled = false
       this.$notify(
         {
           title: 'Error',
@@ -328,7 +325,8 @@ export default {
         })
     },
     processSubmitConfigResponse: function () {
-      this.toggleElement('confirm_settings_loading')
+      this.toggleElement('confirm_settings_loading', 'flex')
+      document.getElementById('mockConfigSubmit').disabled = false
       this.$notify(
         {
           title: 'Config Submitted',
@@ -348,7 +346,7 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => (this.config = data.config))
+        .then((data) => (this.mockConfig = data.config))
         .catch((err) => this.handleSubmitError(err))
     }
   },

@@ -1,39 +1,33 @@
 <template>
   <div class="shop text-light" style="background-color: #080808">
     <!-- Box View -->
-    <section class="container">
+    <section class="container" style="align-items: center; display: flex">
       <div class="row">
-        <div class="d-md-flex" style="margin-top: 4em; margin-bottom: 1em">
+        <div class="d-md-flex" style="margin-top: 70px">
           <button class="btn text-dark fw-bold" v-on:click="getItems()">
             <div class="card bg-light text-dark animEmp">
               <div class="card-body text-center">
                 <div class="h1 mb-2">
                   <i class="bi bi-bag"></i>
                 </div>
-                <h3 class="card-title">
-                  <span style="text-decoration: line-through">Items</span>
-                </h3>
+                <h3 class="card-title">Items</h3>
                 <p class="fw-bold text-dark">View Items</p>
               </div>
             </div>
           </button>
-          <div class="text-start">
-            <h1 class="m-2 fw-bold text-white">Graffiti Falls</h1>
-            <button class="btn text-white animRot" v-on:click="console.log('')">
-              <i class="bi bi-arrow-clockwise h1 text-start"></i>
-            </button>
-            Change Artist
-          </div>
+        </div>
+        <div style="display: flex; margin: 1ch">
+          <button class="btn text-white animRot" title="Change Artist" v-on:click="console.log('')">
+            <i class="bi bi-arrow-clockwise h1"></i>
+          </button>
+          <h1 class="fw-bold text-white">{{ this.artist }}</h1>
         </div>
       </div>
     </section>
   </div>
   <section id="itemsSection" style="min-height: 100vh" :style="{ backgroundImage: bg }">
     <div class="container">
-      <div style="height: 1em"></div>
-      <!--<iframe src="https://www.eventbrite.com/e/graffiti-falls-live-victoria-club-street-tickets-264498430927"
-              width="100%" height="1000px" allowfullscreen="allowfullscreen" style="background-color: white"
-              placeholder="Tickets"></iframe>-->
+      <div style="height: 80px"></div>
       <div class="wrapper">
         <div class="card"
              v-for="item in shopItemList" :key="item"
@@ -77,6 +71,7 @@
 export default {
   data () {
     return {
+      artist: 'wikiric.xyz',
       resultsList: {},
       itemList: {},
       angle: '180',
