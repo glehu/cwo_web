@@ -7,6 +7,26 @@
           Orochi Batsuzoku
         </a>-->
         <a class="navbar-brand fw-bold" href="/">wikiric.xyz</a>
+        <input id="keyword-search"
+               style="width: 20ch; font-weight: bold"
+               v-model="keyword"
+               v-on:keyup.enter="processKeyword(keyword)"
+               list="keywords">
+        <!-- Autocompletion List -->
+        <datalist id="keywords">
+          <option value="Home"/>
+          <option value="Artists"/>
+          <option value="Songs"/>
+          <option value="Shop"/>
+          <option value="About"/>
+          <option value="Account"/>
+          <option value="Cart"/>
+          <option value="Invoices"/>
+          <option value="Preferences"/>
+          <option value="Settings"/>
+          <option value="Planner"/>
+          <option value="API Manager"/>
+        </datalist>
         <button
           class="navbar-toggler"
           type="button"
@@ -105,7 +125,8 @@ export default {
     return {
       angle: '45',
       color1: 'darkred',
-      color2: 'rebeccapurple'
+      color2: 'rebeccapurple',
+      keyword: ''
     }
   },
   methods: {
@@ -139,6 +160,50 @@ export default {
       if (this.loginResponse.httpCode === 200) {
         this.$store.commit('setServerToken', this.loginResponse.token)
       }
+    },
+    processKeyword: function (keyword) {
+      switch (keyword.toLowerCase().replace(' ', '')) {
+        case 'home':
+          this.$router.push('/')
+          break
+        case 'artists':
+          this.$router.push('/artists')
+          break
+        case 'songs':
+          this.$router.push('/songs')
+          break
+        case 'shop':
+          this.$router.push('/shop')
+          break
+        case 'about':
+          this.$router.push('/about')
+          break
+        case 'account':
+          this.$router.push('/account')
+          break
+        case 'cart':
+          this.$router.push('/cart')
+          break
+        case 'invoices':
+          this.$router.push('/invoices')
+          break
+        case 'preferences':
+          this.$router.push('/preferences?redirect=/account')
+          break
+        case 'settings':
+          this.$router.push('/preferences?redirect=/account')
+          break
+        case 'planner':
+          this.$router.push(
+            '/apps/planner/' +
+            encodeURIComponent(Buffer.from(this.$store.state.username).reverse().toString('base64')))
+          break
+        case 'apimanager':
+          this.$router.push('/dev/api')
+          break
+      }
+      this.keyword = ''
+      document.activeElement.blur()
     }
   },
   computed: {
