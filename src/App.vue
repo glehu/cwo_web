@@ -201,6 +201,13 @@ export default {
         case 'apimanager':
           this.$router.push('/dev/api')
           break
+        default:
+          this.$notify(
+            {
+              title: 'Nothing Found.',
+              text: 'No results for ' + this.keyword + '. Try something else maybe?',
+              type: 'error'
+            })
       }
       this.keyword = ''
       document.activeElement.blur()
