@@ -35,6 +35,26 @@
     <canvas id="grid" style="position: absolute; display: block; background-color: #0A0A0F"></canvas>
     <canvas id="canvas" style="position: absolute; display: block"></canvas>
     <div id="editor" style="position: absolute"></div>
+    <div class="dialog" v-if="adjusting" @click.stop>
+      <p class="h3 fw-bold mb-3"> {{ this.getSelectedCellName() }}</p>
+      <p class="h4 fw-bold mb-3"> {{ this.getSelectedCellValue() }}</p>
+      <hr style="color:black;">
+      <span class="fw-bold" style="border: 2px solid black; padding: 1ch; border-radius: 1em">
+        {{ this.getCurrentCell().type.toUpperCase() }}
+      </span>
+      <div v-if="this.getCurrentCell().type !== 'box'" style="display: inline-flex">
+      <span v-if="!this.checkTaskBelongsToBox()"
+            class="fw-bold ms-2 bg-dark text-white" style="border: 2px solid black; padding: 1ch; border-radius: 1em"
+            title="This task belongs to no box.">
+        No Box
+      </span>
+        <span v-if="this.checkTaskBelongsToBox()"
+              class="fw-bold ms-2 bg-info text-black" style="border: 2px solid black; padding: 1ch; border-radius: 1em">
+        {{ this.getBoxOfTask().name }}
+      </span>
+      </div>
+      <hr style="color:black;">
+    </div>
   </div>
 </template>
 
@@ -65,7 +85,8 @@ export default {
         type: '',
         content: ''
       },
-      modified: false
+      modified: false,
+      adjusting: false
     }
   },
   methods: {
@@ -99,6 +120,7 @@ export default {
       const yc = event.clientY
 
       if (this.checkOccupied(x, y, xc, yc)) {
+        this.adjusting = false
         // User clicked on an empty cell
         document.getElementById('contextmenu').className = 'hide'
         if (!this.checkOutOfBounds(x, y)) {
@@ -116,9 +138,11 @@ export default {
           this.selectedCell = elemUnderCursor
           this.openMenu(x, y)
           this.modified = true
+          this.adjusting = false
         } else {
           // Buttons?
           if (elemUnderCursor.id.includes('btn')) {
+            this.adjusting = false
             switch (elemUnderCursor.id.toString()) {
               case 'btn_addbox':
                 document.getElementById('addmenu').className = 'hide'
@@ -139,6 +163,9 @@ export default {
                 break
               case 'btn_history':
                 alert(this.getCell(this.getCellId(this.selectedCell)).history[0])
+                break
+              case 'btn_info':
+                this.adjusting = true
                 break
               case 'btn_deselect':
                 document.getElementById('contextmenu').className = 'hide'
@@ -296,6 +323,7 @@ export default {
       }
     },
     removeCell (id) {
+      const isBox = this.getCell(id).type === 'box'
       // Remove HTML content
       let elemToRemove = document.getElementById('cell_' + id)
       elemToRemove.remove()
@@ -312,17 +340,32 @@ export default {
       this.save()
       this.update()
       this.selectedCell = null
+      // If we remove a box, also remove its tasks
+      if (isBox) {
+        for (let i = this.cells.length - 1; i >= 0; i--) {
+          if (this.cells[i].box === id) {
+            this.removeCell(this.cells[i].id)
+          }
+        }
+      }
     },
     finishCell (id) {
+      // If we finish a box, also finish its tasks
+      if (this.getCell(id).type === 'box') {
+        for (let i = this.cells.length - 1; i >= 0; i--) {
+          if (this.cells[i].box === id) {
+            this.finishCell(this.cells[i].id)
+          }
+        }
+      }
       // Container Cell
       const cell = document.createElement('div')
       cell.id = 'finished_' + id
       cell.style.width = '100%'
       // Cell Name
-      const cellId = this.getCellId(this.selectedCell)
-      const cellName = document.getElementById('cellname_' + cellId).value
+      const cellName = document.getElementById('cellname_' + id).value
       let boxInfo = ''
-      if (this.getCell(id).box !== -1) {
+      if (parseInt(this.getCell(id).box) !== -1) {
         boxInfo = '[' + document.getElementById('cellname_' + this.getCell(id).box).value + '] '
       }
       const valueString = '✓ ' + boxInfo + cellName
@@ -374,11 +417,33 @@ export default {
         cellSelected.innerText = ''
         return
       }
+      cellSelected.innerText = this.getSelectedCellName()
+    },
+    getSelectedCellName: function () {
       const cellId = this.getCellId(this.selectedCell)
       const cellNameField = document.getElementById('cellname_' + cellId)
       let valueString = cellNameField.value
       if (cellNameField.value === '') valueString = ''
-      cellSelected.innerText = valueString
+      return valueString
+    },
+    getSelectedCellValue: function () {
+      if (this.getCurrentCell().type !== 'task') return ''
+      const cellId = this.getCellId(this.selectedCell)
+      const cellValueField = document.getElementById('cellvalue_' + cellId)
+      let valueString = cellValueField.value
+      if (cellValueField.value === '') valueString = ''
+      return valueString
+    },
+    checkTaskBelongsToBox: function () {
+      const id = this.getCellId(this.selectedCell)
+      return parseInt(this.getCell(id).box) !== -1
+    },
+    getBoxOfTask: function () {
+      const id = this.getCellId(this.selectedCell)
+      return this.getCell(this.getCell(id).box)
+    },
+    getCurrentCell: function () {
+      return this.getCell(this.getCellId(this.selectedCell))
     },
     drawCells () {
       console.log('DRAW', this.getCells)
@@ -399,7 +464,7 @@ export default {
             cellElem = document.getElementById('cell_' + cell.id)
             if (cellElem === null) {
               this.createTaskDom(cell.x, cell.y, cell.id, cell.name, cell.description)
-              console.log('Cell Created')
+              console.log('Task Created')
             }
             break
           case 'box':
@@ -627,6 +692,20 @@ export default {
   100% {
     transform: translateY(0);
   }
+}
+
+.dialog {
+  position: fixed;
+  z-index: 1001;
+  top: 100px;
+  left: calc(50% - 200px);
+  background: #AAA;
+  width: 400px;
+  height: 500px;
+  padding: 5px 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 </style>
