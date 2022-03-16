@@ -499,9 +499,7 @@ export default {
       // Send data to server
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
-      headers.set(
-        'Content-Type', 'application/json'
-      )
+      headers.set('Content-Type', 'application/json')
       const payload = {
         action: 'save',
         project: this.$route.params.id,
@@ -521,9 +519,7 @@ export default {
       this.cells = []
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
-      headers.set(
-        'Content-Type', 'application/json'
-      )
+      headers.set('Content-Type', 'application/json')
       const payload = {
         action: 'load',
         project: this.$route.params.id
