@@ -36,8 +36,8 @@
     <canvas id="canvas" style="position: absolute; display: block"></canvas>
     <div id="editor" style="position: absolute"></div>
     <div class="dialog" v-if="adjusting" @click.stop>
-      <p class="h3 fw-bold mb-3"> {{ this.getSelectedCellName() }}</p>
-      <p class="h4 fw-bold mb-3"> {{ this.getSelectedCellValue() }}</p>
+      <p class="h2 fw-bold mt-2 text-center"> {{ this.getSelectedCellName() }}</p>
+      <p class="h4 mb-3"> {{ this.getSelectedCellValue() }}</p>
       <hr style="color:black;">
       <span class="fw-bold" style="border: 2px solid black; padding: 1ch; border-radius: 1em">
         {{ this.getCurrentCell().type.toUpperCase() }}
@@ -322,7 +322,7 @@ export default {
         document.getElementById('cellname_' + id).select()
       }
     },
-    removeCell (id) {
+    removeCell (id, doSave = true) {
       const isBox = this.getCell(id).type === 'box'
       // Remove HTML content
       let elemToRemove = document.getElementById('cell_' + id)
@@ -335,26 +335,28 @@ export default {
       this.cells = this.getCells.filter(function (ele) {
         return ele.id.toString() !== id.toString()
       })
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-      this.modified = true
-      this.save()
-      this.update()
-      this.selectedCell = null
       // If we remove a box, also remove its tasks
       if (isBox) {
         for (let i = this.cells.length - 1; i >= 0; i--) {
           if (this.cells[i].box === id) {
-            this.removeCell(this.cells[i].id)
+            this.removeCell(this.cells[i].id, false)
           }
         }
       }
+      if (doSave) {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        this.modified = true
+        this.save()
+        this.update()
+        this.selectedCell = null
+      }
     },
-    finishCell (id) {
+    finishCell (id, doSave = true) {
       // If we finish a box, also finish its tasks
       if (this.getCell(id).type === 'box') {
         for (let i = this.cells.length - 1; i >= 0; i--) {
           if (this.cells[i].box === id) {
-            this.finishCell(this.cells[i].id)
+            this.finishCell(this.cells[i].id, false)
           }
         }
       }
@@ -384,11 +386,13 @@ export default {
       this.cells = this.getCells.filter(function (ele) {
         return ele.id.toString() !== id.toString()
       })
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-      this.modified = true
-      this.save()
-      this.update()
-      this.selectedCell = null
+      if (doSave) {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        this.modified = true
+        this.save()
+        this.update()
+        this.selectedCell = null
+      }
     },
     update () {
       this.drawCells()
