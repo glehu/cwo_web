@@ -162,7 +162,9 @@ export default {
       }
     },
     processKeyword: function (keyword) {
-      switch (keyword.toLowerCase().replace(' ', '')) {
+      const term = keyword.toLowerCase().replace(' ', '')
+      if (term === undefined || term === '') return
+      switch (term) {
         case 'home':
           this.$router.push('/')
           break
