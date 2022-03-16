@@ -484,6 +484,7 @@ export default {
         date + ' ' + time + '|' + this.$store.state.username + '|' + this.new_comment.trim()
       )
       this.new_comment = ''
+      this.save()
     },
     drawCells () {
       console.log('DRAW', this.getCells)
