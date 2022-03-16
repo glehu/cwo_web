@@ -51,9 +51,9 @@ export default {
   name: 'ProcessPlanner',
   data () {
     return {
-      maxCellRows: 25,
-      maxCellCols: 15,
-      cellWidth: 400,
+      maxCellRows: 10,
+      maxCellCols: 10,
+      cellWidth: 300,
       cellHeight: 150,
       cells: [],
       selectedCell: {},
@@ -84,7 +84,10 @@ export default {
     },
     handleMouseClick () {
       this.save()
-      // We don't want to do stuff outside the planner!
+      /* We don't want to do stuff outside the planner!
+      The reason for the mouseup listener being on the window, not on the editor board itself is the following:
+      - Using this technique allows for the save function to run even when the user clicks on a link.
+       */
       if (!this.$route.fullPath.includes('/planner/')) {
         window.removeEventListener('resize', this.resizeCanvas, false)
         window.removeEventListener('mouseup', this.handleMouseClick, false)
@@ -98,11 +101,13 @@ export default {
       if (this.checkOccupied(x, y, xc, yc)) {
         // User clicked on an empty cell
         document.getElementById('contextmenu').className = 'hide'
-        this.selectedCell = {
-          x: x,
-          y: y
+        if (!this.checkOutOfBounds(x, y)) {
+          this.selectedCell = {
+            x: x,
+            y: y
+          }
+          this.openAddMenu(x, y)
         }
-        this.openAddMenu(x, y)
       } else {
         const elemUnderCursor = document.elementFromPoint(xc, yc)
         if (elemUnderCursor.id.includes('cell')) {
@@ -188,14 +193,15 @@ export default {
       const task = document.createElement('div')
       task.id = 'cell_' + id
       task.style.position = 'absolute'
-      task.style.left = ((x + 20) + 'px')
-      task.style.top = ((y + 20) + 'px')
-      task.style.width = ((this.cellWidth - 40) + 'px')
-      task.style.height = ((this.cellHeight - 40) + 'px')
+      task.style.left = ((x + 10) + 'px')
+      task.style.top = ((y + 10) + 'px')
+      task.style.width = ((this.cellWidth - 20) + 'px')
+      task.style.height = ((this.cellHeight - 20) + 'px')
       // Cell Name
       const taskName = document.createElement('input')
       taskName.id = 'cellname_' + id
       taskName.style.width = '100%'
+      taskName.style.height = '30px'
       taskName.style.textAlign = 'center'
       taskName.style.backgroundColor = '#0A0A0A'
       taskName.style.color = 'white'
@@ -210,8 +216,9 @@ export default {
       const taskValue = document.createElement('textarea')
       taskValue.id = 'cellvalue_' + id
       taskValue.style.width = '100%'
-      taskValue.style.textAlign = 'center'
+      taskValue.style.height = ((this.cellHeight - 30) - 20) + 'px'
       taskValue.style.color = 'black'
+      taskValue.style.fontSize = '85%'
       taskValue.setAttribute('class', 'fw-bold')
       if (description !== '' && description !== undefined) {
         taskValue.value = description
@@ -257,16 +264,16 @@ export default {
       cell.id = 'cell_' + id
       cell.style.position = 'absolute'
       cell.style.backgroundColor = '#0A5F4F'
-      cell.style.left = ((x + 10) + 'px')
-      cell.style.top = ((y + 10) + 'px')
-      cell.style.width = ((this.cellWidth - 20) + 'px')
-      cell.style.height = ((this.cellHeight - 20) + 'px')
+      cell.style.left = ((x + 5) + 'px')
+      cell.style.top = ((y + 5) + 'px')
+      cell.style.width = ((this.cellWidth - 10) + 'px')
+      cell.style.height = ((this.cellHeight - 10) + 'px')
       // Cell Name
       const cellName = document.createElement('input')
       cellName.id = 'cellname_' + id
-      cellName.style.width = (this.cellWidth - 60) + 'px'
-      cellName.style.marginTop = 20 + 'px'
-      cellName.style.marginLeft = 20 + 'px'
+      cellName.style.width = (this.cellWidth - 30) + 'px'
+      cellName.style.marginTop = 10 + 'px'
+      cellName.style.marginLeft = 10 + 'px'
       cellName.style.borderRadius = '2em'
       cellName.style.fontSize = '130%'
       cellName.style.textAlign = 'center'
@@ -383,10 +390,10 @@ export default {
             // Canvas
             this.ctx.fillStyle = '#0F2F2F'
             this.ctx.fillRect(
-              (cell.x + 10),
-              (cell.y + 10),
-              (this.cellWidth - 20),
-              ((this.cellHeight * cell.rows) - 20)
+              (cell.x + 5),
+              (cell.y + 5),
+              (this.cellWidth - 10),
+              ((this.cellHeight * cell.rows) - 10)
             )
             // HTML
             cellElem = document.getElementById('cell_' + cell.id)
@@ -399,10 +406,10 @@ export default {
             // Canvas
             this.ctx.fillStyle = '#0F2F2F'
             this.ctx.fillRect(
-              (cell.x + 10),
-              (cell.y + 10),
-              (this.cellWidth - 20),
-              ((this.cellHeight * cell.rows) - 20)
+              (cell.x + 5),
+              (cell.y + 5),
+              (this.cellWidth - 10),
+              ((this.cellHeight * cell.rows) - 10)
             )
             // HTML
             cellElem = document.getElementById('cell_' + cell.id)
@@ -417,12 +424,13 @@ export default {
     resizeCanvas () {
       this.canvas.width = this.maxCellCols * this.cellWidth
       this.canvas.height = this.maxCellRows * this.cellHeight
+      this.drawCells()
     },
     drawGrid () {
       this.grid.width = this.maxCellCols * this.cellWidth
       this.grid.height = this.maxCellRows * this.cellHeight
-      for (let i = 0; i < this.maxCellRows; i++) {
-        for (let j = 0; j < this.maxCellRows; j++) {
+      for (let i = 1; i < (this.maxCellRows - 1); i++) {
+        for (let j = 1; j < (this.maxCellRows - 1); j++) {
           // Lines
           this.gridCtx.fillStyle = '#1F1F1F'
           this.gridCtx.fillRect((i * this.cellWidth), (j * this.cellHeight), this.cellWidth, 2)
@@ -438,6 +446,12 @@ export default {
     },
     getPositionY: function (mousePos) {
       return (Math.floor(mousePos / this.cellHeight) * this.cellHeight)
+    },
+    checkOutOfBounds: function (x, y) {
+      return x < this.cellWidth ||
+        y < this.cellHeight ||
+        x >= ((this.maxCellCols - 1) * this.cellWidth) ||
+        y >= ((this.maxCellRows - 1) * this.cellHeight)
     },
     checkOccupied: function (x, y, xc, yc) {
       // First check if we're on the editor div
@@ -557,7 +571,7 @@ export default {
 }
 
 #sidebar {
-  width: 200px;
+  width: 250px;
   position: fixed;
   top: 0;
   left: 0;
