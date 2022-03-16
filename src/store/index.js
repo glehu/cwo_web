@@ -19,8 +19,8 @@ export default createStore({
     // --- Authentication ---
     authenticated: false,
     token: '',
-    username: 'admin',
-    password: 'admin',
+    username: '',
+    password: '',
     // --- Web Shop ---
     shop: {},
     cart: []
