@@ -427,7 +427,7 @@ export default {
       const cellId = this.getCellId(this.selectedCell)
       const cellNameField = document.getElementById('cellname_' + cellId)
       let valueString = cellNameField.value
-      if (cellNameField.value === '') valueString = ''
+      if (cellNameField.value === '') valueString = 't.b.d.'
       return valueString
     },
     getSelectedCellValue: function () {
