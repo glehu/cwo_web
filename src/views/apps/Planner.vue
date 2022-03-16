@@ -16,7 +16,7 @@
         <input id="addmenu_rows" class="bg-black text-white p-2"
                type="number" value="5" min="1" max="50" size="2"
                style="border-radius: 1rem">
-        <i id="btn_addtask" title="Add Task" class="btn text-white bi-file-earmark-check doHover"
+        <i id="btn_addtask" title="Add Task" class="btn text-white bi-file-earmark-check doHover ms-3"
            style="font-size: 200%"></i>
         <i id="btn_deselect2" title="Deselect" class="btn text-white bi-x-lg pt-2 ps-5" style="font-size: 150%"></i>
       </div>
@@ -38,22 +38,43 @@
     <div class="dialog" v-if="adjusting" @click.stop>
       <p class="h2 fw-bold mt-2 text-center"> {{ this.getSelectedCellName() }}</p>
       <p class="h4 mb-3"> {{ this.getSelectedCellValue() }}</p>
-      <hr style="color:black;">
-      <span class="fw-bold" style="border: 2px solid black; padding: 1ch; border-radius: 1em">
+      <hr>
+      <span class="fw-bold" style="border: 2px solid white; padding: 1ch; border-radius: 1em">
         {{ this.getCurrentCell().type.toUpperCase() }}
       </span>
       <div v-if="this.getCurrentCell().type !== 'box'" style="display: inline-flex">
       <span v-if="!this.checkTaskBelongsToBox()"
-            class="fw-bold ms-2 bg-dark text-white" style="border: 2px solid black; padding: 1ch; border-radius: 1em"
+            class="fw-bold ms-2 bg-dark text-white" style="padding: 1ch; border-radius: 1em"
             title="This task belongs to no box.">
         No Box
       </span>
         <span v-if="this.checkTaskBelongsToBox()"
-              class="fw-bold ms-2 bg-info text-black" style="border: 2px solid black; padding: 1ch; border-radius: 1em">
+              class="fw-bold ms-2 bg-info text-black" style="padding: 1ch; border-radius: 1em">
         {{ this.getBoxOfTask().name }}
       </span>
       </div>
-      <hr style="color:black;">
+      <hr>
+      <div id="comment_section" style="max-height: 300px; overflow-y: scroll">
+        <div style="display: inline">
+          <input id="new_comment"
+                 type="text"
+                 style="margin-bottom: 20px; width: 75%; height: 4ch"
+                 v-model="new_comment"
+                 v-on:keyup.enter="addComment()">
+          <button class="btn-dark" style="height: 4ch"
+                  v-on:click="addComment">
+            <i class="bi bi-send"></i>
+          </button>
+        </div>
+        <div v-for="comment in this.getCurrentCell().comments" :key="comment"
+             style="width: 75%; border: 1px solid white; border-radius: 1em; padding: 5px; margin-bottom: 10px">
+          <p>{{ comment.split('|')[2] }}</p>
+          <p class="text-end" style="font-size: 75%; padding: 0">
+            {{ comment.split('|')[1] }}<br>
+            {{ comment.split('|')[0] }}<br>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -86,7 +107,8 @@ export default {
         content: ''
       },
       modified: false,
-      adjusting: false
+      adjusting: false,
+      new_comment: ''
     }
   },
   methods: {
@@ -206,7 +228,8 @@ export default {
         type: 'task',
         rows: '1',
         box: belongsToBox,
-        history: history
+        history: history,
+        comments: []
       }
       this.getCells.unshift(cCell)
       this.createTaskDom(x, y, id, '', '', true)
@@ -275,7 +298,8 @@ export default {
         type: 'box',
         rows: boxRows,
         box: -1,
-        history: history
+        history: history,
+        comments: []
       }
       this.getCells.unshift(cCell)
       // HTML Part
@@ -448,6 +472,18 @@ export default {
     },
     getCurrentCell: function () {
       return this.getCell(this.getCellId(this.selectedCell))
+    },
+    addComment: function () {
+      // No empty comments
+      if (this.new_comment === undefined || this.new_comment === '') return
+      if (this.new_comment.replace(' ', '') === '') return
+      const today = new Date()
+      const time = today.getHours().toString().padStart(2, '0') + ':' + today.getMinutes().toString().padStart(2, '0') + ':' + today.getSeconds().toString().padStart(2, '0')
+      const date = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0')
+      this.getCurrentCell().comments.unshift(
+        date + ' ' + time + '|' + this.$store.state.username + '|' + this.new_comment.trim()
+      )
+      this.new_comment = ''
     },
     drawCells () {
       console.log('DRAW', this.getCells)
@@ -703,13 +739,13 @@ export default {
   z-index: 1001;
   top: 100px;
   left: calc(50% - 200px);
-  background: #AAA;
+  background: #101010;
+  color: white;
   width: 400px;
   height: 500px;
   padding: 5px 20px;
   box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 </style>
