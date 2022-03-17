@@ -181,7 +181,11 @@ export default {
           this.$router.push('/about')
           break
         case 'account':
-          this.$router.push('/account')
+          if (this.isLoggedIn) {
+            this.$router.push('/account')
+          } else {
+            this.$router.push('/login?redirect=/account')
+          }
           break
         case 'cart':
           this.$router.push('/cart')
