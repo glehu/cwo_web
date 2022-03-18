@@ -142,6 +142,7 @@ export default {
       this.$store.commit('setServerIP', 'https://wikiric.xyz')
     },
     serverLogin: function () {
+      if (this.$store.state.username === undefined || this.$store.state.username === '') return
       const headers = new Headers()
       headers.set(
         'Authorization',

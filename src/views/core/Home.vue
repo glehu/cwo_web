@@ -3,7 +3,7 @@
        :style="{backgroundImage: 'url('+require('@/assets/'+'account/pexels-anni-roenkae-2156881.jpg')+')',
        backgroundPosition: 'center top', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }">
     <section>
-      <div class="container" style="width: 100%; padding-top: 50px">
+      <div style="width: 100%; padding-top: 50px">
         <div class="row d-flex justify-content-center align-items-center text-center h-100">
           <div class="deconstructed">
             wikiric.xyz
@@ -163,7 +163,7 @@ export default {
 .wow {
   color: black;
   text-shadow: 5px 5px 0 rebeccapurple,
-  10px 10px 0 #efa032,
+  10px 10px 0 #052939,
   15px 15px 0 #46b59b,
   20px 20px 0 #017e7f,
   25px 25px 0 #052939;
@@ -189,33 +189,33 @@ export default {
 
 .deconstructed > div:nth-child(1) {
   mask-image: linear-gradient(black 25%, transparent 25%);
-  animation: deconstructed1 10s ease-in-out;
+  animation: deconstructed1 10s ease-in-out infinite;
 }
 
 .deconstructed > div:nth-child(2) {
   mask-image: linear-gradient(transparent 25%, black 25%, black 50%, transparent 50%);
-  animation: deconstructed2 10s ease-in-out;
+  animation: deconstructed2 10s ease-in-out infinite;
 }
 
 .deconstructed > div:nth-child(3) {
   mask-image: linear-gradient(transparent 50%, black 50%, black 75%, transparent 75%);
-  animation: deconstructed3 10s ease-in-out;
+  animation: deconstructed3 10s ease-in-out infinite;
 }
 
 .deconstructed > div:nth-child(4) {
   mask-image: linear-gradient(transparent 75%, black 75%);
-  animation: deconstructed4 10s ease-in-out;
+  animation: deconstructed4 10s ease-in-out infinite;
 }
 
 @keyframes deconstructed1 {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(0%);
   }
-  20% {
+  33% {
     transform: translateX(2%);
   }
-  80% {
-    transform: translateX(-0.1%);
+  66% {
+    transform: translateX(-0.6%);
   }
   100% {
     transform: translateX(0);
@@ -224,13 +224,13 @@ export default {
 
 @keyframes deconstructed2 {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%);
   }
-  30% {
-    transform: translateX(0.5%);
+  33% {
+    transform: translateX(1.2%);
   }
-  80% {
-    transform: translateX(-0.5%);
+  66% {
+    transform: translateX(-1%);
   }
   100% {
     transform: translateX(0);
@@ -239,13 +239,13 @@ export default {
 
 @keyframes deconstructed3 {
   0% {
-    transform: translateX(-100%);
-  }
-  40% {
     transform: translateX(0%);
   }
-  80% {
-    transform: translateX(-0.1%);
+  33% {
+    transform: translateX(-1.6%);
+  }
+  66% {
+    transform: translateX(2%);
   }
   100% {
     transform: translateX(0);
@@ -254,13 +254,13 @@ export default {
 
 @keyframes deconstructed4 {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%);
   }
-  50% {
+  33% {
     transform: translateX(-0.2%);
   }
-  80% {
-    transform: translateX(0.5%);
+  66% {
+    transform: translateX(1%);
   }
   100% {
     transform: translateX(0);
