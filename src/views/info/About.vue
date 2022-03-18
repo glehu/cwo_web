@@ -29,6 +29,10 @@
           <a style="color: white" :href="'https://www.instagram.com/11.nrv/'">NIRV</a> &
           <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki Ric G</a>
         </p>
+        <p class="text-end">
+          Images on this website were downloaded from
+          <a style="color: white" :href="'https://www.pexels.com/'">Pexels</a>
+        </p>
       </div>
       <div class="text-center mb-5" style="margin: auto">
         <p class="h1 fw-bold pb-5">More Info:</p>

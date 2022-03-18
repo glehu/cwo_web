@@ -11,10 +11,12 @@
                style="width: 20ch; font-weight: bold"
                v-model="keyword"
                v-on:keyup.enter="processKeyword(keyword)"
+               placeholder="ctrl+y"
                list="keywords">
         <!-- Autocompletion List -->
         <datalist id="keywords">
           <option value="Home"/>
+          <option value="Discover"/>
           <option value="Artists"/>
           <option value="Songs"/>
           <option value="Shop"/>
@@ -120,6 +122,12 @@ export default {
   mounted () {
     this.checkServerIP()
     this.serverLogin()
+    window.addEventListener('keydown', function (event) {
+      if (event.ctrlKey && event.key === 'y') {
+        document.getElementById('keyword-search').focus()
+        document.getElementById('keyword-search').select()
+      }
+    })
   },
   data () {
     return {
@@ -167,6 +175,9 @@ export default {
       switch (term) {
         case 'home':
           this.$router.push('/')
+          break
+        case 'discover':
+          this.$router.push('/discover')
           break
         case 'artists':
           this.$router.push('/artists')

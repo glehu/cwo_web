@@ -5,8 +5,13 @@ import store from '../store'
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'More Than A Dream',
     component: Home
+  },
+  {
+    path: '/discover',
+    name: 'Discover',
+    component: () => import('../views/core/Discover.vue')
   },
   {
     path: '/about',
