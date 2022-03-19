@@ -12,7 +12,10 @@
             <div class="wow">wikiric.xyz</div>
             <div class="wow">wikiric.xyz</div>
           </div>
-          <div class="slider" style="pointer-events: none">
+          <div class="slider my-4 clearfix"
+               style="vertical-align: center; pointer-events: none;
+               text-shadow: 5px 5px 10px black;
+               font-family: 'Gill Sans MT', sans-serif;">
             <div class="caption">
               Welcome
             </div>
@@ -31,7 +34,7 @@
           <h2 class="card-body text-center fw-bold">
             Tools for you and your team</h2>
         </div>
-        <div class="wrapper card-group mt-4">
+        <div class="wrapper mt-4">
           <div v-for="card in this.cards" :key="card"
                class="card text-white shadow-box"
                style="z-index: 2; border: 2px solid #46b59b">
@@ -92,7 +95,6 @@ export default {
 
 .slider {
   text-align: center;
-  animation: slideColor 10s forwards infinite;
 }
 
 .caption {
@@ -106,9 +108,9 @@ export default {
 .text-box {
   display: inline-block;
   position: relative;
-  font-size: 9vw;
+  font-size: 10vw;
   margin-left: 10vw;
-  top: -5vw;
+  top: -6.5vw;
 }
 
 .text-box div {
@@ -120,15 +122,15 @@ export default {
 }
 
 .text-box div:nth-child(1) {
-  animation: rollDown 10s forwards infinite;
+  animation: rollDown 15s forwards infinite;
 }
 
 .text-box div:nth-child(2) {
-  animation: rollDown2 10s forwards infinite;
+  animation: rollDown2 15s forwards infinite;
 }
 
 .text-box div:nth-child(3) {
-  animation: rollDown3 10s forwards infinite;
+  animation: rollDown3 15s forwards infinite;
 }
 
 @keyframes rollDown {
@@ -213,6 +215,7 @@ export default {
 }
 
 .wow {
+  font-family: 'JetBrains Mono Bold', sans-serif;
   color: black;
   text-shadow: 5px 5px 0 rebeccapurple,
   10px 10px 0 #052939,
@@ -224,9 +227,10 @@ export default {
 .bartext {
   position: relative;
   margin: auto;
+  left: -2vw;
   color: transparent;
-  font-size: 15vw;
-  font-weight: 1000;
+  font-size: 12vw;
+  font-weight: bold;
   overflow: hidden;
   z-index: 2;
 }
@@ -242,7 +246,7 @@ export default {
 
 .bartext > div:nth-child(1) {
   mask-image: linear-gradient(black 25%, transparent 25%);
-  animation: bartext1 10s infinite;
+  animation: bartext1 11s infinite;
 }
 
 .bartext > div:nth-child(2) {
@@ -280,7 +284,7 @@ export default {
     transform: translateX(0%);
   }
   33% {
-    transform: translateX(1.2%);
+    transform: translateX(2.2%);
   }
   66% {
     transform: translateX(-1%);
