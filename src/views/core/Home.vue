@@ -1,27 +1,56 @@
 <template>
-  <div style="height: 100vh; overflow: hidden"
+  <div style="min-height: 100vh; overflow: hidden"
        :style="{backgroundImage: 'url('+require('@/assets/'+'account/pexels-anni-roenkae-2156881.jpg')+')',
        backgroundPosition: 'center top', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }">
     <section>
       <div style="width: 100%; padding-top: 50px">
-        <div class="row d-flex justify-content-center align-items-center text-center h-100">
-          <div class="deconstructed">
+        <div class="row justify-content-center align-items-center text-center">
+          <div class="bartext" style="pointer-events: none">
             wikiric.xyz
             <div class="wow">wikiric.xyz</div>
             <div class="wow">wikiric.xyz</div>
             <div class="wow">wikiric.xyz</div>
             <div class="wow">wikiric.xyz</div>
           </div>
-          <div class="d-none d-md-block" style="padding: 10px; margin: 120px 10px 10px;"></div>
-          <div class="slider mt-5">
+          <div class="slider" style="pointer-events: none">
             <div class="caption">
-              ~#
-              <div class="text-box">
-                <div class="fw-bold">API&nbsp;Hub</div>
-                <div class="fw-bold">DevOps</div>
-                <div class="fw-bold">Analytics</div>
-              </div>
+              Welcome
             </div>
+            <div class="text-box text-white fw-bold">
+              <div class="fw-bold">API&nbsp;Hub</div>
+              <div class="fw-bold">DevOps</div>
+              <div class="fw-bold">Insights</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="height: 3vw"></div>
+      <div class="container mb-5">
+        <div class="card text-white shadow-box"
+             style="z-index: 2; border: 2px solid #46b59b; pointer-events: none">
+          <h2 class="card-body text-center fw-bold">
+            Tools for you and your team</h2>
+        </div>
+        <div class="wrapper card-group mt-4">
+          <div v-for="card in this.cards" :key="card"
+               class="card text-white shadow-box"
+               style="z-index: 2; border: 2px solid #46b59b">
+            <p class="card-header text-center fw-bold"
+               style="font-size: 150%; pointer-events: none">
+              {{ card.title }}
+            </p>
+            <button title="Explore"
+                    class="btn btn-lg btn-outline-light m-2"
+                    v-on:click="this.$router.push(card.link)">
+              <i class="bi bi-app-indicator"/>
+            </button>
+            <p style="pointer-events: none"
+               class="card-body text-center fw-bold">
+              {{ card.body }}
+            </p>
+            <p class="card-text p-2" style="font-style: italic; pointer-events: none">
+              {{ card.type }}
+            </p>
           </div>
         </div>
       </div>
@@ -31,7 +60,31 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  data () {
+    return {
+      cards: [
+        {
+          title: 'Planner',
+          body: 'Kanban-Board style task management.',
+          type: 'App',
+          link: '/apps/planner/_user'
+        },
+        {
+          title: 'Mockingbird',
+          body: 'Tools for REST/SOAP API testing.',
+          type: 'Service',
+          link: '/dev/api'
+        },
+        {
+          title: 'SnippetBase',
+          body: '(Work In Progress)',
+          type: 'Service',
+          link: '/wip'
+        }
+      ]
+    }
+  }
 }
 </script>
 
@@ -39,29 +92,28 @@ export default {
 
 .slider {
   text-align: center;
-  position: relative;
   animation: slideColor 10s forwards infinite;
 }
 
 .caption {
   line-height: 100px;
-  font-size: 5vw;
-  color: #fff;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  margin-left: -300px;
+  font-size: 10vw;
+  font-weight: bold;
+  color: white;
+  margin-left: -40vw;
 }
 
 .text-box {
   display: inline-block;
   position: relative;
+  font-size: 9vw;
+  margin-left: 10vw;
+  top: -5vw;
 }
 
 .text-box div {
   display: inline-block;
   position: absolute;
-  top: -200px;
   transform: rotateX(-90deg);
   opacity: 0;
   animation-timing-function: ease;
@@ -169,16 +221,17 @@ export default {
   25px 25px 0 #052939;
 }
 
-.deconstructed {
+.bartext {
   position: relative;
   margin: auto;
   color: transparent;
   font-size: 15vw;
   font-weight: 1000;
   overflow: hidden;
+  z-index: 2;
 }
 
-.deconstructed > div {
+.bartext > div {
   position: absolute;
   top: 0;
   left: 0;
@@ -187,27 +240,27 @@ export default {
   pointer-events: none;
 }
 
-.deconstructed > div:nth-child(1) {
+.bartext > div:nth-child(1) {
   mask-image: linear-gradient(black 25%, transparent 25%);
-  animation: deconstructed1 10s ease-in-out infinite;
+  animation: bartext1 10s infinite;
 }
 
-.deconstructed > div:nth-child(2) {
+.bartext > div:nth-child(2) {
   mask-image: linear-gradient(transparent 25%, black 25%, black 50%, transparent 50%);
-  animation: deconstructed2 10s ease-in-out infinite;
+  animation: bartext2 11s infinite;
 }
 
-.deconstructed > div:nth-child(3) {
+.bartext > div:nth-child(3) {
   mask-image: linear-gradient(transparent 50%, black 50%, black 75%, transparent 75%);
-  animation: deconstructed3 10s ease-in-out infinite;
+  animation: bartext3 12s infinite;
 }
 
-.deconstructed > div:nth-child(4) {
+.bartext > div:nth-child(4) {
   mask-image: linear-gradient(transparent 75%, black 75%);
-  animation: deconstructed4 10s ease-in-out infinite;
+  animation: bartext4 13s infinite;
 }
 
-@keyframes deconstructed1 {
+@keyframes bartext1 {
   0% {
     transform: translateX(0%);
   }
@@ -222,7 +275,7 @@ export default {
   }
 }
 
-@keyframes deconstructed2 {
+@keyframes bartext2 {
   0% {
     transform: translateX(0%);
   }
@@ -237,7 +290,7 @@ export default {
   }
 }
 
-@keyframes deconstructed3 {
+@keyframes bartext3 {
   0% {
     transform: translateX(0%);
   }
@@ -252,7 +305,7 @@ export default {
   }
 }
 
-@keyframes deconstructed4 {
+@keyframes bartext4 {
   0% {
     transform: translateX(0%);
   }
@@ -265,6 +318,26 @@ export default {
   100% {
     transform: translateX(0);
   }
+}
+
+.wrapper {
+  display: grid;
+  gap: 0.5em;
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Small devices (portrait tablets and large phones, 765px and up) */
+@media only screen and (min-width: 765px) {
+  .wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.shadow-box {
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.6);
+  border-radius: 1em
 }
 
 </style>

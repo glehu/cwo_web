@@ -37,7 +37,7 @@
       <div id="mock-service" class="mt-5 shadow-box" style="width: 100%; border-radius: 1em">
         <div class="ps-2">
           <div style="display: flex">
-            <h2 class="ps-2 jetb">M<span><i class="bi bi-hurricane text-white"/></span>CKING BIRD</h2>
+            <h2 class="ps-2 jetb">M<span><i class="bi bi-hurricane text-white"/></span>CKINGBIRD</h2>
             <button id="mockDescToggler" class="ms-5 btn text-white text-decoration-underline"
                     v-on:click="toggleElement('mock_explanation')">
               What's that?

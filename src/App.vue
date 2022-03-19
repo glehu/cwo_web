@@ -28,6 +28,7 @@
           <option value="Settings"/>
           <option value="Planner"/>
           <option value="API Manager"/>
+          <option value="Mockingbird"/>
         </datalist>
         <button
           class="navbar-toggler"
@@ -212,11 +213,12 @@ export default {
           this.$router.push('/preferences?redirect=/account')
           break
         case 'planner':
-          this.$router.push(
-            '/apps/planner/' +
-            encodeURIComponent(Buffer.from(this.$store.state.username).reverse().toString('base64')))
+          this.$router.push('/apps/planner/_user')
           break
         case 'apimanager':
+          this.$router.push('/dev/api')
+          break
+        case 'mockingbird':
           this.$router.push('/dev/api')
           break
         default:

@@ -130,10 +130,15 @@ router.beforeEach((to, from, next) => {
         }
       })
     } else {
-      // Handle Planner Route
-      if (to.fullPath === '/apps/planner' || to.fullPath === '/apps/planner/' || to.fullPath === '/planner') {
+      // Handle Planner Route and fill in the path depending on the user logged in
+      if (
+        to.fullPath === '/planner' ||
+        to.fullPath === '/apps/planner' ||
+        to.fullPath === '/apps/planner/' ||
+        to.fullPath === '/apps/planner/_user'
+      ) {
         next({
-          path: '/apps/planner/' + store.state.username.split('@')[0]
+          path: '/apps/planner/' + encodeURIComponent(Buffer.from(store.state.username).reverse().toString('base64'))
         })
       } else {
         // #### Any Other Route
