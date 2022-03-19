@@ -8,8 +8,8 @@
       <i class="bi bi-calendar-event"/> SITREP 2022-XX-XX
     </h2>
     <p class="text-center"
-        style="font-family: 'JetBrains Mono Bold',sans-serif; color: white">
-      Author: <a :href="'https://github.com/glehu'" style="color: white"> Luca Goldhausen </a>
+       style="font-family: 'JetBrains Mono Bold',sans-serif; color: white">
+      Author: <a :href="'https://github.com/glehu'" style="color: white"> Wiki </a>
     </p>
     <p class="text-center"
        style="font-family: 'JetBrains Mono Bold',sans-serif; color: white; border: 2px solid white; padding: 10px">
@@ -189,19 +189,15 @@ export default {
   grid-auto-rows: minmax(100px, auto);
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 300px) {
-  .wrapper {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .text-wrapper {
-    width: 350px;
-  }
+.wrapper {
+  grid-template-columns: repeat(1, 1fr);
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+.text-wrapper {
+  width: 350px;
+}
+
+@media only screen and (min-width: 992px) {
   .wrapper {
     grid-template-columns: repeat(2, 1fr);
   }

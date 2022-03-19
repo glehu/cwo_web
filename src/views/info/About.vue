@@ -2,41 +2,43 @@
   <div class="about">
     <div style="min-height: 10ch"></div>
     <div class="container text-white wrapper">
-      <div class="text-wrapper mb-5" style="text-align: justify; text-justify: inter-word; margin: auto">
-        <span class="h1 fw-bold"><i class="bi bi-fingerprint"/> About Us </span>
+      <div class="text-wrapper mb-5"
+           style="text-align: justify; text-justify: inter-word;
+           margin: auto">
         <span class="p-2">
-            <i class="bi bi-dot"/>What/Who is Orochi Batsuzoku?
-            Orochi Batsuzoku, or in short Orochi, is a collective that dedicates
-            itself to the creation of art in many forms. We also want to put effort into
-            making the music and art industry a fair competition without capitalistic exploitation.
-            <br><br><i class="bi bi-dot"/>How did it start?
-            Originally, some of the current members got to know each other on the
-            Trash Gang website chat room.
-            On the 2019.08.20 the three founding members Di$, Lich and
-            Wiki created their own discord server, migrating all previously known
-            people to their newly created home.
-            <br><br><i class="bi bi-dot"/>How can I join?
-            Just join our
-            <a :href="'https://discord.gg/pr2vwr8'" style="color: white">Discord</a>
-            server!
-            We will discuss everything else afterwards.
-            It could not be simpler than that.
+          <!-- Who -->
+          <span class="h2 fw-bold" style="pointer-events: none">
+            <i class="bi bi-fingerprint"/> What/Who is wikiric.xyz?
           </span>
-        <p class="text-end pt-5">
+          <br>This website is part of a project being ran by
+           <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki&nbsp;Ric&nbsp;G</a>
+          (or Wiki in short). It currently consists of this website including
+          all its apps and
+          <a :href="'https://github.com/glehu/CWO_ERP'" style="color: white">CWO_DB</a>,
+          the back-end database and API hub handling everything being worked on the website.
+          <!-- Why -->
+          <br><br><span class="h2 fw-bold" style="pointer-events: none">
+            <i class="bi bi-fingerprint"/> What is the purpose of this?
+          </span>
+          <br>I&nbsp;want to make the world a better place, pursuing my dreams by helping others.
+          By providing tools and an easily accessible platform for everybody, I'm doing my
+          best to reach my goals.
+          <br>People need to have fun to be able to learn new things efficiently.
+          Creativity blooms in an artistic environment. Let's work on the future.
+        </span>
+        <p class="text-end pt-2" style="font-style: italic">
           Designed with <i class="bi bi-heart-fill" style="color: red"></i> by
-          <br>
-          <a style="color: white" :href="'https://www.instagram.com/blk.ghst/'">BLKGHST 死霊</a> &
-          <a style="color: white" :href="'https://www.instagram.com/11.nrv/'">NIRV</a> &
-          <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki Ric G</a>
+          <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki</a>
         </p>
-        <p class="text-end">
-          Images on this website were downloaded from
+        <p class="text-center pt-4" style="font-style: italic">
+          Background images from
           <a style="color: white" :href="'https://www.pexels.com/'">Pexels</a>
         </p>
       </div>
-      <div class="text-center mb-5" style="margin: auto">
-        <p class="h1 fw-bold pb-5">More Info:</p>
-        <button class="btn btn-outline-light"
+      <div class="text-center mb-5" style="margin: 20px">
+        <p class="h1 fw-bold pb-3">More Info:</p>
+        <button title="V i s i o n"
+                class="btn btn-outline-light"
                 style="font-size: 250%; width: 250px"
                 v-on:click="gotoVision">
           V i s i o n
@@ -65,19 +67,15 @@ export default {
   grid-auto-rows: minmax(100px, auto);
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 300px) {
-  .wrapper {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .text-wrapper {
-    width: 350px;
-  }
+.wrapper {
+  grid-template-columns: repeat(1, 1fr);
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+.text-wrapper {
+  width: 350px;
+}
+
+@media only screen and (min-width: 992px) {
   .wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
