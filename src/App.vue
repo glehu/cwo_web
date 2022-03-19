@@ -7,11 +7,12 @@
           Orochi Batsuzoku
         </a>-->
         <a class="navbar-brand fw-bold" href="/">wikiric.xyz</a>
-        <input id="keyword-search"
+        <input class="keyword-search"
+               id="keyword-search"
                style="width: 20ch; font-weight: bold"
                v-model="keyword"
                v-on:keyup.enter="processKeyword(keyword)"
-               placeholder="ctrl+y"
+               placeholder="alt+x"
                list="keywords">
         <!-- Autocompletion List -->
         <datalist id="keywords">
@@ -116,6 +117,16 @@
   src: local("JetBrains Mono Bold"), url(./assets/fonts/JetBrainsMono-Bold.ttf) format("truetype");
 }
 
+.keyword-search:focus {
+  height: 4ch;
+  font-size: 150%;
+  transition: 0.5s ease-out;
+}
+
+.keyword-search:focus::placeholder {
+  color: transparent;
+}
+
 </style>
 
 <script>
@@ -124,7 +135,7 @@ export default {
     this.checkServerIP()
     this.serverLogin()
     window.addEventListener('keydown', function (event) {
-      if (event.ctrlKey && event.key === 'y') {
+      if (event.altKey && event.key === 'x') {
         document.getElementById('keyword-search').focus()
         document.getElementById('keyword-search').select()
       }
