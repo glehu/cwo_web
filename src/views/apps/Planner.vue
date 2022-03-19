@@ -35,7 +35,7 @@
     <canvas id="grid" style="position: absolute; display: block; background-color: #0A0A0F"></canvas>
     <canvas id="canvas" style="position: absolute; display: block"></canvas>
     <div id="editor" style="position: absolute"></div>
-    <div class="dialog" v-if="adjusting" @click.stop>
+    <div class="dialog" style="overflow: hidden" v-if="adjusting" @click.stop>
       <p class="h2 fw-bold mt-2 text-center"> {{ this.getSelectedCellName() }}</p>
       <p class="h4 mb-3"> {{ this.getSelectedCellValue() }}</p>
       <hr>
@@ -54,20 +54,21 @@
       </span>
       </div>
       <hr>
-      <div id="comment_section" style="max-height: 300px; overflow-y: scroll">
-        <div style="display: inline">
-          <input id="new_comment"
-                 type="text"
-                 style="margin-bottom: 20px; width: 75%; height: 4ch"
-                 v-model="new_comment"
-                 v-on:keyup.enter="addComment()">
-          <button class="btn-dark" style="height: 4ch"
-                  v-on:click="addComment">
-            <i class="bi bi-send"></i>
-          </button>
-        </div>
+      <div style="display: inline">
+        <input id="new_comment"
+               type="text"
+               style="margin-bottom: 20px; width: 85%; height: 4ch"
+               v-model="new_comment"
+               v-on:keyup.enter="addComment()">
+        <button class="btn-dark" style="width: 15%; height: 4ch"
+                v-on:click="addComment">
+          <i class="bi bi-send"></i>
+        </button>
+      </div>
+      <div id="comment_section" style="max-height: 48vh; overflow-y: scroll">
         <div v-for="comment in this.getCurrentCell().comments" :key="comment"
-             style="width: 75%; border: 1px solid white; border-radius: 1em; padding: 5px; margin-bottom: 10px">
+             style="border: 1px solid white; border-radius: 1em; padding: 5px;
+             margin-bottom: 10px; margin-right: 10%">
           <p>{{ comment.split('|')[2] }}</p>
           <p class="text-end" style="font-size: 75%; padding: 0">
             {{ comment.split('|')[1] }}<br>
@@ -738,12 +739,12 @@ export default {
 .dialog {
   position: fixed;
   z-index: 1001;
-  top: 100px;
+  top: 10vh;
   left: calc(50% - 200px);
   background: #101010;
   color: white;
   width: 400px;
-  height: 500px;
+  height: 80vh;
   padding: 5px 20px;
   box-sizing: border-box;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
