@@ -91,16 +91,16 @@
               </section>
             </div>
             <div class="card text-white my-5 shadow-box">
-              <h3 class="p-1">Development</h3>
+              <h3 class="p-1">Services</h3>
               <section
                 class="container">
                 <div class="d-md-flex justify-content-between text-white mt-3"
                      style="border-radius: 1rem;">
                   <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                           v-on:click="gotoAPI">
-                    <i class="bi bi-cloud-upload p-1"></i><span class="fw-bold"> API Manager</span>
+                    <i class="bi bi-hurricane text-white"/><span class="fw-bold"> Mockingbird</span>
                   </button>
-                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">Back-End Management</h3>
+                  <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">SOAP/REST API Testing</h3>
                 </div>
               </section>
             </div>
