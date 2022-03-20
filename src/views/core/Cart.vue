@@ -22,7 +22,7 @@
         <div class="container card-group">
           <div class="col-5" v-for="col in itemsChunked" :key="col">
             <div class="card m-2"
-                 v-for="item in col" :key="item.uID"
+                 v-for="item in col" :key="item"
                  style="background: black; color: white">
               <div class="card-title">
                 <h3 class="fw-bold m-3">
@@ -32,8 +32,9 @@
               <div class="card-body">
                 <hr>
                 <div class="d-flex">
-                  <button class="btn btn-outline-danger">
-                    <abbr title="Remove from cart."><i class="bi bi-x"></i></abbr> Remove
+                  <button title="Remove from cart" class="btn btn-outline-danger"
+                          v-on:click="this.removeItem(item)">
+                    <i class="bi bi-x-lg"></i> Remove
                   </button>
                 </div>
                 <p class="text-end fw-bold lead">
@@ -67,6 +68,9 @@ export default {
     }
   },
   methods: {
+    removeItem: function (item) {
+      this.$store.commit('removeFromCart', item)
+    },
     clearCart (notification) {
       this.$store.commit('clearCart')
       if (notification) {

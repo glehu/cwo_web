@@ -41,6 +41,11 @@ export default createStore({
     putInCart (state, itemObj) {
       state.cart.push(itemObj)
     },
+    removeFromCart (state, itemObj) {
+      state.cart = state.cart.filter(function (ele) {
+        return ele.posID.toString() !== itemObj.posID.toString()
+      })
+    },
     clearCart (state) {
       state.cart = []
     },
