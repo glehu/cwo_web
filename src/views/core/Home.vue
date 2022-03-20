@@ -42,17 +42,24 @@
                style="font-size: 150%; pointer-events: none">
               {{ card.title }}
             </p>
-            <button title="Explore"
+            <button v-if="card.link !== '/wip'" title="Explore"
                     class="btn btn-lg btn-outline-light m-2"
                     v-on:click="this.$router.push(card.link)">
               <i class="bi bi-app-indicator"/>
             </button>
+            <p v-else class="card-body fw-bold text-center">
+              (Work In Progress)
+            </p>
             <p style="pointer-events: none"
                class="card-body text-center fw-bold">
               {{ card.body }}
             </p>
             <p class="card-text p-2" style="font-style: italic; pointer-events: none">
-              {{ card.type }}
+              <span
+                style="border-radius: 75%; padding: 4px; background-color: #017e7f">
+                {{ card.type }}
+              </span>
+              {{ card.category }}
             </p>
           </div>
         </div>
@@ -71,18 +78,28 @@ export default {
           title: 'Planner',
           body: 'Kanban-Board style task management.',
           type: 'App',
+          category: 'Management',
           link: '/apps/planner/_user'
+        },
+        {
+          title: 'Communicator',
+          body: 'Communicate, share tasks and get notifications.',
+          type: 'App',
+          category: 'Communication',
+          link: '/wip'
         },
         {
           title: 'Mockingbird',
           body: 'Tools for REST/SOAP API testing.',
           type: 'Service',
+          category: 'Networking',
           link: '/dev/api'
         },
         {
           title: 'SnippetBase',
-          body: '(Work In Progress)',
+          body: 'Temporary storage for any XML/JSON data.',
           type: 'Service',
+          category: 'Data Storage',
           link: '/wip'
         }
       ]

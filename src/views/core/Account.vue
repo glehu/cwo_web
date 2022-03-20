@@ -98,7 +98,7 @@
                      style="border-radius: 1rem;">
                   <button class="btn btn-outline-light btn-lg text-start" style="width: 200px"
                           v-on:click="gotoAPI">
-                    <i class="bi bi-hurricane text-white"/><span class="fw-bold"> Mockingbird</span>
+                    <i class="bi bi-hurricane"/><span class="fw-bold"> Mockingbird</span>
                   </button>
                   <h3 class="d-none d-lg-block text-end" style="font-weight: lighter">SOAP/REST API Testing</h3>
                 </div>
