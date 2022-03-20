@@ -82,8 +82,8 @@ export default {
           link: '/apps/planner/_user'
         },
         {
-          title: 'Communicator',
-          body: 'Communicate, share tasks and get notifications.',
+          title: 'Unicom',
+          body: 'Communicate, share tasks and be there for each others.',
           type: 'App',
           category: 'Communication',
           link: '/wip'
