@@ -35,11 +35,13 @@
               <table class="invoice_positions">
                 <tr>
                   <th>Description</th>
+                  <th>Amount</th>
                   <th>Net</th>
                   <th>Gross</th>
                 </tr>
                 <tr v-for="item in JSON.parse(invoice).items" :key="item">
                   <td>{{ JSON.parse(item).d }}</td>
+                  <td>{{ JSON.parse(item).n }}</td>
                   <td>{{ JSON.parse(item).np }} €</td>
                   <td>{{ JSON.parse(item).gp }} €</td>
                 </tr>
