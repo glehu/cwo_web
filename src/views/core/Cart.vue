@@ -19,32 +19,30 @@
     <div v-show="!emptyCart" id="itemsSection" :style="{ backgroundImage: bg }">
       <section>
         <div class="mt-4" style="min-height: 3vh"></div>
-        <div class="container card-group">
-          <div class="col-5" v-for="col in itemsChunked" :key="col">
-            <div class="card m-2"
-                 v-for="item in col" :key="item"
-                 style="background: black; color: white">
-              <div class="card-title">
-                <h3 class="fw-bold m-3">
-                  {{ item.description }}
-                </h3>
+        <div class="container wrapper">
+          <div class="card"
+               v-for="item in this.$store.state.cart" :key="item"
+               style="background: black; color: white">
+            <div class="card-title">
+              <h3 class="fw-bold m-3">
+                {{ item.description }}
+              </h3>
+            </div>
+            <div class="card-body">
+              <hr>
+              <div class="d-flex">
+                <button title="Remove from cart" class="btn btn-outline-danger"
+                        v-on:click="this.removeItem(item)">
+                  <i class="bi bi-x-lg"></i> Remove
+                </button>
               </div>
-              <div class="card-body">
-                <hr>
-                <div class="d-flex">
-                  <button title="Remove from cart" class="btn btn-outline-danger"
-                          v-on:click="this.removeItem(item)">
-                    <i class="bi bi-x-lg"></i> Remove
-                  </button>
-                </div>
-                <p class="text-end fw-bold lead">
-                  {{ item.amount }}x {{ item.price }} €
-                </p>
-                <hr>
-              </div>
-              <div class="card-footer text-center">
-                <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
-              </div>
+              <p class="text-end fw-bold lead">
+                {{ item.amount }}x {{ item.price }} €
+              </p>
+              <hr>
+            </div>
+            <div class="card-footer text-center">
+              <img style="max-width: 75%; max-height: 75%" v-bind:src="getImg(item)" alt="No Image Available."/>
             </div>
           </div>
         </div>
@@ -152,10 +150,6 @@ export default {
     cart () {
       return this.$store.state.cart
     },
-    itemsChunked () {
-      const chunk = require('chunk')
-      return chunk(this.$store.state.cart, 2)
-    },
     bg () {
       return `linear-gradient(${this.angle}deg, ${this.color1}, ${this.color2})`
     },
@@ -179,5 +173,43 @@ export default {
 </script>
 
 <style scoped>
+
+.wrapper {
+  display: grid;
+  gap: 1em;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .wrapper {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .wrapper {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hide_on_big {
+    display: none
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .wrapper {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
 
 </style>
