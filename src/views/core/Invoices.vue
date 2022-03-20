@@ -21,18 +21,22 @@
                  style="background: black; color: white">
               <div class="card-title">
                 <h3 class="fw-bold m-3">
-                  <i class="bi bi-file-earmark-text ms-md-5"/>
-                  {{ JSON.parse(invoice).text }}
-                  #{{ JSON.parse(invoice).uID }}
-                  <i class="bi bi-calendar3-event ms-5"/>
-                  {{ JSON.parse(invoice).date }}
+                  <span>
+                    <i class="bi bi-file-earmark-text ms-md-5"/>
+                    {{ JSON.parse(invoice).text }}
+                    #{{ JSON.parse(invoice).uID }}
+                  </span>
+                  <span style="padding-left: 1rem">
+                    <i class="bi bi-calendar3-event ms-md-5"/>
+                    {{ JSON.parse(invoice).date }}
+                  </span>
                 </h3>
               </div>
-              <table>
+              <table class="invoice_positions">
                 <tr>
                   <th>Description</th>
-                  <th>Net Price</th>
-                  <th>Gross Price</th>
+                  <th>Net</th>
+                  <th>Gross</th>
                 </tr>
                 <tr v-for="item in JSON.parse(invoice).items" :key="item">
                   <td>{{ JSON.parse(item).d }}</td>
@@ -41,7 +45,7 @@
                 </tr>
               </table>
               <div class="mt-5"/>
-              <table>
+              <table class="invoice_status">
                 <tr>
                   <th scope="row">Total:</th>
                   <td><span class="h2 fw-bold">
@@ -50,7 +54,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">Payment Received:</th>
+                  <th scope="row">Paid:</th>
                   <td><span class="h2 fw-bold">
                     {{ getPaidAmount(JSON.parse(invoice).grossPaid) }}
                   </span>
@@ -66,7 +70,9 @@
               </table>
               <div class="text-start text-black fw-bold p-2 m-3" style="border-radius: 1rem; background: white">
                 Customer Note:
-                <span class="ms-2 fw-bolder lead">{{ JSON.parse(invoice).customerNote }}</span>
+                <span class="ms-2 fw-bolder lead">
+                  {{ JSON.parse(invoice).customerNote }}
+                </span>
               </div>
             </div>
           </div>
@@ -127,13 +133,21 @@ export default {
 </script>
 
 <style scoped>
+
 th {
-  padding: 15px;
   font-size: 125%;
 }
 
-td, th {
+.invoice_positions th, .invoice_positions td {
   border: 1px dotted gray;
-  border-collapse: collapse;
 }
+
+.invoice_status td {
+  text-align: left;
+}
+
+.invoice_status th {
+  width: 100px;
+}
+
 </style>
