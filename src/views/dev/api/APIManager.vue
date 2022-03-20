@@ -86,11 +86,14 @@
               </select>
             </div>
             <!-- Content Type if Fixed Message Type -->
-            <div v-if="((mockConfig.return_type === 'Message') && (mockConfig.message_type === 'Fixed Message'))">
+            <div>
               <label for="content_type" class="fw-bold jetb">Content&nbsp;Type:</label>
-              <select id="content_type" name="content_type" v-model="mockConfig.content_type"
-                      class="fw-bold jetb text-black ms-2">
+              <select id="content_type" name="content_type"
+                      v-model="mockConfig.content_type"
+                      class="fw-bold jetb text-black ms-2"
+                      v-on:change="setCodeMode">
                 <option>text/xml</option>
+                <option>text/plain</option>
                 <option>application/xml</option>
                 <option>application/json</option>
               </select>
@@ -134,11 +137,8 @@
           </div>
           <!-- Return Message if Fixed Message Type -->
           <br>
-          <div v-if="((mockConfig.return_type === 'Message') && (mockConfig.message_type === 'Fixed Message'))">
-            <textarea id="return_message" name="message_type" v-model="mockConfig.return_message"
-                      class="fw-bold jetb text-black"
-                      style="height: 20ch; width: 100%"
-            ></textarea>
+          <div>
+            <textarea id="return_message" name="return_message" v-model="mockConfig.return_message"></textarea>
           </div>
           <!-- #### #### Confirm Button needs to be at the bottom #### #### -->
           <div style="display: flex">
@@ -161,6 +161,12 @@
 </template>
 
 <script>
+import CodeMirror from 'codemirror'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/dracula.css'
+import 'codemirror/mode/xml/xml.js'
+import 'codemirror/mode/javascript/javascript.js'
+
 export default {
   name: 'APICentral',
   data () {
@@ -185,13 +191,34 @@ export default {
   created () {
     this.getTime()
     setInterval(this.getTime, 1000)
-    this.loadConfig()
   },
   mounted () {
     this.checkServerIPField()
     this.checkServerTokenField()
+    this.cm = CodeMirror.fromTextArea(document.getElementById('return_message'), {
+      lineNumbers: true,
+      theme: 'dracula',
+      mode: 'xml'
+    })
+    this.loadConfig()
   },
   methods: {
+    setCodeMode: function () {
+      switch (this.mockConfig.content_type) {
+        case 'text/xml':
+          this.cm.setOption('mode', 'xml')
+          break
+        case 'text/plain':
+          this.cm.setOption('mode', '')
+          break
+        case 'application/json':
+          this.cm.setOption('mode', 'javascript')
+          break
+        case 'application/xml':
+          this.cm.setOption('mode', 'xml')
+          break
+      }
+    },
     getTime: function () {
       const today = new Date()
       const date = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0')
@@ -301,6 +328,7 @@ export default {
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
       headers.set('Content-Type', 'application/json')
+      this.mockConfig.return_message = this.cm.getValue()
       fetch(
         this.$store.state.serverIP + '/mockingbird/submit?type=config',
         {
@@ -346,8 +374,13 @@ export default {
         }
       )
         .then((res) => res.json())
-        .then((data) => (this.mockConfig = data.config))
+        .then((data) => (this.setConfig(data)))
+        .then(this.setCodeMode)
         .catch((err) => this.handleSubmitError(err))
+    },
+    setConfig: function (data) {
+      this.mockConfig = data.config
+      this.cm.setValue(data.config.return_message)
     }
   },
   computed: {
