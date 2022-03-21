@@ -14,7 +14,7 @@
       <div style="display: flex; align-items: center">
         <i id="btn_addbox" title="Add Box" class="btn text-white bi-square" style="font-size: 200%"></i>
         <input id="addmenu_rows" class="bg-black text-white p-2"
-               type="number" value="5" min="1" max="50" size="2"
+               type="number" value="10" min="1" max="10" size="2"
                style="border-radius: 1rem">
         <i id="btn_addtask" title="Add Task" class="btn text-white bi-file-earmark-check doHover ms-3"
            style="font-size: 200%"></i>
@@ -39,17 +39,17 @@
       <p class="h2 fw-bold mt-2 text-center"> {{ this.getSelectedCellName() }}</p>
       <p class="h4 mb-3"> {{ this.getSelectedCellValue() }}</p>
       <hr>
-      <span class="fw-bold" style="border: 2px solid white; padding: 1ch; border-radius: 1em">
+      <span class="fw-bold" style="border: 2px solid white; padding: 0.5ch; border-radius: 1em">
         {{ this.getCurrentCell().type.toUpperCase() }}
       </span>
       <div v-if="this.getCurrentCell().type !== 'box'" style="display: inline-flex">
       <span v-if="!this.checkTaskBelongsToBox()"
-            class="fw-bold ms-2 bg-dark text-white" style="padding: 1ch; border-radius: 1em"
+            class="fw-bold ms-2 bg-dark text-white" style="padding: 0.5ch; border-radius: 1em"
             title="This task belongs to no box.">
         No Box
       </span>
         <span v-if="this.checkTaskBelongsToBox()"
-              class="fw-bold ms-2 bg-info text-black" style="padding: 1ch; border-radius: 1em">
+              class="fw-bold ms-2 bg-info text-black" style="padding: 0.5ch; border-radius: 1em">
         {{ this.getBoxOfTask().name }}
       </span>
       </div>
@@ -65,7 +65,7 @@
           <i class="bi bi-send"></i>
         </button>
       </div>
-      <div id="comment_section" style="max-height: 48vh; overflow-y: scroll">
+      <div id="comment_section" style="max-height: 47vh; overflow-y: scroll">
         <div v-for="comment in this.getCurrentCell().comments" :key="comment"
              style="border: 1px solid white; border-radius: 1em; padding: 5px;
              margin-bottom: 10px; margin-right: 10%">
@@ -93,7 +93,7 @@ export default {
   name: 'ProcessPlanner',
   data () {
     return {
-      maxCellRows: 10,
+      maxCellRows: 13,
       maxCellCols: 10,
       cellWidth: 300,
       cellHeight: 150,
