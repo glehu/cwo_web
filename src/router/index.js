@@ -47,6 +47,12 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/apps/clarifier',
+    name: 'Clarifier',
+    component: () => import('../views/apps/Clarifier'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/shop',
     name: 'Shop',
     component: () => import('../views/core/Shop.vue')

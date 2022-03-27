@@ -82,11 +82,11 @@ export default {
           link: '/apps/planner/_user'
         },
         {
-          title: 'Unicom',
-          body: 'Communicate, share tasks and be there for each others.',
+          title: 'Clarifier',
+          body: 'Communicate, share tasks and be there for each other.',
           type: 'App',
           category: 'Communication',
-          link: '/wip'
+          link: '/apps/clarifier'
         },
         {
           title: 'Mockingbird',
