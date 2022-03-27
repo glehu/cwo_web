@@ -101,7 +101,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 
 @font-face {
   font-family: "JetBrains Mono Medium";
@@ -125,6 +125,11 @@
 
 .keyword-search:focus::placeholder {
   color: transparent;
+}
+
+.nav-link {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 </style>
