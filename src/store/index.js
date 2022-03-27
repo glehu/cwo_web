@@ -23,7 +23,9 @@ export default createStore({
     password: '',
     // --- Web Shop ---
     shop: {},
-    cart: []
+    cart: [],
+    // --- Clarifier ---
+    clarifierSessions: []
   },
   mutations: {
     logIn (state, user) {
@@ -102,6 +104,20 @@ export default createStore({
     },
     setServerToken (state, newServerToken) {
       state.token = newServerToken
+    },
+    addClarifierSession (state, session) {
+      let found = false
+      for (let i = 0; i < state.clarifierSessions.length; i++) {
+        if (JSON.parse(state.clarifierSessions[i]).id === session.id) {
+          found = true
+          break
+        }
+      }
+      if (found) return
+      state.clarifierSessions.push(JSON.stringify({
+        id: session.id,
+        title: session.title
+      }))
     }
   },
   actions: {},

@@ -53,6 +53,12 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/apps/clarifier/wss/:id',
+    name: 'Clarifier Session',
+    component: () => import('../views/apps/ClarifierChatroom'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/shop',
     name: 'Shop',
     component: () => import('../views/core/Shop.vue')
@@ -110,6 +116,8 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  strict: true,
+  sensitive: true,
   scrollBehavior (to, from, savedPosition) {
     // always scroll to top
     return { top: 0 }

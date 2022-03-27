@@ -118,8 +118,8 @@
 }
 
 .keyword-search:focus {
-  height: 4ch;
-  font-size: 150%;
+  height: 3ch;
+  font-size: 125%;
   transition: 0.5s ease-out;
 }
 
@@ -127,9 +127,15 @@
   color: transparent;
 }
 
-.nav-link {
-  padding-top: 0;
-  padding-bottom: 0;
+.navbar {
+  min-height: 60px;
+}
+
+@media only screen and (min-width: 992px) {
+  .nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 </style>
