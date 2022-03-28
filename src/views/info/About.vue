@@ -11,7 +11,7 @@
             <i class="bi bi-fingerprint"/> What/Who is wikiric.xyz?
           </span>
           <br>This website is part of a project being ran by
-           <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki&nbsp;Ric&nbsp;G</a>
+           <a style="color: white" :href="'https://github.com/glehu'">Wiki&nbsp;Ric&nbsp;G</a>
           (or Wiki in short). It currently consists of this website including
           all its apps and
           <a :href="'https://github.com/glehu/CWO_ERP'" style="color: white">CWO_DB</a>,
@@ -28,7 +28,7 @@
         </span>
         <p class="text-end pt-2" style="font-style: italic">
           Designed with <i class="bi bi-heart-fill" style="color: red"></i> by
-          <a style="color: white" :href="'https://www.instagram.com/wikiricg/'">Wiki</a>
+          <a style="color: white" :href="'https://github.com/glehu'">Wiki</a>
         </p>
         <p class="text-center pt-4" style="font-style: italic">
           Background images from
