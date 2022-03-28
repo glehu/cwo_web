@@ -43,20 +43,22 @@
         <div class="row d-flex justify-content-center align-items-center">
           <div style="min-width: 400px; width: 80%">
             <div class="card text-white" style="border-radius: 1rem; background: #021425">
-              <div class="card-body text-center">
+              <div class="card-body">
                 <div class="mt-md-0">
-                  <h2 class="fw-bold mb-2 text-uppercase">Active Sessions</h2>
+                  <h2 class="fw-bold mb-2 text-uppercase text-center">Active Sessions</h2>
                   <div class="text-center">
                     Your current Clarifier Sessions. Click on one of them to quickly join it!
                   </div>
                   <hr style="color: white; height: 4px">
                   <div v-for="session in this.$store.state.clarifierSessions" :key="session"
-                       style="padding-bottom: 2ch">
+                       style="padding-bottom: 2ch; padding-left: 3ch">
+                    <button class="btn btn-sm btn-outline-danger"
+                            style="margin-right: 2ch"
+                            v-on:click="this.removeSession(session)">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
                     <span class="orange-hover" v-on:click="joinActive(JSON.parse(session).id)">
                       <span class="fw-bold">{{ JSON.parse(session).title }}</span>
-                      <span class="hide-on-mobile">
-                        @ {{ JSON.parse(session).id }}
-                      </span>
                     </span>
                   </div>
                 </div>
@@ -100,6 +102,9 @@ export default {
     },
     joinActive: function (id) {
       this.$router.push('/apps/clarifier/wss/' + id)
+    },
+    removeSession: function (session) {
+      this.$store.commit('removeClarifierSession', session)
     }
   }
 }
@@ -112,12 +117,6 @@ export default {
   gap: 0.5em;
   grid-auto-rows: minmax(100px, auto);
   grid-template-columns: repeat(1, 1fr);
-}
-
-@media only screen and (max-width: 991px) {
-  .hide-on-mobile {
-    display: none;
-  }
 }
 
 @media only screen and (min-width: 992px) {

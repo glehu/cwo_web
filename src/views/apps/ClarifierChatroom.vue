@@ -26,7 +26,10 @@
                 {{ new Date(JSON.parse(msg).timestamp).toLocaleString('de-DE').replace(' ', '&nbsp;') }}
               </span>
             </div>
-            <div style="width: 100%; text-wrap: normal; word-wrap: break-word">
+            <div v-if="JSON.parse(msg).message.startsWith('[c:GIF]')">
+              <img :src="JSON.parse(msg).message.substring(7)" alt="JSON.parse(msg).message.substring(7)">
+            </div>
+            <div v-else style="width: 100%; text-wrap: normal; word-wrap: break-word">
               <span>{{ JSON.parse(msg).message }}</span>
             </div>
           </div>
@@ -34,7 +37,7 @@
         <div style="display: inline;">
           <input id="new_comment"
                  type="text"
-                 style="width: 90%; height: 4ch; padding-left: 1ch"
+                 style="width: 80%; height: 4ch; padding-left: 1ch"
                  v-model="new_message"
                  :placeholder="'Message to ' + clarifierUniChatroom.title"
                  v-on:keyup.enter="addMessage()">
@@ -42,6 +45,8 @@
                   v-on:click="addMessage">
             <i class="bi bi-send"></i>
           </button>
+          <img src="../../assets/giphy/PoweredBy_200px-Black_HorizText.png" alt="Powered By GIPHY"
+               style="width: 10%"/>
         </div>
       </div>
       <div id="member_section" class="member_section darkgray"
@@ -102,8 +107,22 @@ export default {
       }
     },
     addMessage: function () {
+      if (this.new_message.trim() === '') {
+        this.new_message = ''
+        return
+      }
+      // GIF Lookup?
+      if (this.new_message.startsWith('gif')) {
+        this.getGIF(this.new_message.substring(3))
+        this.new_message = ''
+        return
+      }
+      // Handle normal message
       this.connection.send(this.new_message)
       this.new_message = ''
+    },
+    addMessagePar: function (text) {
+      this.connection.send(text)
     },
     getClarifierMetaData () {
       this.clarifierUniChatroom = {}
@@ -136,6 +155,17 @@ export default {
       setTimeout(() => {
         this.showInviteCopied = false
       }, 1000)
+    },
+    getGIF: function (text) {
+      fetch(
+        'https://api.giphy.com/v1/gifs/translate?api_key=EHAGwfjtKbbjdR92RAiVNgZyIlQSpUHU&s=' + text,
+        {
+          method: 'get'
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => (this.addMessagePar('[c:GIF]' + data.data.images.fixed_height.url)))
+        .catch((err) => console.log(err.message))
     }
   }
 }

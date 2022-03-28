@@ -118,6 +118,11 @@ export default createStore({
         id: session.id,
         title: session.title
       }))
+    },
+    removeClarifierSession (state, session) {
+      state.clarifierSessions = state.clarifierSessions.filter(function (ele) {
+        return JSON.parse(ele).id !== JSON.parse(session).id
+      })
     }
   },
   actions: {},
