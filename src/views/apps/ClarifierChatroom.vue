@@ -1,22 +1,23 @@
 <template>
-  <div style="min-height: 100vh">
-    <div style="min-height: 60px; box-shadow: 0 0 20px black; position: relative"></div>
-    <div class="" style="display: flex">
-      <div id="channel_section" class="channel_section"
+  <div style="min-height: 100vh" class="darkergray">
+    <div class="header-margin" style="min-height: 60px; box-shadow: 0 0 20px black; position: relative"></div>
+    <div class="clarifier_chatroom" style="display: flex; height: 100%">
+      <div id="channel_section" class="channel_section darkgray"
            style="color: white; z-index: 2;
+           height: 80vh; max-height: 80vh; overflow-y: auto; overflow-x: clip;
            min-width: 250px">
         <p class="purple" style="font-weight: bold; font-size: 125%; padding: 1ch; margin: 0">
           {{ clarifierUniChatroom.title }}
         </p>
       </div>
-      <div id="chat_section" style="width: 100%;">
+      <div id="chat_section" class="chat_section" style="width: 100%; height: 100%">
         <div id="messages_section"
-             class="darkblue"
-             style="height: 80vh; max-height: 80vh; overflow-y: auto; overflow-x: clip;
+             class="messages_section darkblue"
+             style="overflow-y: auto; overflow-x: clip;
              display: flex; flex-direction: column-reverse">
           <!-- Messages -->
           <div v-for="msg in messages" :key="msg"
-               style="padding: 20px; color: white;">
+               style="color: white; padding-left: 20px; padding-bottom: 10px">
             <div style="padding-bottom: 0; margin-bottom: 0; display: block">
               <span style="font-weight: bold">
                 {{ JSON.parse(msg).from }}
@@ -30,10 +31,10 @@
             </div>
           </div>
         </div>
-        <div style="display: inline; margin-bottom: 20px">
+        <div style="display: inline;">
           <input id="new_comment"
                  type="text"
-                 style="width: 90%; height: 4ch; margin-top: 2ch; padding-left: 1ch"
+                 style="width: 90%; height: 4ch; padding-left: 1ch"
                  v-model="new_message"
                  :placeholder="'Message to ' + clarifierUniChatroom.title"
                  v-on:keyup.enter="addMessage()">
@@ -43,7 +44,7 @@
           </button>
         </div>
       </div>
-      <div id="member_section" class="member_section"
+      <div id="member_section" class="member_section darkgray"
            style="color: white; z-index: 2;
            height: 80vh; max-height: 80vh; overflow-y: auto; overflow-x: clip;
            min-width: 200px">
@@ -53,7 +54,7 @@
                class="user_badge">
             <i class="bi bi-person-badge-fill"></i> {{ JSON.parse(usr).username.split('@')[0] }}
           </div>
-          <div class="text-center mt-2">
+          <div class="mt-2" style="padding: 1ch">
             <span>
               <button class="text-white btn-no-outline"
                       title="Invite"
@@ -131,8 +132,7 @@ export default {
     },
     invite: function () {
       this.showInviteCopied = true
-      const link = this.$store.state.serverIP + '/apps/clarifier/wss/' + this.getSession()
-      navigator.clipboard.writeText(link)
+      navigator.clipboard.writeText(this.getSession())
       setTimeout(() => {
         this.showInviteCopied = false
       }, 1000)
@@ -148,11 +148,15 @@ export default {
 }
 
 .darkblue {
-  background-color: #021425;
+  background-color: #041830;
 }
 
 .darkgray {
-  background-color: #494149;
+  background-color: #293139;
+}
+
+.darkergray {
+  background-color: #101010;
 }
 
 .gray {
@@ -167,6 +171,22 @@ export default {
   .channel_section {
     display: none;
   }
+
+  .header-margin {
+    display: none;
+  }
+
+  .messages_section {
+    height: 90vh;
+    max-height: 90vh;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .messages_section {
+    height: 80vh;
+    max-height: 80vh;
+  }
 }
 
 @media only screen and (max-width: 1150px) {
@@ -178,7 +198,7 @@ export default {
 .user_badge:hover {
   transition: 0.5s ease-in-out;
   border-radius: 1em;
-  background-color: #494149;
+  background-color: #ff5d37;
 }
 
 .tooltip-mock-destination.show {

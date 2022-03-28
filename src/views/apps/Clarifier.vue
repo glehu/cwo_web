@@ -9,7 +9,7 @@
       <div class="container c-modal">
         <div class="row d-flex justify-content-center align-items-center">
           <div style="min-width: 400px; width: 80%">
-            <div class="card text-white" style="border-radius: 1rem; background: #021425">
+            <div class="card text-white" style="border-radius: 1rem; background: #041830">
               <div class="card-body text-center">
                 <div class="mt-md-0">
                   <h1 class="fw-bold mb-2 text-uppercase">Clarifier</h1>
@@ -17,7 +17,7 @@
                     Communicate with your colleagues.
                     <br><br>Enter an invite ID and click Join or type in some description and create your own chatroom!
                   </div>
-                  <hr style="color: #ff5d37; height: 4px">
+                  <hr style="color: white; height: 4px">
                   <input v-model="uniChatroomGUID"
                          placeholder="Invite ID or Description..."
                          style="width: 100%; font-size: 150%; font-weight: bold; margin-bottom: 1ch">
@@ -25,12 +25,12 @@
                   <button class="btn btn-outline-light" type="submit"
                           style="width: 50%"
                           v-on:click="join()">
-                    Join
+                    <span class="fw-bold lead">Join</span>
                   </button>
                   <button class="btn btn-outline-light" type="submit"
                           style="width: 50%"
                           v-on:click="create()">
-                    Create
+                    <span class="fw-bold lead">Create</span>
                   </button>
                 </div>
               </div>
@@ -49,11 +49,14 @@
                   <div class="text-center">
                     Your current Clarifier Sessions. Click on one of them to quickly join it!
                   </div>
-                  <hr style="color: #ff5d37; height: 4px">
-                  <div v-for="session in this.$store.state.clarifierSessions" :key="session">
+                  <hr style="color: white; height: 4px">
+                  <div v-for="session in this.$store.state.clarifierSessions" :key="session"
+                       style="padding-bottom: 2ch">
                     <span class="orange-hover" v-on:click="joinActive(JSON.parse(session).id)">
                       <span class="fw-bold">{{ JSON.parse(session).title }}</span>
-                      @ {{ JSON.parse(session).id }}
+                      <span class="hide-on-mobile">
+                        @ {{ JSON.parse(session).id }}
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -109,6 +112,12 @@ export default {
   gap: 0.5em;
   grid-auto-rows: minmax(100px, auto);
   grid-template-columns: repeat(1, 1fr);
+}
+
+@media only screen and (max-width: 991px) {
+  .hide-on-mobile {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 992px) {
