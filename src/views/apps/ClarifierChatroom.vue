@@ -31,7 +31,7 @@
              display: flex; flex-direction: column-reverse">
           <!-- Messages -->
           <div v-for="msg in messages" :key="msg"
-               style="color: white; padding-left: 25px; padding-bottom: 25px">
+               style="color: white; padding-left: 25px; padding-right: 25px; padding-bottom: 25px">
             <div style="padding-bottom: 0; margin-bottom: 0; display: block">
               <span style="font-weight: bold">
                 {{ JSON.parse(msg).from }}
@@ -62,7 +62,7 @@
                  v-on:keyup.enter="addMessage()">
           <button class="btn-dark" style="width: 10%; height: 4ch"
                   v-on:click="toggleSelectingGIF">
-            <span>GIF</span>
+            <span class="fw-bold">GIF</span>
           </button>
           <button class="btn-dark" style="width: 10%; height: 4ch"
                   v-on:click="addMessage">
@@ -94,7 +94,7 @@
       </div>
     </div>
   </div>
-  <div class="dialog" style="overflow: hidden" v-if="isSelectingGIF" @click.stop>
+  <div class="dialog purple" style="overflow: hidden" v-if="isSelectingGIF" @click.stop>
     <div style="width: 100%; margin-top: 68vh; position: absolute">
       <input id="gif_query"
              type="text"
@@ -105,11 +105,12 @@
       <img src="../../assets/giphy/PoweredBy_200px-Black_HorizText.png" alt="Powered By GIPHY"
            style="width: 150px; padding-left: 10px"/>
     </div>
-    <div style="height: 90%; width: 100%; overflow-x: clip; overflow-y: scroll">
+    <div style="height: 88%; width: 100%; overflow-x: clip; overflow-y: scroll; margin-top: 1ch" class="darkergray">
       <div v-for="gif in gifSelection" :key="gif"
-           style="color: white; padding-left: 25px; padding-bottom: 25px"
+           style="padding: 10px; display: inline-flex"
            v-on:click="this.addMessagePar('[c:GIF]' + gif.images.fixed_height.url, true)">
-        <img :src="gif.images.fixed_height.url" alt=":(" class="selectableGIF">
+        <img :src="gif.images.fixed_height.url" alt=":(" class="selectableGIF"
+             style="width: 150px; height: 125px">
       </div>
     </div>
   </div>
@@ -146,7 +147,7 @@ export default {
     showMessage: function (msg) {
       this.messages.unshift(msg)
       if ((JSON.parse(msg).message).includes('[LoginNotification]')) {
-        this.getClarifierMetaData()
+        this.getClarifierMetaData(false)
       }
     },
     addMessage: function () {
@@ -168,7 +169,7 @@ export default {
       this.connection.send(text)
       if (closeGIFSelection) this.isSelectingGIF = false
     },
-    getClarifierMetaData () {
+    getClarifierMetaData: function (updateMessages = true) {
       this.clarifierUniChatroom = {}
       const headers = new Headers()
       headers.set('Authorization', 'Bearer ' + this.$store.state.token)
@@ -181,14 +182,17 @@ export default {
       )
         .then((res) => res.json())
         .then((data) => (this.clarifierUniChatroom = data))
-        .then(this.processResponse)
+        .then(() => (this.processResponse(updateMessages)))
         .catch((err) => console.log(err.message))
     },
-    processResponse: function () {
+    processResponse: function (updateMessages) {
       this.$store.commit('addClarifierSession', {
         id: this.clarifierUniChatroom.chatroomGUID,
         title: this.clarifierUniChatroom.title
       })
+      if (updateMessages) {
+        this.messages = this.clarifierUniChatroom.messages.reverse()
+      }
     },
     getSession: function () {
       return this.$route.params.id
@@ -333,13 +337,12 @@ export default {
   z-index: 1001;
   top: 10vh;
   left: calc(50% - 200px);
-  background: #101010;
   color: white;
   width: 400px;
   height: 75vh;
   padding: 5px 20px;
   box-sizing: border-box;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px 10px black;
 }
 
 </style>
