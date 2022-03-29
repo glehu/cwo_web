@@ -31,7 +31,7 @@
              display: flex; flex-direction: column-reverse">
           <!-- Messages -->
           <div v-for="msg in messages" :key="msg"
-               style="color: white; padding-left: 20px; padding-bottom: 10px">
+               style="color: white; padding-left: 25px; padding-bottom: 25px">
             <div style="padding-bottom: 0; margin-bottom: 0; display: block">
               <span style="font-weight: bold">
                 {{ JSON.parse(msg).from }}
@@ -41,7 +41,12 @@
               </span>
             </div>
             <div v-if="JSON.parse(msg).message.startsWith('[c:GIF]')">
-              <img :src="JSON.parse(msg).message.substring(7)" alt="JSON.parse(msg).message.substring(7)">
+              <img :src="JSON.parse(msg).message.substring(7)" :alt="JSON.parse(msg).message.substring(7)">
+              <br>
+              <div>
+                <img src="../../assets/giphy/PoweredBy_200px-Black_HorizText.png" alt="Powered By GIPHY"
+                     style="width: 100px"/>
+              </div>
             </div>
             <div v-else style="width: 100%; text-wrap: normal; word-wrap: break-word">
               <span>{{ JSON.parse(msg).message }}</span>
@@ -56,11 +61,13 @@
                  :placeholder="'Message to ' + clarifierUniChatroom.title"
                  v-on:keyup.enter="addMessage()">
           <button class="btn-dark" style="width: 10%; height: 4ch"
+                  v-on:click="toggleSelectingGIF">
+            <span>GIF</span>
+          </button>
+          <button class="btn-dark" style="width: 10%; height: 4ch"
                   v-on:click="addMessage">
             <i class="bi bi-send"></i>
           </button>
-          <img src="../../assets/giphy/PoweredBy_200px-Black_HorizText.png" alt="Powered By GIPHY"
-               style="width: 10%"/>
         </div>
       </div>
       <div id="member_section" class="member_section darkgray"
@@ -87,6 +94,25 @@
       </div>
     </div>
   </div>
+  <div class="dialog" style="overflow: hidden" v-if="isSelectingGIF" @click.stop>
+    <div style="width: 100%; margin-top: 68vh; position: absolute">
+      <input id="gif_query"
+             type="text"
+             style="height: 4ch; padding-left: 1ch"
+             v-model="gif_query_string"
+             :placeholder="'Search for GIFs on GIPHY'"
+             v-on:keyup.enter="getGIFSelection(gif_query_string)">
+      <img src="../../assets/giphy/PoweredBy_200px-Black_HorizText.png" alt="Powered By GIPHY"
+           style="width: 150px; padding-left: 10px"/>
+    </div>
+    <div style="height: 90%; width: 100%; overflow-x: clip; overflow-y: scroll">
+      <div v-for="gif in gifSelection" :key="gif"
+           style="color: white; padding-left: 25px; padding-bottom: 25px"
+           v-on:click="this.addMessagePar('[c:GIF]' + gif.images.fixed_height.url, true)">
+        <img :src="gif.images.fixed_height.url" alt=":(" class="selectableGIF">
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -98,7 +124,10 @@ export default {
       connection: null,
       messages: [],
       new_message: '',
-      showInviteCopied: false
+      gif_query_string: '',
+      gifSelection: [],
+      showInviteCopied: false,
+      isSelectingGIF: false
     }
   },
   created () {
@@ -126,7 +155,7 @@ export default {
         return
       }
       // GIF Lookup?
-      if (this.new_message.startsWith('gif ')) {
+      if (this.new_message.toLowerCase().startsWith('gif ')) {
         this.getGIF(this.new_message.substring(3))
         this.new_message = ''
         return
@@ -135,8 +164,9 @@ export default {
       this.connection.send(this.new_message)
       this.new_message = ''
     },
-    addMessagePar: function (text) {
+    addMessagePar: function (text, closeGIFSelection = false) {
       this.connection.send(text)
+      if (closeGIFSelection) this.isSelectingGIF = false
     },
     getClarifierMetaData () {
       this.clarifierUniChatroom = {}
@@ -180,6 +210,20 @@ export default {
         .then((res) => res.json())
         .then((data) => (this.addMessagePar('[c:GIF]' + data.data.images.fixed_height.url)))
         .catch((err) => console.log(err.message))
+    },
+    getGIFSelection: function (text) {
+      fetch(
+        'https://api.giphy.com/v1/gifs/search?api_key=EHAGwfjtKbbjdR92RAiVNgZyIlQSpUHU&q=' + text,
+        {
+          method: 'get'
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => (this.gifSelection = data.data))
+        .catch((err) => console.log(err.message))
+    },
+    toggleSelectingGIF: function () {
+      this.isSelectingGIF = !this.isSelectingGIF
     }
   }
 }
@@ -231,6 +275,10 @@ export default {
     height: 80vh;
     max-height: 80vh;
   }
+
+  .dialog {
+    transform: translateX(15vw);
+  }
 }
 
 @media only screen and (max-width: 1150px) {
@@ -274,6 +322,24 @@ export default {
 .orange-hover:hover {
   color: #ff5d37;
   cursor: grab;
+}
+
+.selectableGIF:hover {
+  cursor: grab;
+}
+
+.dialog {
+  position: fixed;
+  z-index: 1001;
+  top: 10vh;
+  left: calc(50% - 200px);
+  background: #101010;
+  color: white;
+  width: 400px;
+  height: 75vh;
+  padding: 5px 20px;
+  box-sizing: border-box;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 </style>
