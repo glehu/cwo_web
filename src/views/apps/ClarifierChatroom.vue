@@ -1,14 +1,28 @@
 <template>
   <div style="min-height: 100vh" class="darkergray">
     <div class="header-margin" style="min-height: 60px; box-shadow: 0 0 20px black; position: relative"></div>
-    <div class="clarifier_chatroom" style="display: flex; height: 100%">
+    <div class="clarifier_chatroom" style="display: flex; height: 100%; overflow-y: clip; overflow-x: clip">
       <div id="channel_section" class="channel_section darkgray"
-           style="color: white; z-index: 2;
-           height: 80vh; max-height: 80vh; overflow-y: auto; overflow-x: clip;
-           min-width: 250px">
-        <p class="purple" style="font-weight: bold; font-size: 125%; padding: 1ch; margin: 0">
+           style="height: 80vh; max-height: 80vh; min-width: 250px">
+        <p class="purple channel_section"
+           style="font-weight: bold; font-size: 125%; color: white;
+           padding: 1ch; margin: 0;
+           height: 10%;
+           box-shadow: 0 0 20px black; position: relative">
           {{ clarifierUniChatroom.title }}
         </p>
+        <div
+          style="color: white; z-index: 2;
+          height: 90%; overflow-y: auto; overflow-x: clip;">
+          <div v-for="session in this.$store.state.clarifierSessions" :key="session">
+            <p class="darkergray" style="font-weight: bold; font-size: 125%; padding: 1ch; margin: 0">
+              <a class="fw-bold text-white orange-hover" style="text-decoration: none"
+                 :href="'/apps/clarifier/wss/' + JSON.parse(session).id">
+                <span class="orange-hover">{{ JSON.parse(session).title }}</span>
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
       <div id="chat_section" class="chat_section" style="width: 100%; height: 100%">
         <div id="messages_section"
@@ -255,6 +269,11 @@ export default {
 
 .btn-no-outline:hover, .btn-no-outline:focus {
   outline: none;
+}
+
+.orange-hover:hover {
+  color: #ff5d37;
+  cursor: grab;
 }
 
 </style>
