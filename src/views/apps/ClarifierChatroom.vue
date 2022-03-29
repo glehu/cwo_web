@@ -126,7 +126,7 @@ export default {
         return
       }
       // GIF Lookup?
-      if (this.new_message.startsWith('gif')) {
+      if (this.new_message.startsWith('gif ')) {
         this.getGIF(this.new_message.substring(3))
         this.new_message = ''
         return
