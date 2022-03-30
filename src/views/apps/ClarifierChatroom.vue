@@ -1,18 +1,24 @@
 <template>
   <div style="min-height: 100vh" class="darkergray">
-    <div class="header-margin" style="min-height: 60px; box-shadow: 0 0 20px black; position: relative"></div>
+    <div class="header-margin"
+         style="min-height: 60px; box-shadow: 0 0 15px 15px black; z-index: 3; position: relative"></div>
     <div class="clarifier_chatroom" style="display: flex; height: 100%; overflow-y: clip; overflow-x: clip">
       <div id="channel_section" class="channel_section darkgray"
-           style="height: 80vh; max-height: 80vh; min-width: 250px">
+           style="height: 80vh; max-height: 80vh; min-width: 250px; z-index: 4">
         <p class="purple channel_section"
            style="font-weight: bold; font-size: 125%; color: white;
-           padding: 1ch; margin: 0;
-           height: 10%;
-           box-shadow: 0 0 20px black; position: relative">
+           padding: 15px; margin: 0;
+           height: 10%; position: relative">
+          <button class="btn-no-outline"
+                  title="Go back"
+                  style="color: #101010"
+                  v-on:click="this.$router.push('/apps/clarifier')">
+            <i class="bi bi-arrow-left-circle"></i>
+          </button>
           {{ clarifierUniChatroom.title }}
         </p>
         <div
-          style="color: white; z-index: 2;
+          style="color: white;
           height: 90%; overflow-y: auto; overflow-x: clip;">
           <div v-for="session in this.$store.state.clarifierSessions" :key="session">
             <p class="darkergray" style="font-weight: bold; font-size: 125%; padding: 1ch; margin: 0">
@@ -24,23 +30,24 @@
           </div>
         </div>
       </div>
-      <div id="chat_section" class="chat_section" style="width: 100%; height: 100%">
+      <div id="chat_section" class="chat_section" style="width: 100%; height: 100%; z-index: 2">
         <div id="messages_section"
              class="messages_section darkblue"
-             style="overflow-y: auto; overflow-x: clip;
+             style="overflow-y: auto; overflow-x: clip; padding-top: 25px;
              display: flex; flex-direction: column-reverse">
           <!-- Messages -->
           <div v-for="msg in messages" :key="msg"
                style="color: white; padding-left: 25px; padding-right: 25px; padding-bottom: 25px">
-            <div style="padding-bottom: 0; margin-bottom: 0; display: block">
-              <span style="font-weight: bold">
-                {{ JSON.parse(msg).from }}
-              </span>
-              <span style="color: gray; font-size: 80%; padding-left: 1ch">
-                {{ new Date(JSON.parse(msg).timestamp).toLocaleString('de-DE').replace(' ', '&nbsp;') }}
-              </span>
-            </div>
+            <!-- #### CLIENT GIF MESSAGE #### -->
             <div v-if="JSON.parse(msg).message.startsWith('[c:GIF]')">
+              <div style="padding-bottom: 0; margin-bottom: 0; display: block">
+                <span style="font-weight: bold">
+                  {{ JSON.parse(msg).from }}
+                </span>
+                <span style="color: gray; font-size: 80%; padding-left: 1ch">
+                  {{ new Date(JSON.parse(msg).timestamp).toLocaleString('de-DE').replace(' ', '&nbsp;') }}
+                </span>
+              </div>
               <img :src="JSON.parse(msg).message.substring(7)" :alt="JSON.parse(msg).message.substring(7)">
               <br>
               <div>
@@ -48,8 +55,21 @@
                      style="width: 100px"/>
               </div>
             </div>
+            <!-- #### LOGIN NOTIFICATION MESSAGE #### -->
+            <div v-else-if="JSON.parse(msg).message.startsWith('[s:LoginNotification]')">
+              <span class="serverMessage">{{ JSON.parse(msg).message.substring(21) }}</span>
+            </div>
+            <!-- #### CLIENT MESSAGE #### -->
             <div v-else style="width: 100%; text-wrap: normal; word-wrap: break-word">
-              <span>{{ JSON.parse(msg).message }}</span>
+              <div style="padding-bottom: 0; margin-bottom: 0; display: block">
+                <span style="font-weight: bold">
+                  {{ JSON.parse(msg).from }}
+                </span>
+                <span style="color: gray; font-size: 80%; padding-left: 1ch">
+                  {{ new Date(JSON.parse(msg).timestamp).toLocaleString('de-DE').replace(' ', '&nbsp;') }}
+                </span>
+              </div>
+              <span class="clientMessage">{{ JSON.parse(msg).message }}</span>
             </div>
           </div>
         </div>
@@ -61,17 +81,19 @@
                  :placeholder="'Message to ' + clarifierUniChatroom.title"
                  v-on:keyup.enter="addMessage()">
           <button class="btn-dark" style="width: 10%; height: 4ch"
+                  title="Search on GIPHY"
                   v-on:click="toggleSelectingGIF">
             <span class="fw-bold">GIF</span>
           </button>
           <button class="btn-dark" style="width: 10%; height: 4ch"
+                  title="Send the message"
                   v-on:click="addMessage">
             <i class="bi bi-send"></i>
           </button>
         </div>
       </div>
       <div id="member_section" class="member_section darkgray"
-           style="color: white; z-index: 2;
+           style="color: white; z-index: 4;
            height: 80vh; max-height: 80vh; overflow-y: auto; overflow-x: clip;
            min-width: 200px">
         <div style="padding: 10px">
@@ -94,16 +116,17 @@
       </div>
     </div>
   </div>
-  <div class="dialog purple" style="overflow: hidden" v-if="isSelectingGIF" @click.stop>
+  <div class="dialog purple" style="overflow: hidden" v-show="isSelectingGIF" @click.stop>
     <div style="width: 100%; margin-top: 68vh; position: absolute">
       <input id="gif_query"
              type="text"
-             style="height: 4ch; padding-left: 1ch"
+             class="fw-bold darkergray"
+             style="height: 4ch; padding-left: 1ch; color: white; border: none"
              v-model="gif_query_string"
              :placeholder="'Search for GIFs on GIPHY'"
              v-on:keyup.enter="getGIFSelection(gif_query_string)">
       <img src="../../assets/giphy/PoweredBy_200px-Black_HorizText.png" alt="Powered By GIPHY"
-           style="width: 150px; padding-left: 10px"/>
+           style="width: 125px; padding-left: 10px"/>
     </div>
     <div style="height: 88%; width: 100%; overflow-x: clip; overflow-y: scroll; margin-top: 1ch" class="darkergray">
       <div v-for="gif in gifSelection" :key="gif"
@@ -146,7 +169,7 @@ export default {
   methods: {
     showMessage: function (msg) {
       this.messages.unshift(msg)
-      if ((JSON.parse(msg).message).includes('[LoginNotification]')) {
+      if ((JSON.parse(msg).message).includes('[s:LoginNotification]')) {
         this.getClarifierMetaData(false)
       }
     },
@@ -343,6 +366,10 @@ export default {
   padding: 5px 20px;
   box-sizing: border-box;
   box-shadow: 0 0 10px 10px black;
+}
+
+.serverMessage {
+  color: #ff5d37
 }
 
 </style>

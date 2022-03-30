@@ -20,7 +20,7 @@
                   <hr style="color: white; height: 4px">
                   <input v-model="uniChatroomGUID"
                          placeholder="Invite ID or Description..."
-                         style="width: 100%; font-size: 150%; font-weight: bold; margin-bottom: 1ch">
+                         style="width: 100%; font-size: 150%; font-weight: bold; margin-bottom: 1ch; padding-left: 1ch">
                   <br>
                   <button class="btn btn-outline-light" type="submit"
                           style="width: 50%"
